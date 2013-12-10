@@ -1,0 +1,15 @@
+{
+  "camelcase" : true,
+  "curly" : true,
+  "forin" : true,
+  "indent" : 2,
+  "noarg" : true,
+  "undef" : true,
+  "unused" : true,
+  "maxparams" : 4,
+  "maxdepth" : 4,
+  "browser" : true,
+  "node" : true,
+  "jquery" : true,
+  "proto" : true
+}
