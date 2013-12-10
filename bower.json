@@ -16,6 +16,7 @@
     "angular": "~1.2.4",
     "jquery": "~2.0.3",
     "should": "~2.1.1",
-    "angular-mocks": "~1.2.4"
+    "angular-mocks": "~1.2.4",
+    "angular-route": "~1.2.4"
   }
 }

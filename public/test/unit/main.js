@@ -5,4 +5,5 @@ describe('viff service test: ', function(){
   it('should return a string', inject(function(viff){
      viff.should.equal('viff');
   }));
+  
 });

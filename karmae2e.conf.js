@@ -5,16 +5,19 @@ module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    basePath: '',
+    basePath: './public',
 
+    urlRoot: '/_karma_/',
 
     // frameworks to use
-    frameworks: ['mocha'],
-
+    frameworks: ['ng-scenario'],
 
     // list of files / patterns to load in the browser
     files: [
-      
+      // tests
+      'bower_components/jquery/jquery.js',
+      'bower_components/angular/angular.js',
+      'test/e2e/**/*.js'
     ],
 
 
@@ -45,6 +48,13 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
+    
+    plugins : [
+      'karma-mocha',
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-ng-scenario'
+    ],
 
     // Start these browsers, currently available:
     // - Chrome
@@ -56,13 +66,15 @@ module.exports = function(config) {
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
     browsers: ['Chrome'],
 
-
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
 
+    proxies: {
+      '/': 'http://localhost:3000/'
+    },
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: true
   });
 };

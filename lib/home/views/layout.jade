@@ -1,6 +1,15 @@
+
+mixin add_lib_script(path)
+  script(src='/bower_components/#{path}')
+
+mixin add_user_script(path)
+  script(src='/scripts/#{path}')
+
+
 doctype 5
-html
+html(data-ng-app="viffservice")
   head
     title= title
   body
     block content
+    block scripts
