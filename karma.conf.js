@@ -16,13 +16,10 @@ module.exports = function(config) {
     files: [
       // libs
       'bower_components/jquery/jquery.js',
-      'bower_components/angular/angular.js',
-      'bower_components/angular-route/angular-route.js',
       'bower_components/should/should.js',
 
       // sources
-      'scripts/home/index.js',
-      'scripts/main.js',
+      'scripts/app.js',
 
       // libs
       'bower_components/angular-mocks/angular-mocks.js',

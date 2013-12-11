@@ -2,21 +2,26 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     // both server && client
+    clean: ['public/scripts/app.js', 'public/scripts/templates.js', 'public/templates', 'public/css', '.tmp'],
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        ignores: ['public/bower_components/**/*.js']
+        ignores: ['public/bower_components/**/*.js', 'public/scripts/app.js', 'public/dist/**/*.js']
       },
       all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js', 'public/**/*.js']
     },
     watch: {
+      config: {
+        files: ['Gruntfile.js'],
+        tasks: ['jshint:all']
+      },
       scripts: {
-        files: ['public/scripts/*.js'],
-        tasks: ['jshint', 'karma:unit'],
+        files: ['public/scripts/*.js', '!public/scripts/app.js', '!public/scripts/templates.js'],
+        tasks: ['jshint:all', 'browserify', 'karma:unit'],
         options: {
           spawn: false,
           livereload: true
-        },
+        }
       },
       styles: {
         files: ['public/**/*.less'],
@@ -26,15 +31,90 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
-      libs: {
+      templates: {
+        files: ['public/**/*.jade'],
+        tasks: ['jade:compile', 'html2js', 'browserify'],
+        options: {
+          spawn: false,
+          livereload: true
+        }
+      },
+      lib: {
         files: ['lib/**/*.js'],
-        tasks: ['jshint', 'mochaTest'],
+        tasks: ['jshint:all', 'mochaTest'],
         options: {
           spawn: false
         }
+      },
+      libTemplate: {
+        files: ['lib/**/*.jade'],
+        options: {
+          livereload: true
+        }
       }
     },
-    // client    
+    nodemon: {
+      dev: {
+        options: {
+          file: 'lib/app.js',
+          watchedExtensions: ['js'],
+          watchedFolders: ['lib'],
+          nodeArgs: ['--debug=5858'],
+          delayTime: 1,
+          env: {
+            NODE_ENV: 'dev'            
+          }
+        }
+      }
+    },
+    'node-inspector': {
+      custom: {
+        options: {
+          'web-port': 1337,
+          'web-host': '127.0.0.1',
+          'debug-port': 5858,
+          'save-live-edit': true,
+          'stack-trace-limit': 4
+        }
+      }
+    },
+    concurrent: {
+      dev: {
+        tasks: ['nodemon', 'node-inspector', 'watch']
+      },
+      options: {
+        logConcurrentOutput: true
+      }
+    },
+    // client
+    html2js: {
+      options: {
+        base: './public',
+        rename: function (moduleName) {
+          return '/' + moduleName;
+        }
+      },
+      dist: {
+        src: ['public/**/*.html'],
+        dest: 'public/scripts/templates.js',
+        module: 'viffservice/templates'
+      }
+    },
+    browserify: {
+      options: {
+        alias: [
+          'public/bower_components/angular/angular.min.js:angular',
+          'public/bower_components/angular-route/angular-route.js:angular-route'
+        ]
+      },
+      dev: {
+        src: 'public/scripts/main.js',
+        dest: 'public/scripts/app.js',
+        options: {
+          debug: true
+        }
+      }
+    },
     karma: {
       unit: {
         configFile: 'karma.conf.js',
@@ -48,27 +128,67 @@ module.exports = function(grunt) {
     less: {
       compile: {
         options: {
-          paths: ['public/css']
+          paths: ['public/styles', 'public/styles/bootstrap']
         },
         files: {
-          'main.css': ['../less/main.less']          
+          'public/css/main.css': 'public/styles/main.less'
         }
       }
     },
     jade: {
-      dev: {
+      compile: {
         options: {
-          data: {
-            debug: true,
-            timestamp: "<%= new Date().getTime() %>"
-          }
+          client: false,
+          pretty: true
+        },
+        files: [ {
+          cwd: 'public/jade',
+          src: './**/*.jade',
+          dest: 'public/templates',
+          expand: true,
+          ext: '.html'
+        } ]
+      },
+      build: {
+        options: {
+          client: false,
+          pretty: true
+        },
+        files: {
+          'public/templates/footer_scripts.html': 'lib/views/footer_scripts.jade',
+          'public/templates/header_styles.html': 'lib/views/header_styles.jade'
+        }
+      }
+    },
+    useminPrepare: {
+      js: {
+        src: 'public/templates/footer_scripts.html',
+        options: {
+          dest: './public',
+          root: './public'
         }
       },
-      prod: {
+      css: {
+        src: 'public/templates/header_styles.html',
         options: {
-          debug: false,
-
+          dest: './public',
+          root: './public'
         }
+      }
+    },
+    copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'public/',
+          dest: 'public/dist',
+          src: [
+            '*.{ico,png,txt}',
+            'image/**/*.{jpg,png,gif,svg}',
+            'fonts/*.{eot,svg,ttf,woff}'
+          ]
+        }]
       }
     },
     // server
@@ -94,11 +214,51 @@ module.exports = function(grunt) {
         options: 'lib/app.js',
         node_env: 'prod'
       }
-    }
+    },
+    // build
+    
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['jshint','concat','uglify','less','mochaTest']);
-  grunt.registerTask('test', ['mochaTest','express:dev','karma:unit', 'karma:e2e']);
-  grunt.registerTask('server', ['watch:dev']);
+  
+  grunt.registerTask('compile', [
+    'jshint',
+    'jade:compile',
+    'html2js',
+    'browserify:dev',
+    'less'
+  ]);
+
+
+  grunt.registerTask('test', [
+    'compile',
+    'express:dev',
+    'karma:unit',
+    'karma:e2e',
+    'express:dev:stop',
+    'mochaTest',
+    'clean'
+  ]);
+  
+  grunt.registerTask('dev', [
+    'compile',
+    'concurrent:dev'
+  ]);
+
+  grunt.registerTask('build', [
+    // 'test',
+    'compile',
+    'jade:build',
+    'useminPrepare',
+    'concat',
+    'uglify',
+    'cssmin',
+    'clean',
+    'copy:dist'
+  ]);
+
+
+
+
 };
+

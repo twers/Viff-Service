@@ -1,0 +1,6 @@
+mixin add_dev_script(path)
+  script(src='/scripts/#{path}')
+
+// build:js /dist/scripts/app.js
++add_dev_script('app.js')
+// endbuild

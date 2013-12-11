@@ -1,3 +1,5 @@
 node_modules*
 public/bower_components*
 lib/npm-debug.log
+public/dist*
+public/scripts/app.js
