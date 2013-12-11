@@ -10,13 +10,17 @@ module.exports = function(grunt) {
       all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js', 'public/**/*.js']
     },
     watch: {
+      config: {
+        files: ['Gruntfile.js'],
+        tasks: ['jshint:all']
+      },
       scripts: {
         files: ['public/scripts/*.js'],
-        tasks: ['jshint', 'karma:unit'],
+        tasks: ['jshint:all', 'karma:unit'],
         options: {
           spawn: false,
           livereload: true
-        },
+        }
       },
       styles: {
         files: ['public/**/*.less'],
@@ -26,12 +30,59 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
-      libs: {
+      templates: {
+        files: ['public/**/*.jade'],
+        tasks: ['jade'],
+        options: {
+          spawn: false,
+          livereload: true
+        }
+      },
+      lib: {
         files: ['lib/**/*.js'],
-        tasks: ['jshint', 'mochaTest'],
+        tasks: ['jshint:all', 'mochaTest'],
         options: {
           spawn: false
         }
+      },
+      libTemplate: {
+        files: ['lib/**/*.jade'],
+        options: {
+          livereload: true
+        }
+      }
+    },
+    nodemon: {
+      dev: {
+        options: {
+          file: 'lib/app.js',
+          watchedExtensions: ['js'],
+          watchedFolders: ['lib'],
+          nodeArgs: ['--debug=5858'],
+          delayTime: 1,
+          env: {
+            NODE_ENV: 'dev'            
+          }
+        }
+      }
+    },
+    'node-inspector': {
+      custom: {
+        options: {
+          'web-port': 1337,
+          'web-host': '127.0.0.1',
+          'debug-port': 5858,
+          'save-live-edit': true,
+          'stack-trace-limit': 4
+        }
+      }
+    },
+    concurrent: {
+      dev: {
+        tasks: ['nodemon', 'node-inspector', 'watch']
+      },
+      options: {
+        logConcurrentOutput: true
       }
     },
     // client    
@@ -48,27 +99,39 @@ module.exports = function(grunt) {
     less: {
       compile: {
         options: {
-          paths: ['public/css']
+          paths: ['public/styles', 'public/styles/bootstrap']
         },
         files: {
-          'main.css': ['../less/main.less']          
+          'public/css/main.css': 'public/styles/main.less'
         }
       }
     },
     jade: {
-      dev: {
+      compile: {
         options: {
-          data: {
-            debug: true,
-            timestamp: "<%= new Date().getTime() %>"
-          }
-        }
+          client: false,
+          pretty: true
+        },
+        files: [ {
+          cwd: 'public/jade',
+          src: './**/*.jade',
+          dest: 'public/templates',
+          expand: true,
+          ext: '.html'
+        } ]
       },
-      prod: {
+      build: {
         options: {
-          debug: false,
-
-        }
+          client: false,
+          pretty: true
+        },
+        files: [ {
+          cwd: 'lib/views',
+          src: 'user_scripts.jade',
+          dest: 'public/templates',
+          expand: true,
+          ext: '.html'
+        } ]
       }
     },
     // server
@@ -94,11 +157,21 @@ module.exports = function(grunt) {
         options: 'lib/app.js',
         node_env: 'prod'
       }
-    }
+    },
+    // build
+    
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['jshint','concat','uglify','less','mochaTest']);
+  
   grunt.registerTask('test', ['mochaTest','express:dev','karma:unit', 'karma:e2e']);
-  grunt.registerTask('server', ['watch:dev']);
+  grunt.registerTask('dev', ['concurrent:dev']);
+  grunt.registerTask('build', [
+    'test',
+  ]);
+
+
+
+
 };
+

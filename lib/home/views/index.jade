@@ -1,15 +1,8 @@
-extends layout
+extends ../../views/layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p ALLO ALLO #{title}
 
   section(data-ng-view)
 
-block scripts
-  +add_lib_script('angular/angular.js') 
-  +add_lib_script('angular-route/angular-route.js')
-
-  +add_user_script('home/index.js')
-  +add_user_script('main.js')
- 
