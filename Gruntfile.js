@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-       separator:';' 
+        separator:';' 
       },
       dist: {
         src:['public/**/*.js'],
@@ -27,22 +27,22 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['public/**/*.js'],
-        tasks: ['karma:unit'],
+        files: ['public/scripts/*.js'],
+        tasks: ['jshint', 'karma:unit'],
         options: {
           spawn: false
         },
       },
-      libs: {
-        files: ['lib/**/*.js'],
-        tasks: ['mochaTest'],
+      less: {
+        files: ['public/**/*.less'],
+        tasks: ['less'],
         options: {
           spawn: false
         }
       },
-      less: {
-        files: ['public/**/*.less'],
-        tasks: ['less'],
+      libs: {
+        files: ['lib/**/*.js'],
+        tasks: ['jshint', 'mochaTest'],
         options: {
           spawn: false
         }
@@ -68,11 +68,23 @@ module.exports = function(grunt) {
         },
         src: ['test/**/*.js']
       }
+    },
+    express: {
+      dev: {
+        options: {
+          script: 'lib/app.js',
+          node_env: 'dev'
+        }
+      },
+      prod: {
+        options: 'lib/app.js',
+        node_env: 'prod'
+      }
     }
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   grunt.registerTask('default', ['jshint','concat','uglify','less','mochaTest']);
-  grunt.registerTask('test', ['mochaTest','karma:unit']);
+  grunt.registerTask('test', ['mochaTest','karma:unit', 'express:dev', 'karma:e2e']);
 
-}
+};
