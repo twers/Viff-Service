@@ -10,5 +10,17 @@
   "browser" : true,
   "node" : true,
   "jquery" : true,
-  "proto" : true
+  "proto" : true,
+  "globals": {
+    "describe": true,
+    "it": true,
+    "before": true,
+    "beforeEach": true,
+    "after": true,
+    "afterEach": true,
+    "expect": true,
+    "browser": true,
+    "angular": true,
+    "inject": true
+  }
 }

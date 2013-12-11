@@ -12,8 +12,10 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        ignores: ['public/bower_components/**/*.js']
       },
+      all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js', 'public/**/*.js']
     },
     karma: {
       unit: {

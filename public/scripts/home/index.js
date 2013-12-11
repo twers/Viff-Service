@@ -16,4 +16,4 @@ angular
       'viva la vida'
     ];
 
-  })
+  });
