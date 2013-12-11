@@ -1,15 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      options: {
-        separator:';' 
-      },
-      dist: {
-        src:['public/**/*.js'],
-        dest:''
-      }
-    },
+    // both server && client
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -17,29 +9,21 @@ module.exports = function(grunt) {
       },
       all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js', 'public/**/*.js']
     },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        sigleRun: true
-      },
-      e2e: {
-        configFile: 'karmae2e.conf.js',
-        singleRun: true
-      }
-    },
     watch: {
       scripts: {
         files: ['public/scripts/*.js'],
         tasks: ['jshint', 'karma:unit'],
         options: {
-          spawn: false
+          spawn: false,
+          livereload: true
         },
       },
-      less: {
+      styles: {
         files: ['public/**/*.less'],
         tasks: ['less'],
         options: {
-          spawn: false
+          spawn: false,
+          livereload: true
         }
       },
       libs: {
@@ -50,16 +34,44 @@ module.exports = function(grunt) {
         }
       }
     },
+    // client    
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        sigleRun: true
+      },
+      e2e: {
+        configFile: 'karmae2e.conf.js',
+        singleRun: true
+      }
+    },
     less: {
       compile: {
         options: {
           paths: ['public/css']
         },
         files: {
-          'main.css': ['../less/main.less']
+          'main.css': ['../less/main.less']          
         }
       }
     },
+    jade: {
+      dev: {
+        options: {
+          data: {
+            debug: true,
+            timestamp: "<%= new Date().getTime() %>"
+          }
+        }
+      },
+      prod: {
+        options: {
+          debug: false,
+
+        }
+      }
+    },
+    // server
     mochaTest: {
       test: {
         options: {
@@ -87,6 +99,6 @@ module.exports = function(grunt) {
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   grunt.registerTask('default', ['jshint','concat','uglify','less','mochaTest']);
-  grunt.registerTask('test', ['mochaTest','karma:unit', 'express:dev', 'karma:e2e']);
-
+  grunt.registerTask('test', ['mochaTest','express:dev','karma:unit', 'karma:e2e']);
+  grunt.registerTask('server', ['watch:dev']);
 };
