@@ -1,3 +1,6 @@
 node_modules*
 public/bower_components*
 lib/npm-debug.log
+.vagrant/
+.DS_Store
+.swp
