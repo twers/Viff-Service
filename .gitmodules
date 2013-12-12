@@ -1,0 +1,30 @@
+[submodule "cookbooks/build-essential"]
+	path = cookbooks/build-essential
+	url = https://github.com/opscode-cookbooks/build-essential
+[submodule "cookbooks/apt"]
+	path = cookbooks/apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "cookbooks/git"]
+	path = cookbooks/git
+	url = https://github.com/opscode-cookbooks/git.git
+[submodule "cookbooks/vim"]
+	path = cookbooks/vim
+	url = https://github.com/opscode-cookbooks/vim.git
+[submodule "cookbooks/ohai"]
+	path = cookbooks/ohai
+	url = https://github.com/opscode-cookbooks/ohai.git
+[submodule "cookbooks/java"]
+	path = cookbooks/java
+	url = https://github.com/opscode-cookbooks/java.git
+[submodule "cookbooks/nodejs"]
+	path = cookbooks/nodejs
+	url = https://github.com/mdxp/nodejs-cookbook.git
+[submodule "cookbooks/tmux"]
+	path = cookbooks/tmux
+	url = https://github.com/stevendanna/tmux.git
+[submodule "cookbooks/mongodb"]
+	path = cookbooks/mongodb
+	url = https://github.com/edelight/chef-mongodb.git
+[submodule "cookbooks/phantomjs"]
+	path = cookbooks/phantomjs
+	url = https://github.com/customink-webops/phantomjs.git

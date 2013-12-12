@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Remove vi and use vim instead
+sudo rm /usr/bin/vi
+sudo ln -s /usr/bin/vim /usr/bin/vi
