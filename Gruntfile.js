@@ -221,6 +221,14 @@ module.exports = function(grunt) {
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   
+
+  grunt.registerTask('basic', [
+    'jade:compile',
+    'html2js',
+    'browserify:dev',
+    'less'
+  ]);
+
   grunt.registerTask('compile', [
     'jshint',
     'jade:compile',
@@ -246,7 +254,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    // 'test',
+    'test',
     'compile',
     'jade:build',
     'useminPrepare',
