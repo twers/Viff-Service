@@ -9,3 +9,4 @@ public/templates
 .vagrant/
 .DS_Store
 .swp
+.tmp
