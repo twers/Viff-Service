@@ -33,6 +33,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "scripts/apt-get"
   config.vm.provision :shell, :path => "scripts/npm-install"
 
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :forwarded_port, guest: 1337, host: 1337
+  config.vm.network :forwarded_port, guest: 5858, host: 5858
+
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
