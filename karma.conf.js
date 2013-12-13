@@ -8,6 +8,14 @@ module.exports = function(config) {
     basePath: './public',
 
 
+    plugins : [
+      'karma-mocha',
+      'karma-chrome-launcher',
+      'karma-phantomjs-launcher',
+      'karma-firefox-launcher',
+      'karma-ng-scenario'
+    ],
+
     // frameworks to use
     frameworks: ['mocha'],
 
