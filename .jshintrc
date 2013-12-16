@@ -11,6 +11,7 @@
   "node" : true,
   "jquery" : true,
   "proto" : true,
+  "debug" : true,
   "globals": {
     "describe": true,
     "it": true,
