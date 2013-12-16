@@ -16,8 +16,8 @@ module.exports = function(grunt) {
         tasks: ['jshint:all']
       },
       scripts: {
-        files: ['public/scripts/*.js', '!public/scripts/app.js', '!public/scripts/templates.js'],
-        tasks: ['jshint:all', 'browserify', 'karma:unit'],
+        files: ['public/scripts/**/*.js', '!public/scripts/app.js', '!public/scripts/templates.js'],
+        tasks: ['jshint:all', 'browserify'],
         options: {
           spawn: false,
           livereload: true
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       },
       lib: {
         files: ['lib/**/*.js'],
-        tasks: ['jshint:all', 'mochaTest'],
+        tasks: ['jshint:all'],
         options: {
           spawn: false
         }
@@ -55,6 +55,19 @@ module.exports = function(grunt) {
     },
     nodemon: {
       dev: {
+        options: {
+          file: 'lib/app.js',
+          args: ['livereload'],
+          watchedExtensions: ['js'],
+          watchedFolders: ['lib'],
+          nodeArgs: ['--debug=5858'],
+          delayTime: 1,
+          env: {
+            NODE_ENV: 'dev'            
+          }
+        }
+      },
+      noload: {
         options: {
           file: 'lib/app.js',
           watchedExtensions: ['js'],
@@ -80,7 +93,10 @@ module.exports = function(grunt) {
     },
     concurrent: {
       dev: {
-        tasks: ['nodemon', 'node-inspector', 'watch']
+        tasks: ['nodemon:dev', 'node-inspector', 'watch']
+      },
+      noload: {
+        tasks: ['nodemon:noload', 'node-inspector', 'watch']
       },
       options: {
         logConcurrentOutput: true
@@ -247,10 +263,17 @@ module.exports = function(grunt) {
     'mochaTest',
     'clean'
   ]);
+
+  grunt.registerTask('mocha', ['mochaTest']);
   
   grunt.registerTask('dev', [
     'compile',
     'concurrent:dev'
+  ]);
+
+  grunt.registerTask('dev:noload', [
+    'compile',
+    'concurrent:noload'
   ]);
 
   grunt.registerTask('build', [
@@ -264,9 +287,5 @@ module.exports = function(grunt) {
     'clean',
     'copy:dist'
   ]);
-
-
-
-
 };
 
