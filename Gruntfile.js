@@ -144,7 +144,7 @@ module.exports = function(grunt) {
     less: {
       compile: {
         options: {
-          paths: ['public/styles', 'public/styles/bootstrap']
+          paths: ['public/styles']
         },
         files: {
           'public/css/main.css': 'public/styles/main.less'
