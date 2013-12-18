@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ln -s ../../scripts/validate-commit-msg.js ../.git/hooks/commit-msg
