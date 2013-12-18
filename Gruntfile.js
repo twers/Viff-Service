@@ -60,7 +60,7 @@ module.exports = function(grunt) {
           args: ['livereload'],
           watchedExtensions: ['js'],
           watchedFolders: ['lib'],
-          nodeArgs: ['--debug=5858'],
+          nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
             NODE_ENV: 'dev'            
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
           file: 'lib/app.js',
           watchedExtensions: ['js'],
           watchedFolders: ['lib'],
-          nodeArgs: ['--debug=5858'],
+          nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
             NODE_ENV: 'dev'            
@@ -80,23 +80,12 @@ module.exports = function(grunt) {
         }
       }
     },
-    'node-inspector': {
-      custom: {
-        options: {
-          'web-port': 1337,
-          'web-host': '127.0.0.1',
-          'debug-port': 5858,
-          'save-live-edit': true,
-          'stack-trace-limit': 4
-        }
-      }
-    },
     concurrent: {
       dev: {
-        tasks: ['nodemon:dev', 'node-inspector', 'watch']
+        tasks: ['nodemon:dev', 'watch']
       },
       noload: {
-        tasks: ['nodemon:noload', 'node-inspector', 'watch']
+        tasks: ['nodemon:noload', 'watch']
       },
       options: {
         logConcurrentOutput: true
