@@ -3,7 +3,32 @@ extends ../../views/layout
 block content
   header 
     h1 ViffCloud
-  div.pure-u-1-6 this is job list part
-  div.pure-u-2-3 main body
-  div.pure-u-1-6 history part
+  div.pure-u-1-6 
+    aside.job-list 
+      a.add-job(title="Create a new job",href="/jobs/new") +
+      h2 Job List
+      ul
+        li.green
+          a(href="/aami#detail") AAMI
+        li.red
+          a(href="/asteronlife#detail") Asteron Life
+        li.green
+          a(href="/asteronlife#detail") Suncorp Life
+        li.green.active
+          a(href="/asteronlife#detail") Suncorp Insurance
+        li.red
+          a(href="/asteronlife#detail") Suncorp Bank
+  
+  div.pure-u-2-3
+      button.pure-button.pure-button-secondary.pull-right.run-job Run
+      h2 
+        |Suncorp Insurance
+        a.edit-job(href="/edit")
+          i.fa.fa-cog
 
+      div.create-job
+      
+
+  div.pure-u-1-6 
+    aside.test-history
+      h2 History

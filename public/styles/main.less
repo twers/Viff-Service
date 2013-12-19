@@ -1,7 +1,46 @@
 @import 'pure';
 @import 'font-awesome';
+body{
+  font-size: 18px;
+  a{
+    color: #551A8B;
+    &:visited {
+      color: #333;
+    }
+  }
+}
 
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pure-button-primary{
+  background-color: #921;
+}
+.pure-button-secondary{
+  background-color: #921;
+  padding: 5px 20px;
+  color: white;
+}
+.fa-question-circle{
+  margin-right: 4px;
+}
+.pull-right{
+  float: right;
+}
+.pull-left{
+  float: left;
+}
 
+h2{
+  font-size: 1.2em;
+  background: #E5E5EB;
+  margin: 0;
+  padding: 10px;
+  font-weight: normal;
+  color: #444;
+}
 header{
   padding: 0 10px;
   color: #f1f1f2;
@@ -13,4 +52,65 @@ header{
     font-size: 1.5em;
     line-height: 42px;
   }
+}
+aside.job-list {
+  margin-left: 1px;
+  border-right: 1px solid #ccc;
+  min-height: 500px;
+  .add-job{
+    float: right;
+    font-size: 32px;
+    color: #444;
+    margin-right: 10px;
+  }
+  a{
+    text-decoration: none;
+    color: #333;
+  }
+  ul li{
+    
+    padding: 8px;
+    &.active{
+      background: #a0c353;
+      color: #fefefe;
+    }
+    &.green{
+      border-left: 10px solid #a0c353;
+      border-bottom: 1px solid #a0c353;
+    }
+    &.red{
+      border-left: 10px solid #cf697b;  
+      border-bottom: 1px solid #cf697b;
+    }
+  }
+}
+.edit-job{
+  color: #999;
+  font-size: 14px;
+  margin-left: 5px;
+  &:hover{
+    color: #666;
+  }
+}
+.run-job{
+  margin-top: 7px;
+  margin-right: 20px;
+}
+.create-job{
+  width: 600px;
+  margin:0 auto;
+  margin-top: 20px;
+  label{
+    width: 12em !important;
+  }
+  .config-note{
+    color: #666;
+  }
+  input[type='submit']{
+    margin-top: 30px;
+  }
+}
+aside.test-history{
+  min-height: 500px;
+  border-left:1px solid #ccc;
 }
