@@ -1,0 +1,27 @@
+extends ../../views/layout
+
+block content
+  header 
+    h1 ViffCloud
+  div.pure-u-1-1
+    div.create-job
+      form.pure-form.pure-form-aligned
+        fieldset
+          legend Create a job
+
+          div.pure-control-group
+            label Job Name
+            input(type="text",placeholder="No more than 30 characters")
+          div.pure-control-group
+            label(for="config-file")
+              a(href="/help")
+                i.fa.fa-question-circle
+              |Config file  
+            input(type="file")
+          div.pure-control-group
+            label
+            small.config-note  Note: file should only be .js file and less than 1M.
+          div.pure-control-group
+            label
+            input.pure-button.pure-button-primary(type="submit",value="Save")
+
