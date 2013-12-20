@@ -35,7 +35,6 @@
     "grunt-contrib-less": "~0.8.3",
     "grunt-express-server": "~0.4.9",
     "grunt-contrib-jade": "~0.8.0",
-    "grunt-node-inspector": "~0.1.2",
     "grunt-concurrent": "~0.4.2",
     "grunt-nodemon": "~0.1.2",
     "grunt-browserify": "~1.2.12",
