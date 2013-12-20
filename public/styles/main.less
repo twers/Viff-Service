@@ -1,5 +1,11 @@
-@import 'pure';
-@import 'font-awesome';
+@import '../bower_components/Font-Awesome/less/font-awesome';
+@import '../bower_components/pure/pure.css';
+
+@import 'variables';
+@import 'common';
+@import 'layout';
+@import 'job-list';
+
 body{
   font-size: 18px;
   a{
@@ -15,20 +21,25 @@ ul{
   margin: 0;
   padding: 0;
 }
+
 .pure-button-primary{
   background-color: #921;
 }
+
 .pure-button-secondary{
   background-color: #921;
   padding: 5px 20px;
   color: white;
 }
+
 .fa-question-circle{
   margin-right: 4px;
 }
+
 .pull-right{
   float: right;
 }
+
 .pull-left{
   float: left;
 }
@@ -41,6 +52,7 @@ h2{
   font-weight: normal;
   color: #444;
 }
+
 header{
   padding: 0 10px;
   color: #f1f1f2;
@@ -53,37 +65,9 @@ header{
     line-height: 42px;
   }
 }
-aside.job-list {
-  margin-left: 1px;
-  border-right: 1px solid #ccc;
-  min-height: 500px;
-  .add-job{
-    float: right;
-    font-size: 32px;
-    color: #444;
-    margin-right: 10px;
-  }
-  a{
-    text-decoration: none;
-    color: #333;
-  }
-  ul li{
-    
-    padding: 8px;
-    &.active{
-      background: #a0c353;
-      color: #fefefe;
-    }
-    &.green{
-      border-left: 10px solid #a0c353;
-      border-bottom: 1px solid #a0c353;
-    }
-    &.red{
-      border-left: 10px solid #cf697b;  
-      border-bottom: 1px solid #cf697b;
-    }
-  }
-}
+
+
+
 .edit-job{
   color: #999;
   font-size: 14px;
