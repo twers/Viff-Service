@@ -59,6 +59,6 @@
   "dependencies": {
     "express": "~3.4.6",
     "jade": "~0.35.0",
-    "request": "~2.30.0"
+    "request": "2.30.0"
   }
 }

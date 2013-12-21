@@ -10,4 +10,4 @@ public/templates
 .DS_Store
 .swp
 .tmp
-uploads*
+uploads/
