@@ -2,84 +2,13 @@
 @import '../bower_components/pure/pure.css';
 
 @import 'variables';
+@import 'mixins';
 @import 'common';
 @import 'layout';
 @import 'job-list';
+@import 'job-content';
+@import 'job-history';
 
-body{
-  font-size: 18px;
-  a{
-    color: #551A8B;
-    &:visited {
-      color: #333;
-    }
-  }
-}
-
-ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.pure-button-primary{
-  background-color: #921;
-}
-
-.pure-button-secondary{
-  background-color: #921;
-  padding: 5px 20px;
-  color: white;
-}
-
-.fa-question-circle{
-  margin-right: 4px;
-}
-
-.pull-right{
-  float: right;
-}
-
-.pull-left{
-  float: left;
-}
-
-h2{
-  font-size: 1.2em;
-  background: #E5E5EB;
-  margin: 0;
-  padding: 10px;
-  font-weight: normal;
-  color: #444;
-}
-
-header{
-  padding: 0 10px;
-  color: #f1f1f2;
-  background-color: #333;
-  background-repeat: repeat-x;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#444), to(#333));
-  h1{
-    margin: 0;
-    font-size: 1.5em;
-    line-height: 42px;
-  }
-}
-
-
-
-.edit-job{
-  color: #999;
-  font-size: 14px;
-  margin-left: 5px;
-  &:hover{
-    color: #666;
-  }
-}
-.run-job{
-  margin-top: 7px;
-  margin-right: 20px;
-}
 .create-job{
   width: 600px;
   margin:0 auto;

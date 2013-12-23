@@ -1,31 +1,30 @@
-aside.job-list {
-  margin-left: 1px;
-  border-right: 1px solid #ccc;
-  min-height: 500px;
-  .add-job{
-    float: right;
-    font-size: 32px;
-    color: #444;
-    margin-right: 10px;
+.job-list {
+  .fixed-layout(@header-height);
+
+  background: @light-grey;
+  padding: @2x-normal-spacing 0;
+
+  .btn-add-job {
+    display: block;
+    margin: 0 @2x-normal-spacing;
   }
+
+  .pure-menu.pure-menu-open {
+    background: transparent;
+    border: none;
+    margin: 0 @2x-normal-spacing;
+    width: auto;
+    text-align: left;
+  }
+
   a{
     text-decoration: none;
-    color: #333;
   }
+
   ul li{
-    
-    padding: 8px;
     &.active{
       background: #a0c353;
       color: #fefefe;
-    }
-    &.green{
-      border-left: 10px solid #a0c353;
-      border-bottom: 1px solid #a0c353;
-    }
-    &.red{
-      border-left: 10px solid #cf697b;  
-      border-bottom: 1px solid #cf697b;
     }
   }
 }
