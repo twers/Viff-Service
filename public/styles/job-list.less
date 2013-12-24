@@ -1,0 +1,30 @@
+.job-list {
+  .fixed-layout(@header-height);
+
+  background: @light-grey;
+  padding: @2x-normal-spacing 0;
+
+  .btn-add-job {
+    display: block;
+    margin: 0 @2x-normal-spacing;
+  }
+
+  .pure-menu.pure-menu-open {
+    background: transparent;
+    border: none;
+    margin: 0 @2x-normal-spacing;
+    width: auto;
+    text-align: left;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  ul li{
+    &.active{
+      background: #a0c353;
+      color: #fefefe;
+    }
+  }
+}

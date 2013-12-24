@@ -1,7 +1,26 @@
 extends ../../views/layout
 
 block content
-  h1= title
-  p ALLO ALLO ALLO #{title}
+  header 
+    h1 ViffCloud
+  div.pure-g
+    aside.pure-u-1-6.job-list
+      a.pure-button.pure-button-primary.btn-add-job Create Job
+      .pure-menu.pure-menu-open
+        a.pure-menu-heading Jobs
+        ul
+          li
+            a(href="/aami#detail") AAMI
+          li
+            a(href="/asteronlife#detail") Asteron Life
+          li
+            a(href="/asteronlife#detail") Suncorp Life
+          li.active
+            a(href="/asteronlife#detail") Suncorp Insurance
+          li
+            a(href="/asteronlife#detail") Suncorp Bank
+    
+    .pure-u-2-3.job-content(data-ng-view)
 
-  section(data-ng-view)
+    .pure-u-1-6.job-history
+      h3 History

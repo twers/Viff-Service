@@ -1,1 +1,29 @@
-@import 'bootstrap';
+@import '../bower_components/Font-Awesome/less/font-awesome';
+@import '../bower_components/pure/pure.css';
+
+@import 'variables';
+@import 'mixins';
+@import 'common';
+@import 'layout';
+@import 'job-list';
+@import 'job-content';
+@import 'job-history';
+
+.create-job{
+  width: 600px;
+  margin:0 auto;
+  margin-top: 20px;
+  label{
+    width: 12em !important;
+  }
+  .config-note{
+    color: #666;
+  }
+  input[type='submit']{
+    margin-top: 30px;
+  }
+}
+aside.test-history{
+  min-height: 500px;
+  border-left:1px solid #ccc;
+}

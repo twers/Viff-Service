@@ -100,7 +100,7 @@ module.exports = function(grunt) {
         }
       },
       dist: {
-        src: ['public/**/*.html'],
+        src: ['public/templates/**/*.html'],
         dest: 'public/scripts/templates.js',
         module: 'viffservice/templates'
       }
@@ -133,7 +133,8 @@ module.exports = function(grunt) {
     less: {
       compile: {
         options: {
-          paths: ['public/styles', 'public/styles/bootstrap']
+          paths: ['public/styles'],
+          dumpLineNumbers: "comments"
         },
         files: {
           'public/css/main.css': 'public/styles/main.less'

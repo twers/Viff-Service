@@ -1,0 +1,20 @@
+.fixed-layout(@t: 0, @r: 0, @b: 0, @l: 0) {
+  position: fixed;
+  left: @l;
+  right: @r;
+  top: @t;
+  bottom: @b;
+}
+
+.box-sizing (@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
+.wrap () {
+  text-wrap: wrap;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  word-wrap: break-word;
+}
