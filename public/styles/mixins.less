@@ -1,5 +1,13 @@
-.fixed-layout(@t: 0, @r: 0, @b: 0, @l: 0) {
-  position: fixed;
+.fixed-layout (@t: 0, @r: 0, @b: 0, @l: 0) {
+  .layout(fixed, @t, @r, @b, @l);
+}
+
+.absolute-layout(@t: 0, @r: 0, @b: 0, @l: 0) {
+  .layout(absolute, @t, @r, @b, @l); 
+}
+
+.layout(@type: fixed, @t: 0, @r: 0, @b: 0, @l: 0) {
+  position: @type;
   left: @l;
   right: @r;
   top: @t;
@@ -17,4 +25,15 @@
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   word-wrap: break-word;
+}
+
+.font-awesome (@content) {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: @content;
 }

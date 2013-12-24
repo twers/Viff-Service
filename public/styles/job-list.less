@@ -1,4 +1,7 @@
 .job-list {
+  
+  @active-color: #e5e5e5;
+
   .fixed-layout(@header-height);
 
   background: @light-grey;
@@ -6,25 +9,26 @@
 
   .btn-add-job {
     display: block;
-    margin: 0 @2x-normal-spacing;
+    margin: 0 @2x-normal-spacing @normal-spacing;
   }
 
   .pure-menu.pure-menu-open {
     background: transparent;
     border: none;
-    margin: 0 @2x-normal-spacing;
     width: auto;
     text-align: left;
-  }
 
-  a{
-    text-decoration: none;
-  }
+    a.active {
+      background: @active-color;
+      position: relative;
 
-  ul li{
-    &.active{
-      background: #a0c353;
-      color: #fefefe;
+      &:after {
+        .font-awesome("\f0da");
+        .absolute-layout(50%, -9px, auto, auto);
+        color: @active-color;
+        margin-top: -.5em;
+        font-size: 2em;
+      }
     }
   }
 }
