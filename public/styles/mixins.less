@@ -19,6 +19,12 @@
   -moz-box-sizing: @type;
   box-sizing: @type;
 }
+.background(@color){
+  background: @color;
+  &:hover{
+    background: darken(@color, 10%)
+  }
+}
 
 .wrap () {
   text-wrap: wrap;
@@ -36,4 +42,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: @content;
+}
+
+.xsmall() {
+  font-size: 70%;
+}
+.small() {
+  font-size: 85%;
+}
+.large() {
+  font-size: 110%;
+}
+.xlarge() {
+  font-size: 125%;
 }
