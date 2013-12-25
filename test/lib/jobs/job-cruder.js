@@ -7,6 +7,9 @@ describe('job cruder', function() {
   
   it('should create a new job', function(done) {
     Jobs.create({name: 'zhihao'}, function(err, job) {
+      if (err) {
+        console.error(err);
+      }
       job.should.be.instanceOf(Job);
       job.get('name').should.equal('zhihao');
       done();      
@@ -14,6 +17,9 @@ describe('job cruder', function() {
   });
   it('should find all jobs', function(done) {
     Jobs.all(function(err,jobs) {
+      if (err) {
+        console.error(err);
+      }
       jobs.forEach(function(job){
         job.should.be.instanceOf(Job);
       });

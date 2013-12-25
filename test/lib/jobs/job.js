@@ -37,7 +37,8 @@ describe('Jobs RESTFUL', function () {
       db.collection('jobs').remove(
         {$or: [
           {name: "test job"},
-          {name: "db save job test"}
+          {name: "db save job test"},
+          {name: "job with id"}
         ]},
         function (err) {
           if (err) {
@@ -67,7 +68,7 @@ describe('Jobs RESTFUL', function () {
     form.append('jobName', 'test job');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
-    function callback(err,response,body) {
+    function callback(err, response, body) {
       var job = JSON.parse(body);
       job.should.have.property('config');
       done();
@@ -89,6 +90,34 @@ describe('Jobs RESTFUL', function () {
           done();
         });
       }
+    }
+  });
+
+  // it('should get all the jobs', function(done){
+  //   request.get('http://localhost:3000/jobs', callback);
+
+  //   function callback(error, response, body) {
+  //     var jobs = JSON.parse(body);
+  //     jshint can't pass don't know why
+  //     Array.isArray(jobs).should.be.true;
+  //     done();
+  //   }
+  // });
+
+  it('should get the job by id', function(done){
+    var r = request.post('http://localhost:3000/jobs', callback);
+    var form = r.form();
+    form.append('jobName', 'job with id');
+    form.append('id', '1024');
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    
+    function callback() {
+      request.get('http://localhost:3000/jobs/1024/',function (error, response, body){
+        var job = JSON.parse(body);
+        job.name.should.be.eql('job with id');
+        job._id.should.be.eql('1024');
+        done();
+      }); 
     }
   });
 });
