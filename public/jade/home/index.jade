@@ -1,8 +1,32 @@
 .pure-g.job-header
-  .pure-u-3-5
-    h2 Suncorp Insurance
-    p Viff testing for suncorp insurance
+  .pure-u-4-5
+    a.pure-button.btn-run-job.pure-button-small.pure-button-primary Run
+    h1 
+      | Suncorp Insurance
+      a.edit(href="/edit")
+        i.fa.fa-pencil-square-o
+    p.description Viff testing for suncorp insurance    
 
-  .pure-u-2-5.action-g
-    a.pure-button.pure-button-small(href="/edit") Edit
-    a.pure-button.pure-button-small.btn-run-job.pure-button-primary Run
+.pure-g
+  .pure-u-4-5
+    h2 Build Detail #2311
+  .pure-u-1-5.job-history
+    h2 History
+    small No runing history
+    ul
+      li.failure
+        a 
+          span.number #2311
+          span.pull-right 20 minutes ago
+      li.success
+        a 
+          span.number #5
+          span.pull-right 2 hours ago
+      li.warning
+        a 
+          span.number #4
+          span.pull-right 1 day ago  
+      li.success
+        a 
+          span.number #3
+          span.pull-right 10 days ago  
