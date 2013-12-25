@@ -175,7 +175,7 @@ describe('Jobs MODEL', function () {
       };
 
       Jobs.id('002', function(err, job) {
-        job.get('_id').should.equal('002')
+        job.get('_id').should.equal('002');
         job.get('name').should.equal('test2');
         done();
       });
