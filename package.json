@@ -60,6 +60,7 @@
     "express": "~3.4.6",
     "jade": "~0.35.0",
     "request": "2.30.0",
-    "mongoskin": "0.6.1"
+    "mongoskin": "0.6.1",
+    "lodash": "2.4.1"
   }
 }
