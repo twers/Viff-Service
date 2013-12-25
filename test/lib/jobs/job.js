@@ -146,8 +146,8 @@ describe('Jobs MODEL', function () {
         return { toArray: function(fn){
           setTimeout(function() {
             fn(null, this._store);
-          }.bind(this));}
-        };
+          }.bind(this));
+        }};
       };
 
       Jobs.all(function(err, jobs) {
