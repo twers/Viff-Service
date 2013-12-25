@@ -1,6 +1,6 @@
 .job-list {
   
-  @active-color: #e5e5e5;
+  @active-color: #eee;
 
   .fixed-layout(@header-height);
 
@@ -18,17 +18,44 @@
     width: auto;
     text-align: left;
 
-    a.active {
-      background: @active-color;
-      position: relative;
-
-      &:after {
-        .font-awesome("\f0da");
-        .absolute-layout(50%, -9px, auto, auto);
-        color: @active-color;
-        margin-top: -.5em;
-        font-size: 2em;
+    a {
+      
+      &.success:before {
+        .font-awesome ("\f058");
+        color: @green;
+        margin: @normal-spacing / 2; 
       }
+
+      &.failure:before {
+        .font-awesome ("\f057"); 
+        color: @red;
+        margin: @normal-spacing / 2;
+      }
+
+      &.warning:before {
+        .font-awesome ("\f06a"); 
+        color: @yellow;
+        margin: @normal-spacing / 2;
+      }
+      &.no-test:before {
+        .font-awesome ("\f05a"); 
+        color: @medium-grey;
+        margin: @normal-spacing / 2;
+      }
+
+      &.active {
+        background: @active-color;
+        position: relative;  
+
+        &:after {
+          .font-awesome("\f0da");
+          .absolute-layout(50%, -9px, auto, auto);
+          color: @active-color;
+          margin-top: -.5em;
+          font-size: 2em;
+        }
+      }
+
     }
   }
 }
