@@ -2,31 +2,24 @@ extends ../../views/layout
 
 block content
   header 
-    h1 ViffCloud
+    h1 
+      a(href="/") ViffCloud
   div.pure-g
     aside.pure-u-1-6.job-list
-      a.pure-button.pure-button-primary.btn-add-job Create Job
+      a.pure-button.pure-button-primary.btn-add-job(href="/jobs/new") Create Job
       .pure-menu.pure-menu-open
         ul
           li
-            a(href="/aami#detail") 
-              i.fa-success.fa.fa-check-circle
-              | AAMI
+            a(href="/aami#detail").success AAMI
           li
-            a(href="/asteronlife#detail") 
-              i.fa-failure.fa.fa-times-circle
-              | Asteron Life
+            a(href="/asteronlife#detail").failure Asteron Life
           li
-            a(href="/asteronlife#detail") 
-              i.fa-success.fa.fa-check-circle
-              | Suncorp Life
+            a(href="/asteronlife#detail").success Suncorp Life
           li
-            a(href="/asteronlife#detail").active
-              i.fa-success.fa.fa-check-circle
-              | Suncorp Insurance
+            a(href="/asteronlife#detail").active.success Suncorp Insurance
           li
-            a(href="/asteronlife#detail") 
-              i.fa-failure.fa.fa-times-circle
-              | Suncorp Bank
+            a(href="/asteronlife#detail").warning Suncorp Bank
+          li
+            a(href="/asteronlife#detail").no-test Suncorp Bank
     
     .pure-u-5-6.job-content(data-ng-view)
