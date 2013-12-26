@@ -2,9 +2,29 @@
   margin-top: @header-height;
   margin-left: @layout-left-spacing;
   padding: @2x-normal-spacing;
+  .job-header {
+    border-bottom: 1px solid @grey;
+    white-space: nowrap;
+    h1{
+      margin:0 0 @normal-spacing/2 0;
+    }
+    .btn-run-job{
+      float: right;
+      margin-top: 15px;
+    }
+    .edit{
+      .xsmall;
 
-  p {
-    margin-bottom: @normal-spacing;
+      margin-left: @normal-spacing;
+      color: @medium-grey;
+      &:hover{
+        color: @light-dark;
+      }
+    }
+    .description{
+      .small;
+      color: @medium-grey;
+    }
   }
 
 }

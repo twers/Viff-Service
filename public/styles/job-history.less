@@ -1,5 +1,26 @@
 .job-history {
-  .fixed-layout(@header-height, 0, 0, auto);
-  padding: @2x-normal-spacing;
-  background: @light-grey;
+  padding-left: @2x-normal-spacing;
+
+  border-left: 1px solid @grey;
+  min-height: 300px;
+  small{color: @medium-grey}
+  li {
+    .small;
+    padding: @normal-spacing/2 8px;
+    &.success{
+      .background(#F0FFF0);
+      .number{color: #038035}
+    }
+    &.failure{
+      .background(#FFF0F0);
+      .number{color: #c00}
+    }
+    &.warning{
+      .background(#FFFAEB);
+    }
+    cursor: pointer;
+    
+
+    a{color: @medium-grey;}
+  }
 }
