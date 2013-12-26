@@ -28,7 +28,7 @@ describe('Jobs RESTFUL', function () {
         if (existingFile.indexOf(file) == -1) {
           fs.unlink(uploadsPath + '/' + file, function (err) {
             if (err) {
-              console.error(err);
+              throw err;
             }
           });
         }
@@ -37,25 +37,44 @@ describe('Jobs RESTFUL', function () {
       db.collection('jobs').remove(
         {$or: [
           {name: "test job"},
-          {name: "db save job test"},
-          {name: "job with id"}
+          {name: "db save job test"}
+          // {name: "job with id"}
         ]},
         function (err) {
           if (err) {
-            console.error(err);
+            throw err;
           }
           done();
         });
     });
   });
 
+  it('should return 400 when name field is not legal', function(done) {
+    var ropts = {
+      url: 'http://localhost:3000/jobs',
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+    var r = request.post(ropts, callback);
+    var form = r.form();
+    form.append('name', '');
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+
+    function callback(err, response) {
+      response.statusCode.should.equal(400);
+      done();
+    }    
+
+  });
+
   it('should return 200 and JSON when post to /jobs ', function (done) {
     var r = request.post('http://localhost:3000/jobs', callback);
     var form = r.form();
-    form.append('jobName', 'test job');
+    form.append('name', 'test job');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
-    function callback(err,response,body) {
+    function callback(err, response, body) {
       var job = JSON.parse(body);
       job.should.have.property('name','test job');
       done();
@@ -65,7 +84,7 @@ describe('Jobs RESTFUL', function () {
   it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
     var r = request.post('http://localhost:3000/jobs', callback);
     var form = r.form();
-    form.append('jobName', 'test job');
+    form.append('name', 'test job');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
     function callback(err, response, body) {
@@ -78,13 +97,15 @@ describe('Jobs RESTFUL', function () {
   it('should insert the path of uploaded json file into db', function (done) {
     var r = request.post('http://localhost:3000/jobs', callback);
     var form = r.form();
-    form.append('jobName', 'db save job test');
+    form.append('name', 'db save job test');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
     function callback(error, response) {
       if (!error && response.statusCode == 200) {
         db.collection('jobs').findOne({name: "db save job test"}, function (err, job) {
-          if (err) {console.error(err);}
+          if (err) {
+            throw err;
+          }
           job.name.should.eql('db save job test');
           job.config.should.match(/\.json$/);
           done();
@@ -93,29 +114,28 @@ describe('Jobs RESTFUL', function () {
     }
   });
 
-  // it('should get all the jobs', function(done){
-  //   request.get('http://localhost:3000/jobs', callback);
+  it('should get all the jobs', function(done){
+    request.get('http://localhost:3000/jobs', callback);
 
-  //   function callback(error, response, body) {
-  //     var jobs = JSON.parse(body);
-  //     jshint can't pass don't know why
-  //     Array.isArray(jobs).should.be.true;
-  //     done();
-  //   }
-  // });
+    function callback(error, response, body) {
+      var jobs = JSON.parse(body);
+      jobs.should.be.instanceOf(Array);
+      done();
+    }
+  });
 
   it('should get the job by id', function(done){
     var r = request.post('http://localhost:3000/jobs', callback);
     var form = r.form();
-    form.append('jobName', 'job with id');
-    form.append('id', '1024');
+    form.append('name', 'job with id');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
-    
-    function callback() {
-      request.get('http://localhost:3000/jobs/1024/',function (error, response, body){
+    function callback(req, res, body) {
+      body = JSON.parse(body);
+      var id = body._id;
+      request.get('http://localhost:3000/jobs/' + body._id,function (error, response, body) {
         var job = JSON.parse(body);
-        job.name.should.be.eql('job with id');
-        job._id.should.be.eql('1024');
+        job.name.should.equal('job with id');
+        job._id.should.equal(id);
         done();
       }); 
     }
@@ -138,7 +158,7 @@ describe('Jobs MODEL', function () {
   describe('Jobs', function() {
     //mocked cruder
     var memCruder = {
-      _store: [] 
+      _store: []
     };
 
     var Jobs = JobsModule.Jobs(memCruder);
