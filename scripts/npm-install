@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-npm install -g mocha grunt-cli bower karma coffee-script pm2 express viff

@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-sudo apt-get install -y curl libcairo2-dev pkg-config libjpeg8-dev libpango1.0-dev libgif-dev g++
