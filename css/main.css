@@ -247,6 +247,7 @@ section {
 .header {
     text-align: center;
     height: 300px;
+    display: block;
 }
 
 .slogan {
@@ -295,6 +296,7 @@ a:link {
 
 .pure-g-r, .pure-g {
     -webkit-flex-flow: initial;
+    -moz-flex-flow: initial;
 }
 
 .problems {
@@ -307,12 +309,9 @@ a:link {
     margin-bottom: 15px;
 }
 
-.problems ul {
-    margin: 0 -3%;
-}
-
 .problems ul li {
-    margin: 0 3%;
+    width: 280px;
+    margin: 20px;
 }
 
 .how-it-works {
@@ -331,11 +330,11 @@ a:link {
 }
 
 .features .feature-g {
-    margin: 0 -2%;
 }
 
 .features .feature-g .feature {
-    margin: 0 2%;
+    width: 280px;
+    margin: 0 20px;
 }
 
 .img-g img{
