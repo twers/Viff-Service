@@ -7,10 +7,88 @@ var JobsModule = require('../../../lib/jobs');
 require('../../../lib/app');
 
 describe('Jobs RESTFUL', function () {
+<<<<<<< HEAD
   
+=======
+  var existingFile;
+  var uploadsPath = path.join(__dirname, "../../../uploads");
+  this.timeout(20000);
+
+  // recode existing files in uploads/configFile.json 
+  before(function (done) {
+    fs.readdir(uploadsPath, function (err, fileList) {
+      existingFile = fileList;
+      done();
+    });
+  });
+
+  // remove created test uploaded files and revert db changes
+  after(function (done) {
+    //remove uploaded files
+    fs.readdir(uploadsPath, function (err, fileList) {
+      fileList.forEach(function (file) {
+        if (existingFile.indexOf(file) == -1) {
+          fs.unlink(uploadsPath + '/' + file, function (err) {
+            if (err) {
+              throw err;
+            }
+          });
+        }
+      });
+      //remove db changes
+      db.collection('jobs').remove(
+        {$or: [
+          {name: "test job"},
+          {name: "db save job test"}
+          // {name: "job with id"}
+        ]},
+        function (err) {
+          if (err) {
+            throw err;
+          }
+          done();
+        });
+    });
+  });
+
+  function SendFormRequest(url, fn) {
+    var ropts = {
+      url: url,
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+    var r = request.post(ropts, fn);
+    return r.form();
+  }
+
+  it('should return 400 when name field is not legal', function(done) {
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
+    form.append('name', '');
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+
+    function callback(err, response) {
+      response.statusCode.should.equal(400);
+      done();
+    }    
+
+  });
+
+  it('should return 200 and JSON when post to /jobs ', function (done) {
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
+    form.append('name', 'test job');
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+
+    function callback(err, response, body) {
+      var job = JSON.parse(body);
+      job.should.have.property('name','test job');
+      done();
+    }
+  });
+
+>>>>>>> 32e9d9c17dadfb315b853d9e31139abc11e603be
   it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
-    var r = request.post('http://localhost:3000/jobs', callback);
-    var form = r.form();
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'test job');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
@@ -22,8 +100,7 @@ describe('Jobs RESTFUL', function () {
   });
 
   it('should insert the path of uploaded json file into db', function (done) {
-    var r = request.post('http://localhost:3000/jobs', callback);
-    var form = r.form();
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'db save job test');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
@@ -52,8 +129,7 @@ describe('Jobs RESTFUL', function () {
   });
 
   it('should get the job by id', function(done){
-    var r = request.post('http://localhost:3000/jobs', callback);
-    var form = r.form();
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'job with id');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
     function callback(req, res, body) {
