@@ -1,6 +1,8 @@
 var JobsModule = require('../../../lib/jobs');
 var cruder = require('../../../lib/jobs/job-cruder');
 cruder = require('../../../lib/database')('jobs', cruder);
+
+
 describe('job cruder', function() {
   var Jobs = JobsModule.Jobs(cruder);
   var Job = JobsModule.Job;

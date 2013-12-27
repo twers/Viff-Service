@@ -1,1 +1,18 @@
-
+{
+  "dev": {
+    "db": "mongodb://localhost:27017/viffService?auto_reconnect",
+    "port": 3000 
+  },
+  "test": {
+    "db": "mongodb://localhost:27017/viffService-test?auto_reconnect",
+    "port": 3001
+  },
+  "uat": {
+    "db": "mongodb://localhost:27017/viffService?auto_reconnect",
+    "port": 3000
+  },
+  "prod": {
+    "db": "mongodb://localhost:27017/viffService?auto_reconnect",
+    "port": 80
+  }
+}
