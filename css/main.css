@@ -216,12 +216,15 @@ textarea {
     *zoom: 1;
 }
 
-
 section {
     max-width: 960px;
     margin: 0 auto;
     overflow: hidden;
     padding: 1.83em 0 2.2em 0;
+}
+
+strong {
+    font-style: italic;
 }
 
 .full-container {
@@ -252,7 +255,7 @@ section {
 
 .slogan {
     font-size: 22px;
-    max-width: 450px;
+    max-width: 500px;
     margin: 0 auto;
     color: rgba(255, 255, 255, .8);
 }
