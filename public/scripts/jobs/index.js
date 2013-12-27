@@ -3,19 +3,19 @@ require('angular-route');
 
 
 angular
-  .module('viffservice/home', ['ngRoute'])
+  .module('viffservice/jobs', ['ngRoute'])
   .config([
     '$routeProvider',
     function($routeProvider) {
       $routeProvider
         .when('/', {
-          controller: 'HomePageCtrl',
-          templateUrl: '/templates/home/index.html'
+          controller: 'JobsPageCtrl',
+          templateUrl: '/templates/jobs/index.html'
         })
         .otherwise({ redirectTo: '/' });
     }
   ])
-  .controller('HomePageCtrl', [
+  .controller('JobsPageCtrl', [
     '$scope',
     function($scope) {
       $scope.benefits = [
