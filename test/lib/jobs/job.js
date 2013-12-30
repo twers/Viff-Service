@@ -3,15 +3,32 @@ var fs = require('fs');
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://localhost:27017/viffService?auto_reconnect', {safe: true});
 var JobsModule = require('../../../lib/jobs');
-var helper = require('../../helper');
-var sendFormRequest = helper.sendFormRequest;
+var revertEnvTool = require('../../tools');
 
 require('../../../lib/app');
 
 describe('Jobs RESTFUL', function () {
+  var existingFiles;
+  before(function(){
+      existingFiles = revertEnvTool.trackExistingFile();
+      console.log("zhihao:"+existingFiles);
+  });
+  after(function(){
+      revertEnvTool.revertEnv(existingFiles);
+  });
+  function SendFormRequest(url, fn) {
+    var ropts = {
+      url: url,
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+    var r = request.post(ropts, fn);
+    return r.form();
+  }
 
   it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
-    var form = sendFormRequest('http://localhost:3000/jobs', callback);
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'test job');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
@@ -23,7 +40,7 @@ describe('Jobs RESTFUL', function () {
   });
 
   it('should insert the path of uploaded json file into db', function (done) {
-    var form = sendFormRequest('http://localhost:3000/jobs', callback);
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'db save job test');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
@@ -52,7 +69,7 @@ describe('Jobs RESTFUL', function () {
   });
 
   it('should get the job by id', function(done){
-    var form = sendFormRequest('http://localhost:3000/jobs', callback);
+    var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'job with id');
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
     function callback(req, res, body) {
