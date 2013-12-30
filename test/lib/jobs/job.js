@@ -9,12 +9,14 @@ require('../../../lib/app');
 
 describe('Jobs RESTFUL', function () {
   var existingFiles;
+
   before(function () {
     existingFiles = revertEnvTool.trackExistingFile();
     console.log("zhihao:" + existingFiles);
   });
   after(function () {
     revertEnvTool.revertEnv(existingFiles);
+
   });
   function SendFormRequest(url, fn) {
     var ropts = {
@@ -67,6 +69,7 @@ describe('Jobs RESTFUL', function () {
       done();
     }
   });
+
 
   it('should get the job by id', function (done) {
     var form = SendFormRequest('http://localhost:3000/jobs', callback);
