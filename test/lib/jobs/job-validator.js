@@ -72,6 +72,7 @@ describe('post to /jobs validator',function(){
     form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
 
     function callback(err, response, body) {
+      console.log(body);
       var job = JSON.parse(body);
       job.should.have.property('name','test job');
       done();
