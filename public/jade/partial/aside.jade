@@ -1,0 +1,20 @@
+aside.pure-u-1-6.job-list
+  a.pure-button.pure-button-primary.btn-add-job(href="/jobs/new") Create Job
+  .pure-menu.pure-menu-open
+    ul
+      li
+        a(href="/aami#detail").success AAMI
+      li
+        a(href="/asteronlife#detail").failure Asteron Life
+      li
+        a(href="/asteronlife#detail").success Suncorp Life
+      li
+        a(href="/asteronlife#detail").active.success Suncorp Insurance
+      li
+        a(href="/asteronlife#detail").warning Suncorp Bank
+      li
+        a(href="/asteronlife#detail").no-test Suncorp Bank
+
+    ul(ng-repeat="job in joblist")
+      li
+        a(href="/jobs/1{{job.id}}")(ng-click="joblistClick()").success {{job.name}}
