@@ -3,5 +3,13 @@ html(data-ng-app="viffservice")
   head
     title= title
     include ./header_styles
-  body(data-ng-view)
+  body
+    header
+      h1
+        a(href="/") ViffCloud
+
+    include ./job-nav
+
+    block content
+
     include ./footer_scripts

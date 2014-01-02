@@ -3,25 +3,45 @@ require('angular-route');
 
 var appHome = angular.module('viffservice/home',['ngRoute']);
 
-function homeConfig($routeProvider) {
+appHome.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-    when('/', {
-      controller: HomeJobList,
-      templateUrl: '/templates/home/index.html'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
-}
-
-appHome.config(homeConfig);
-
-function HomeJobList($scope, $http) {
-  $http.get('/jobs').success(function (data) {
-    $scope.joblist = data;
+  when('/', {
+    controller: 'HomeJobListCtrl',
+    templateUrl: '/templates/home/index.html'
+  }).
+  otherwise({
+    redirectTo: '/'
   });
-  $scope.joblistClick = function () {
-    console.log('123');
+}]);
+
+appHome.factory('Jobs', ['$http', function($http) {
+  return {
+    all: function(fn) {
+      return $http.get('/jobs')
+        .success(function(data) {
+          fn(null, data);
+        })
+        .error(function(err) {
+          fn(err);
+        });
+    }
   };
-}
+
+}]);
+
+appHome.controller('HomeJobListCtrl', [
+  '$scope',
+  'Jobs',
+  function ($scope, Jobs) {
+    $scope.jobList = [];
+
+    Jobs.all(function(err, jobs) {
+      $scope.jobList = jobs;
+    });
+
+    $scope.joblistClick = function () {
+      console.log('123');
+    };
+  }
+]);
 
