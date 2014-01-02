@@ -171,12 +171,10 @@ describe('Jobs MODEL', function () {
         _id: '002',
         name: 'test2'
       }];
-      memCruder.find = function() {
-        return { toArray: function(fn){
-          setTimeout(function() {
-            fn(null, this._store);
-          }.bind(this));
-        }};
+      memCruder.all = function(fn){
+        setTimeout(function() {
+          fn(null, this._store);
+        }.bind(this));
       };
 
       Jobs.all(function(err, jobs) {
