@@ -109,7 +109,8 @@ module.exports = function(grunt) {
       options: {
         alias: [
           'public/bower_components/angular/angular.min.js:angular',
-          'public/bower_components/angular-route/angular-route.js:angular-route'
+          'public/bower_components/angular-route/angular-route.js:angular-route',
+          'public/bower_components/angular-resource/angular-resource.js:angular-resource'
         ]
       },
       dev: {

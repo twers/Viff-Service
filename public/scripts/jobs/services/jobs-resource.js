@@ -2,8 +2,8 @@ require('angular');
 require('angular-resource');
 
 angular
-  .module('jobs/jobResourceFactory', ['ngResource'])
-  .factory('jobsResource', ['$resource', function($resource) {
+  .module('viffservice/jobs/JobsResource', ['ngResource'])
+  .factory('JobsResource', ['$resource', function($resource) {
     var jobsResource = $resource('/jobs/:id', null, {
       create: { method: 'POST' },
       show: { method: 'GET', params: { id: '@_id' } },

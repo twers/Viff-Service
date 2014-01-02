@@ -1,7 +1,14 @@
 require('angular');
 require('angular-route');
 
-var jobsApp = angular.module('viffservice/jobs',['ngRoute']);
+require('./services/jobs.js');
+require('./controllers/job-list');
+
+var jobsApp = angular.module('viffservice/jobs',[
+  'ngRoute',
+  'viffservice/jobs/JobsFactory',
+  'viffservice/jobs/JobListCtrl'
+]);
 
 jobsApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
@@ -14,34 +21,4 @@ jobsApp.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-jobsApp.factory('Jobs', ['$http', function($http) {
-  return {
-    all: function(fn) {
-      return $http.get('/jobs')
-        .success(function(data) {
-          fn(null, data);
-        })
-        .error(function(err) {
-          fn(err);
-        });
-    }
-  };
-
-}]);
-
-jobsApp.controller('JobListCtrl', [
-  '$scope',
-  'Jobs',
-  function ($scope, Jobs) {
-    $scope.jobList = [];
-
-    Jobs.all(function(err, jobs) {
-      $scope.jobList = jobs;
-    });
-
-    $scope.joblistClick = function () {
-      console.log('123');
-    };
-  }
-]);
 
