@@ -3,39 +3,33 @@ describe('Job List Controller Test', function () {
   
   // 1. 能不能取出 job list 数据
   // 2. 测试取出的数据正确与否
+  // 3. test called Jobs Service
 
-  var createController, scope, httpBackend;
-  var expectData = [{
-    name: 'test'
-  }];
+  var createController, scope, Jobs;
+
+
   beforeEach(module('viffservice/home'));
+  beforeEach(module(function($provide) {
+    Jobs = sinon.stub({all: function() {}});
+    $provide.value('Jobs', Jobs);
+  }));
 
-  beforeEach(inject(function($rootScope, $controller, $httpBackend) {
-    httpBackend = $httpBackend;
-    httpBackend.when('GET', '/jobs').respond(expectData);
+  beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
     createController = function() {
       return $controller('HomeJobListCtrl', {$scope:scope});
     };
   }));
 
-  afterEach(function() {
-    httpBackend.verifyNoOutstandingExpectation();
-    httpBackend.verifyNoOutstandingRequest();
-  });
-
   it('should have joblist property', function() {
     createController();
-    httpBackend.flush();
     scope.should.have.property('jobList');
   });
 
-  it('should fetch the joblist', function() {
+  it('should call Jobs#all when initialize', function() {
     createController();
-    httpBackend.expectGET('/jobs');
-    httpBackend.flush();
-    scope.jobList[0].should.have.property('name');
-    scope.jobList[0].name.should.equal(expectData[0].name);  
+    Jobs.all.called.should.be.true;
+    Jobs.all.args[0][0].should.be.instanceOf(Function);
   });
 
 });

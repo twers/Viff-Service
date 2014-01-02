@@ -20,5 +20,8 @@
     "angular-route": "~1.2.4",
     "pure": "~0.3.0",
     "Font-Awesome": "~4.0.3"
+  },
+  "devDependencies": {
+    "sinonjs": "~1.7.3"
   }
 }

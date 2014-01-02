@@ -25,12 +25,12 @@ module.exports = function(config) {
       // libs
       'bower_components/jquery/jquery.js',
       'bower_components/should/should.js',
-
       // sources
       'scripts/app.js',
 
       // libs
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/sinonjs/sinon.js',
 
       // tests
       'test/unit/**/*.js'
