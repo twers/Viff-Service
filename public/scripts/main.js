@@ -1,11 +1,11 @@
 require('angular');
 require('angular-route');
-require('./home');
+require('./jobs');
 require('./templates');
 
 angular
   .module("viffservice", [
-    'viffservice/home',
+    'viffservice/jobs',
     'viffservice/templates'
   ])
   .factory("viff", function(){

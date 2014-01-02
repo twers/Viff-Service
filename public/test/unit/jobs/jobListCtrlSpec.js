@@ -8,7 +8,7 @@ describe('Job List Controller Test', function () {
   var createController, scope, Jobs;
 
 
-  beforeEach(module('viffservice/home'));
+  beforeEach(module('viffservice/jobs'));
   beforeEach(module(function($provide) {
     Jobs = sinon.stub({all: function() {}});
     $provide.value('Jobs', Jobs);
@@ -17,7 +17,7 @@ describe('Job List Controller Test', function () {
   beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
     createController = function() {
-      return $controller('HomeJobListCtrl', {$scope:scope});
+      return $controller('JobListCtrl', {$scope:scope});
     };
   }));
 
