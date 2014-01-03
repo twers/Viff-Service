@@ -4,12 +4,12 @@ require('angular-resource');
 angular
   .module('viffservice/jobs/JobsResource', ['ngResource'])
   .factory('JobsResource', ['$resource', function($resource) {
-    var jobsResource = $resource('/jobs/:id', null, {
+    var jobsResource = $resource('/jobs/:_id', null, {
       create: { method: 'POST' },
-      show: { method: 'GET', params: { id: '@_id' } },
-      update: { method: 'PUT', params: { id: '@_id' } },
+      show: { method: 'GET' },
+      update: { method: 'PUT', params: { _id: '@_id' } },
       all: { method: 'GET', isArray: true },
-      remove: { method: 'DELETE', params: { id: '@_id' } }
+      remove: { method: 'DELETE' }
     });
 
     jobsResource.removeById = function(id) {
