@@ -13,7 +13,7 @@ describe('Jobs RESTFUL', function () {
   it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
     var form = sendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'test job');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.js'));
 
     function callback(err, response, body) {
       var job = JSON.parse(body);
@@ -34,7 +34,7 @@ describe('Jobs RESTFUL', function () {
             throw err;
           }
           job.name.should.eql('db save job test');
-          job.config.should.match(/\.json$/);
+          job.config.should.match(/\.js$/);
           done();
         });
       }
@@ -54,7 +54,7 @@ describe('Jobs RESTFUL', function () {
   it('should get the job by id', function(done){
     var form = sendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'job with id');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    form.append('configFile', fs.createReadStream(__dirname + '/configFile.js'));
     function callback(req, res, body) {
       body = JSON.parse(body);
       var id = body._id;
