@@ -40,7 +40,7 @@ describe('post to /jobs validator',function(){
 
   });
 
-  it('should return 400 when upload file is not .json file', function(done) {
+  it('should return 400 when upload file is not .js file', function(done) {
     var options = {
       url: 'http://localhost:3000/jobs',
       headers: {
