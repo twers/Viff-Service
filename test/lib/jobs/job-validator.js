@@ -13,7 +13,7 @@ describe('post to /jobs validator',function(){
     var r = request.post(options, callback);
     var form = r.form();
     form.append('name', '');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
 
     function callback(err, response) {
       response.statusCode.should.equal(400);
@@ -50,7 +50,7 @@ describe('post to /jobs validator',function(){
     var r = request.post(options, callback);
     var form = r.form();
     form.append('name', 'abc');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.haha'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.failed'));
 
     function callback(err, response) {
       response.statusCode.should.equal(400);
@@ -69,7 +69,7 @@ describe('post to /jobs validator',function(){
     var r = request.post(options, callback);
     var form = r.form();
     form.append('name', 'test job');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
 
     function callback(err, response, body) {
       var job = JSON.parse(body);

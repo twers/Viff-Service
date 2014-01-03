@@ -13,7 +13,7 @@ describe('Jobs RESTFUL', function () {
   it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
     var form = sendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'test job');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.js'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
 
     function callback(err, response, body) {
       var job = JSON.parse(body);
@@ -25,7 +25,7 @@ describe('Jobs RESTFUL', function () {
   it('should insert the path of uploaded json file into db', function (done) {
     var form = sendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'db save job test');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.json'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
 
     function callback(error, response) {
       if (!error && response.statusCode == 200) {
@@ -54,7 +54,7 @@ describe('Jobs RESTFUL', function () {
   it('should get the job by id', function(done){
     var form = sendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'job with id');
-    form.append('configFile', fs.createReadStream(__dirname + '/configFile.js'));
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
     function callback(req, res, body) {
       body = JSON.parse(body);
       var id = body._id;
