@@ -8,7 +8,7 @@ angular
       create: { method: 'POST' },
       show: { method: 'GET', params: { id: '@_id' } },
       update: { method: 'PUT', params: { id: '@_id' } },
-      all: { method: 'GET' },
+      all: { method: 'GET', isArray: true },
       remove: { method: 'DELETE', params: { id: '@_id' } }
     });
 

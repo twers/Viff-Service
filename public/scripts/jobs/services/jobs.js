@@ -1,18 +1,11 @@
 require('angular');
 require('angular-resource');
 
+var JobsModule = require('jobs');
+
 angular
-  .module('viffservice/jobs/JobsFactory', ['ngResource'])
-  .factory('Jobs', ['$http', function($http) {
-    return {
-      all: function(fn) {
-        return $http.get('/jobs')
-          .success(function(data) {
-            fn(null, data);
-          })
-          .error(function(err) {
-            fn(err);
-          });
-      }
-    };
+  .module('viffservice/jobs/JobsFactory', [])
+  .factory('Jobs', ['JobsResource', function(cruder) {
+    var Jobs = JobsModule.Jobs(cruder);
+    return Jobs;
   }]);

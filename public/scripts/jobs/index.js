@@ -1,11 +1,13 @@
 require('angular');
 require('angular-route');
 
-require('./services/jobs.js');
+require('./services/jobs-resource');
+require('./services/jobs');
 require('./controllers/job-list');
 
 var jobsApp = angular.module('viffservice/jobs',[
   'ngRoute',
+  'viffservice/jobs/JobsResource',
   'viffservice/jobs/JobsFactory',
   'viffservice/jobs/JobListCtrl'
 ]);
