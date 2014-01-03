@@ -158,7 +158,8 @@ module.exports = function(grunt) {
       build: {
         options: {
           client: false,
-          pretty: true
+          pretty: true,
+          data: { front_end_build: true }
         },
         files: {
           'public/templates/footer_scripts.html': 'lib/views/footer_scripts.jade',
