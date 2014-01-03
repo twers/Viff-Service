@@ -4,14 +4,16 @@ angular
     '$scope',
     'Jobs',
     function ($scope, Jobs) {
-      $scope.jobList = [];
-
-      Jobs.all(function(err, jobs) {
-        $scope.jobList = jobs;
+      $scope.jobList = Jobs.all(function(jobs) {
+        $scope.selected = jobs[0];
       });
 
-      $scope.joblistClick = function () {
-        console.log('123');
+      $scope.isActive = function(job) {
+        return $scope.selected === job;
+      };
+
+      $scope.select = function(job) {
+        $scope.selected = job;
       };
     }
   ]);

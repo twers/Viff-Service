@@ -1,6 +1,7 @@
 require('angular');
 require('angular-resource');
 
+
 angular
   .module('viffservice/jobs/JobsResource', ['ngResource'])
   .factory('JobsResource', ['$resource', function($resource) {

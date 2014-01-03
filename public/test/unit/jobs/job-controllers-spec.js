@@ -11,6 +11,7 @@ describe('Job List Controller Test', function () {
   beforeEach(module('viffservice/jobs'));
   beforeEach(module(function($provide) {
     Jobs = sinon.stub({all: function() {}});
+    Jobs.all.returns([]);
     $provide.value('Jobs', Jobs);
   }));
 
@@ -29,7 +30,6 @@ describe('Job List Controller Test', function () {
   it('should call Jobs#all when initialize', function() {
     createController();
     Jobs.all.called.should.be.true;
-    Jobs.all.args[0][0].should.be.instanceOf(Function);
   });
 
 });
