@@ -23,9 +23,8 @@ block content
           div.pure-control-group
             label(for="config-file")
               | Config file
-              small (required)
+              small (required and the size for config file should be less than 1M.)
             input(type="file", name="configFile")
-            //- small.config-note  Note: file should only be .js file and less than 1M.
           div.pure-control-group
             input.pure-button.pure-button-primary(type="submit",value="Save")
 
