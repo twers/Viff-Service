@@ -12,24 +12,20 @@ block content
 
           div.pure-control-group
             label 
-              |Job name
-              span.required *
-            input(type="text",placeholder="No more than 30 characters", name="name")
+              | Job name
+              small (required)
+            input(type="text", placeholder="Enter job name ...", name="name")
+
           div.pure-control-group
-            label.desc Job description
-            textarea(rows="3",cols="32", name="description")
+            label Job description
+            textarea(name="description", placeholder="Enter job description ...")
     
           div.pure-control-group
             label(for="config-file")
-              a(href="/help")
-                i.fa.fa-question-circle
-              |Config file
-              span.required *
+              | Config file
+              small (required)
             input(type="file", name="configFile")
+            //- small.config-note  Note: file should only be .js file and less than 1M.
           div.pure-control-group
-            label
-            small.config-note  Note: file should only be .js file and less than 1M.
-          div.pure-control-group
-            label
             input.pure-button.pure-button-primary(type="submit",value="Save")
 

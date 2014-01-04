@@ -1,28 +1,43 @@
 .create-job{
   width: 600px;
-  margin:0 auto;
-  margin-top: 60px;
-  label{
-    width: 12em;
+  padding: @2x-normal-spacing;
+  margin: 60px auto 0 auto;
+  border: 1px solid @grey;
+
+  .pure-form {
+    
+    small {
+      text-transform: none;
+      font-style: italic;
+      margin: 0 @normal-spacing / 2;
+      color: @medium-grey;
+    }
+
+    legend {
+      text-transform: uppercase;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      text-transform: uppercase;
+      width: auto;
+      line-height: 2em;
+    }
+
+    input[type="text"], textarea {
+      .large();
+      width: 100%;
+      border-radius: 0;
+    }
+
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+
+    input[type="submit"] {
+      margin-top: @2x-normal-spacing;
+    }
   }
-  label.desc{
-    vertical-align: top;
-  }
-  .config-note{
-    color: #666;
-  }
-  input{
-    width: 20em;
-  }
-  input[type='submit']{
-    margin-top: 30px;
-    width: 6em;
-  }
-  .required{
-    color: red;
-  }
-}
-aside.test-history{
-  min-height: 500px;
-  border-left:1px solid #ccc;
 }
