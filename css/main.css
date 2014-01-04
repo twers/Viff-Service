@@ -264,6 +264,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
+.table-row-hightlight {
+    background: #FFFFCC;
+}
+
 h1 {
     color: rgba(245, 61, 86, 0.6);
     font-size: 90px;
