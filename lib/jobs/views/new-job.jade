@@ -6,7 +6,7 @@ block content
       a(href="/") ViffCloud
   div.pure-u-1-1
     div.create-job
-      form.pure-form.pure-form-aligned
+      form.pure-form.pure-form-aligned(action="/jobs", method="post", enctype="multipart/form-data")
         fieldset
           legend Create a job
 
@@ -14,10 +14,10 @@ block content
             label 
               |Job name
               span.required *
-            input(type="text",placeholder="No more than 30 characters")
+            input(type="text",placeholder="No more than 30 characters", name="name")
           div.pure-control-group
             label.desc Job description
-            textarea(rows="3",cols="32")
+            textarea(rows="3",cols="32", name="description")
     
           div.pure-control-group
             label(for="config-file")
@@ -25,7 +25,7 @@ block content
                 i.fa.fa-question-circle
               |Config file
               span.required *
-            input(type="file")
+            input(type="file", name="configFile")
           div.pure-control-group
             label
             small.config-note  Note: file should only be .js file and less than 1M.

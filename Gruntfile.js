@@ -207,7 +207,7 @@ module.exports = function(grunt) {
           ui: 'bdd',
           timeout: 2000
         },
-        src: ['test/**/*.js']
+        src: ['test/**/*.js', '!test/assets/**/*.js']
       }
     },
     express: {
