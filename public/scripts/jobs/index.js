@@ -15,8 +15,7 @@ var jobsApp = angular.module('viffservice/jobs',[
 jobsApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
-    controller: 'JobListCtrl',
-    templateUrl: '/templates/jobs/index.html'
+    templateUrl: '/templates/jobs/show.html'
   }).
   otherwise({
     redirectTo: '/'
