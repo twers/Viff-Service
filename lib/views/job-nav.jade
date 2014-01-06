@@ -4,4 +4,4 @@ div.pure-g
     .pure-menu.pure-menu-open
       ul(ng-repeat="job in jobList")
         li
-          a(href="#/jobs/{{job.get('_id')}}", ng-click="select(job)", ng-class="{ 'active': isActive(job) }", class="{{ job.status }}") {{ job.name }}
+          a(ng-href="#/jobs/{{job._id}}", ng-click="select(job)", ng-class="{ 'active': isActive(job) }", class="{{ job.status }}") {{ job.name }}

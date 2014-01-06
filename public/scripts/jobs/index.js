@@ -12,9 +12,12 @@ var jobsApp = angular.module('viffservice/jobs',[
   'viffservice/jobs/JobListCtrl'
 ]);
 
+require('./controllers/job-detail');
+
 jobsApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-  when('/', {
+  when('/jobs/:_id', {
+    controller: 'JobDetailCtrl',
     templateUrl: '/templates/jobs/show.html'
   }).
   otherwise({
