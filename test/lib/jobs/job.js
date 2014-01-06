@@ -129,23 +129,18 @@ describe('Jobs MODEL', function () {
       });
     });
 
-    it('should list all jobs', function (done) {
-      memCruder._store = [
-        {
-          _id: '001',
-          name: 'test1'
-        },
-        {
-          _id: '002',
-          name: 'test2'
-        }
-      ];
-      memCruder.find = function () {
-        return { toArray: function (fn) {
-          setTimeout(function () {
-            fn(null, this._store);
-          }.bind(this));
-        }};
+    it('should list all jobs', function(done) {
+      memCruder._store = [{
+        _id: '001',
+        name: 'test1'
+      }, {
+        _id: '002',
+        name: 'test2'
+      }];
+      memCruder.all = function(fn){
+        setTimeout(function() {
+          fn(null, this._store);
+        }.bind(this));
       };
 
       Jobs.all(function (err, jobs) {
