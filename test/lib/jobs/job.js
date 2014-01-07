@@ -12,7 +12,6 @@ describe('Jobs RESTFUL', function () {
 
   before(function () {
     existingFiles = revertEnvTool.trackExistingFile();
-    console.log("zhihao:" + existingFiles);
   });
   after(function () {
     revertEnvTool.revertEnv(existingFiles);
@@ -145,7 +144,7 @@ describe('Jobs MODEL', function () {
           setTimeout(function () {
             fn(null, this._store);
           }.bind(this));
-        }};
+        }.bind(this)};
       };
 
       Jobs.all(function (err, jobs) {
