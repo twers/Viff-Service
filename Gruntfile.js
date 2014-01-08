@@ -224,7 +224,17 @@ module.exports = function(grunt) {
         node_env: 'prod'
       }
     },
-    // build
+    env: {
+      development: {
+        NODE_ENV: 'development'
+      },
+      test: {
+        NODE_ENV: 'test'
+      },
+      production: {
+        NODE_ENV: 'production'
+      }
+    }
     
   });
 
@@ -248,6 +258,7 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('test', [
+    'env:test',
     'compile',
     'express:dev',
     'karma:unit',
@@ -257,7 +268,10 @@ module.exports = function(grunt) {
     'clean'
   ]);
 
-  grunt.registerTask('mocha', ['mochaTest']);
+  grunt.registerTask('mocha', [
+    'env:test', 
+    'mochaTest'
+  ]);
   
   grunt.registerTask('dev', [
     'compile',

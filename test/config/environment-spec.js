@@ -19,6 +19,10 @@ describe('environment', function () {
   });
 
   describe('is#', function () {
+
+    beforeEach(function () {
+      delete process.env.NODE_ENV;
+    });
     
     it('should be dev environment if I pass nothing', function () {
       environment().isDevelopment.should.be.true;
