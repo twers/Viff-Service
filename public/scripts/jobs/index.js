@@ -1,27 +1,26 @@
 require('angular');
 require('angular-route');
 
+require('./services/jobs-resource');
+require('./services/jobs');
+require('./controllers/job-list');
 
-angular
-  .module('viffservice/jobs', ['ngRoute'])
-  .config([
-    '$routeProvider',
-    function($routeProvider) {
-      $routeProvider
-        .when('/', {
-          controller: 'JobsPageCtrl',
-          templateUrl: '/templates/jobs/index.html'
-        })
-        .otherwise({ redirectTo: '/' });
-    }
-  ])
-  .controller('JobsPageCtrl', [
-    '$scope',
-    function($scope) {
-      $scope.benefits = [
-        'happy',
-        'allo',
-        'viva la vida'
-      ];
-    }
-  ]);
+var jobsApp = angular.module('viffservice/jobs',[
+  'ngRoute',
+  'viffservice/jobs/JobsResource',
+  'viffservice/jobs/JobsFactory',
+  'viffservice/jobs/JobListCtrl'
+]);
+
+jobsApp.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+  when('/', {
+    controller: 'JobListCtrl',
+    templateUrl: '/templates/jobs/index.html'
+  }).
+  otherwise({
+    redirectTo: '/'
+  });
+}]);
+
+

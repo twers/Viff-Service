@@ -1,0 +1,30 @@
+extends ../../views/layout
+
+block content
+  header 
+    h1
+      a(href="/") ViffCloud
+  div.pure-u-1-1
+    div.create-job
+      form.pure-form.pure-form-aligned(action="/jobs", method="post", enctype="multipart/form-data")
+        fieldset
+          legend Create a job
+
+          div.pure-control-group
+            label 
+              | Job name
+              small (required)
+            input(type="text", placeholder="Enter job name ...", name="name")
+
+          div.pure-control-group
+            label Job description
+            textarea(rows="5", name="description", placeholder="Enter job description ...", maxLength=300)
+    
+          div.pure-control-group
+            label(for="config-file")
+              | Config file
+              small (required and the size for config file should be less than 1M.)
+            input(type="file", name="configFile")
+          div.pure-control-group
+            input.pure-button.pure-button-primary(type="submit",value="Save")
+
