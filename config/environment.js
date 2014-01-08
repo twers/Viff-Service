@@ -9,15 +9,18 @@ function capitalize(str) {
 function environment (envToken) {
   var env = {},
       defaultEnvironments = ['development', 'test', 'production'],
-      envToken = !!envToken ? envToken.toLowerCase() : 'development';
-
-  if(!defaultEnvironments.indexOf(envToken)) {
-    envToken = 'development';
-  }
+      dbconfig = require(environment.dbConfigPath) || {};
+  envToken = !!envToken ? envToken : (process.env.NODE_ENV || 'development');
+  envToken = envToken.toLowerCase();
+  envToken = defaultEnvironments.indexOf(envToken) !== -1 ? envToken : 'development';
 
   defaultEnvironments.forEach(function (name) {
     env['is' + capitalize(name)] = name == envToken;
   });
 
+  env['db'] = dbconfig[envToken];
+
   return env;
 }
+
+environment.dbConfigPath = './database-config.js'
