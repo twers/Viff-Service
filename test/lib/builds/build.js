@@ -2,46 +2,51 @@ var JobsModule = require('../../../lib/jobs');
 var cruder = require('../../../lib/jobs/job-cruder');
 cruder = require('../../../lib/database')('jobs', cruder);
 var Jobs = JobsModule.Jobs(cruder);
+var Build = require('../../../lib/builds/').build;
 
-
-describe("job build", function () {
+describe("Job build", function () {
   var createdJob;
-  before(function (done) {
+  beforeEach(function (done) {
     Jobs.create({name: "job without build", config: "/fake.js"}, function (err, job) {
       createdJob = job;
       done();
     });
   });
 
-  it("should get tasks of one build", function (done) {
-    createdJob.builds.all(function (err, data) {
-      //should.not.exist(data);
-      console.log(data);
-      done();
-    });
+  it("should get tasks of one build", function () {
+    createdJob.get('builds').should.eql([]);
   });
 
   it("should add task to build", function (done) {
-    createdJob.builds.add({test: "fake"}, function () {
-      createdJob.builds.all(function (err, data) {
-        data.length.should.be.eql(1);
+    var build = new Build({test: "fake"});
+    Jobs.addBuild(createdJob.get('_id'), build, function () {
+      Jobs.id(createdJob.get('_id'), function (err, data) {
+        data.get('builds').length.should.be.eql(1);
         done();
       });
     });
   });
 
-  it("should add another task to build", function (done) {
-    createdJob.builds.add({test: "lastfake"}, function () {
-      createdJob.builds.all(function (err, data) {
-        (data.length).should.be.eql(2);
-        done();
+  it("should add two tasks to build", function (done) {
+    var build = new Build({test: "fake"});
+    var build2 = new Build({test: "fake2"});
+    Jobs.addBuild(createdJob.get('_id'), build, function () {
+      Jobs.addBuild(createdJob.get('_id'), build2, function () {
+        Jobs.id(createdJob.get('_id'), function (err, data) {
+          data.get('builds').length.should.be.eql(2);
+          done();
+        });
       });
     });
   });
-  it("should get the last build", function (done) {
-    createdJob.builds.last(function (err, data) {
-      data.should.be.eql({test: "lastfake"});
-      done();
+
+  it("should get builds", function (done) {
+    var build = new Build({test: "fake"});
+    Jobs.addBuild(createdJob.get('_id'), build, function () {
+      Jobs.findBuilds(createdJob.get('_id'), function (err, data) {
+        data.length.should.be.eql(1);
+        done();
+      });
     });
   });
 });
