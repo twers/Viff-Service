@@ -5,7 +5,15 @@ var path = require('path');
 
 describe('environment', function () {
 
-  var environment, spyRequire;
+  var environment, spyRequire, nodeEnv;
+
+  before(function () {
+    nodeEnv = process.env.NODE_ENV;
+  });
+
+  after(function () {
+    process.env.NODE_ENV = nodeEnv;
+  });
 
   beforeEach(cleanCacheFn('environment.js', 'database-config.js'));
 

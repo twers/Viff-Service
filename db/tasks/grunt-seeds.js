@@ -1,18 +1,18 @@
 'use strict';
 
-/* 
-  TODO: this code is not clean
-
-  cruder should be hidden in Jobs, 
-  otherwise we should inject cruder in Jobs and require database file everywhere
-*/
-
-var database = require('../../lib/database');
-var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
-var Jobs = require('../../lib/jobs/jobs')(jobCruder);
-
-module.exports = function (grunt) {
+module.exports = function dbSeeds(grunt) {
   grunt.registerTask('db:seed', 'seed prepared data', function() {
+
+    /* 
+      TODO: this code is not clean
+
+      cruder should be hidden in Jobs, 
+      otherwise we should inject cruder in Jobs and require database file everywhere
+    */
+    
+    var database = require('../../lib/database');
+    var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
+    var Jobs = require('../../lib/jobs/jobs')(jobCruder);
     var done = this.async();
 
     Jobs.create({
