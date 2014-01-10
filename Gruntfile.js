@@ -216,12 +216,20 @@ module.exports = function(grunt) {
       dev: {
         options: {
           script: 'lib/app.js',
-          node_env: 'dev'
+          NODE_ENV: 'development'
+        }
+      },
+      test: {
+        options: {
+          script: 'lib/app.js',
+          NODE_ENV: 'test'
         }
       },
       prod: {
-        options: 'lib/app.js',
-        node_env: 'prod'
+        options: {
+          script: 'lib/app.js',
+          NODE_ENV: 'production'
+        }
       }
     },
     env: {
@@ -237,9 +245,9 @@ module.exports = function(grunt) {
     }
     
   });
-
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  grunt.loadTasks('./db/tasks');
 
   grunt.registerTask('basic', [
     'jade:compile',
@@ -256,20 +264,21 @@ module.exports = function(grunt) {
     'less'
   ]);
 
-
   grunt.registerTask('test', [
     'env:test',
+    'db:seed',
     'compile',
-    'express:dev',
+    'express:test',
     'karma:unit',
     'karma:e2e',
-    'express:dev:stop',
-    'mochaTest',
-    'clean'
+    'express:test:stop',
+    'mocha',
+    'clean',
+    'db:clean'
   ]);
 
   grunt.registerTask('mocha', [
-    'env:test', 
+    'env:test',
     'mochaTest'
   ]);
   
