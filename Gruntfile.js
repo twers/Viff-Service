@@ -63,7 +63,7 @@ module.exports = function(grunt) {
           nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
-            NODE_ENV: 'dev'            
+            NODE_ENV: 'development'            
           }
         }
       },
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
           nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
-            NODE_ENV: 'dev'            
+            NODE_ENV: 'development'            
           }
         }
       }
