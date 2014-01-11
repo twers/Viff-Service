@@ -2,10 +2,10 @@
   .pure-u-4-5
     a.pure-button.btn-run-job.pure-button-small.pure-button-primary Run
     h1
-      | Suncorp Insurance
-      a.edit(href="/edit")
+      | {{job.name}}
+      a.edit(ng-href="#/edit/{{job._id}}")
         i.fa.fa-pencil-square-o
-    p.description Viff testing for suncorp insurance
+    p.description {{job.description}}
 .pure-g
   .pure-u-4-5
     h2 Build Detail #2311
