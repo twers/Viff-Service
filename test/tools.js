@@ -1,7 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('mongodb://localhost:27017/viffService?auto_reconnect', {safe: true});
+var environment = require('../config/environment');
+var db = mongoskin.db(environment().db.connection, {safe: true});
 
 var uploadsPath = path.join(__dirname, "../uploads");
 

@@ -1,7 +1,9 @@
 var request = require('request');
 var fs = require('fs');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('mongodb://localhost:27017/viffService?auto_reconnect', {safe: true});
+
+var environment = require('../../../config/environment');
+var db = mongoskin.db(environment().db.connection, {safe: true});
 var JobsModule = require('../../../lib/jobs');
 var revertEnvTool = require('../../tools');
 
@@ -12,7 +14,6 @@ describe('Jobs RESTFUL', function () {
 
   before(function () {
     existingFiles = revertEnvTool.trackExistingFile();
-    console.log("zhihao:" + existingFiles);
   });
   after(function () {
     revertEnvTool.revertEnv(existingFiles);

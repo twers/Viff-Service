@@ -11,3 +11,4 @@ public/templates
 .swp
 .tmp
 uploads/
+.idea/
