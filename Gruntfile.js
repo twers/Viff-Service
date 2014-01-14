@@ -279,9 +279,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('mocha', [
     'env:test',
-    'db:seed',
-    'mochaTest',
-    'db:clean'
+    'mochaTest'
   ]);
   
   grunt.registerTask('dev', [

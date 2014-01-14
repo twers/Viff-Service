@@ -17,11 +17,7 @@ module.exports = function dbSeeds(grunt) {
 
     Jobs.create({
       name: 'demo job',
-      description: 'this is a demo job',
-      builds: [
-        { id: 10, status: 'success' },
-        { id: 11, status: 'fail' }
-      ]
+      description: 'this is a demo job'
     }, function (ex, job) {
       if (ex) {
         throw ex;
