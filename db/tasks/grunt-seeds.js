@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = function dbSeeds(grunt) {
-  grunt.registerTask('db:seed', 'seed prepared data', function() {
+  grunt.registerTask('db:seed', 'seed prepared data', function () {
 
     /* 
-      TODO: this code is not clean
+     TODO: this code is not clean
 
-      cruder should be hidden in Jobs, 
-      otherwise we should inject cruder in Jobs and require database file everywhere
-    */
-    
+     cruder should be hidden in Jobs,
+     otherwise we should inject cruder in Jobs and require database file everywhere
+     */
+
     var database = require('../../lib/database');
     var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
     var Jobs = require('../../lib/jobs/jobs')(jobCruder);
@@ -17,9 +17,15 @@ module.exports = function dbSeeds(grunt) {
 
     Jobs.create({
       name: 'demo job',
-      description: 'this is a demo job'
+      description: 'this is a demo job',
+      builds: [
+        { id: 10, status: 'success' },
+        { id: 11, status: 'fail' }
+      ]
     }, function (ex, job) {
-      if (ex) { throw ex; }
+      if (ex) {
+        throw ex;
+      }
       console.log('Done. 1 job created.');
       done();
     });
