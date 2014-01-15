@@ -9,7 +9,7 @@ describe('JobDetailCtrl', function () {
   }));
 
   afterEach(function () {
-    jobsIdStub.reset();
+    jobsIdStub.restore();
   });
 
   beforeEach(inject(function($rootScope, $controller) {
