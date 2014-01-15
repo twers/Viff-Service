@@ -1,5 +1,6 @@
 var request = require('request');
 var _ = require('lodash');
+var sinon = require('sinon');
 
 var database = require('../../../lib/database');
 var Build = require('../../../lib/builds/').build;
@@ -20,6 +21,15 @@ describe('builds app', function () {
           done();
         });
       });
+    });
+  });
+
+  it('should return status code 500 when causing error', function (done) {
+    var findBuildsStub = sinon.stub(Jobs, 'findBuilds').callsArgWith(1, Error('something wrong'), null);
+    request.get(uri, function (error, res) {
+      res.statusCode.should.equal(500);
+      findBuildsStub.restore();
+      done();
     });
   });
 
