@@ -6,6 +6,6 @@ angular
     'Jobs',
     function (scope, params, Jobs) {
       var id = params._id;
-      scope.job = Jobs.id(id);
+      scope.builds = Jobs.findBuilds(id);
     }
   ]);

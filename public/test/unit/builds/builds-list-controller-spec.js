@@ -1,15 +1,19 @@
 describe('BuildsListCtrl', function () {
 
-  var scope, createController, jobsIdStub, fakeJob = { _id: 'fakeJobId1' };
+  var scope,
+      createController,
+      findBuildsStub,
+      fakeJob = { _id: 'fakeJobId1' },
+      builds = [{ status: 'success' }, { status: 'failure' }];
 
   beforeEach(module('viffservice/builds'));
 
   beforeEach(inject(function (Jobs) {
-    jobsIdStub = sinon.stub(Jobs, 'id').returns(fakeJob);
+    findBuildsStub = sinon.stub(Jobs, 'findBuilds').returns(builds);
   }));
 
   afterEach(function () {
-    jobsIdStub.restore();
+    findBuildsStub.restore();
   });
 
   beforeEach(inject(function ($rootScope, $controller) {
@@ -22,10 +26,10 @@ describe('BuildsListCtrl', function () {
     };
   }));
 
-  it('should get job by param id', function () {
+  it('should get builds by given Job id', function () {
     createController();
-    jobsIdStub.firstCall.args[0].should.equal(fakeJob._id);
-    scope.job.should.equal(fakeJob);
+    findBuildsStub.firstCall.args[0].should.equal(fakeJob._id);
+    scope.builds.should.equal(builds);
   });
 
 });

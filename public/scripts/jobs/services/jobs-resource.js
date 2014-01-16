@@ -21,5 +21,9 @@ angular
       return this.show({_id: id});
     };
 
+    jobsResource.findBuilds = function (id) {
+      return jobsResource.findById(id).builds;
+    };
+
     return jobsResource;
   }]);
