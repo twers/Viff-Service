@@ -6,6 +6,9 @@ angular
     'Jobs',
     function (scope, params, Jobs) {
       var id = params._id;
-      scope.builds = Jobs.findBuilds(id);
+      Jobs.id(id, function (job) {
+        scope.builds = job.builds;
+        scope.containsBuild = !!scope.builds.length;
+      });
     }
   ]);

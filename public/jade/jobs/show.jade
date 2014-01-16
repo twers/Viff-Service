@@ -9,9 +9,9 @@
 .pure-g
   .pure-u-4-5
     h2 Build Detail #2311
-  .pure-u-1-5.job-history
+  .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
-    small No runing history
+    small(ng-hide="containsBuild") No runing history
     ul
       li.failure
         a
