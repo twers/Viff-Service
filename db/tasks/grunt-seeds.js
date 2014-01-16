@@ -15,6 +15,9 @@ module.exports = function dbSeeds(grunt) {
     var Jobs = require('../../lib/jobs/jobs')(jobCruder);
     var done = this.async();
 
+    var build = { id: '1', status: "success", createdTime: Date.now() };
+    var build2 = { id: '2', status: "failure", createdTime: Date.now() };
+
     Jobs.create({
       name: 'demo job',
       description: 'this is a demo job'
@@ -22,8 +25,14 @@ module.exports = function dbSeeds(grunt) {
       if (ex) {
         throw ex;
       }
-      console.log('Done. 1 job created.');
-      done();
+
+      Jobs.addBuild(job.get('_id'), build, function () {
+        Jobs.addBuild(job.get('_id'), build2, function () {
+          console.log('Done. 1 job with 2 builds created.');
+          done();
+        });
+      });
+
     });
   });
 };
