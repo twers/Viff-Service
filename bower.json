@@ -13,10 +13,10 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.6",
-    "angular-mocks": "~1.2.6",
-    "angular-route": "~1.2.6",
-    "angular-resource": "~1.2.6",
+    "angular": "*",
+    "angular-mocks": "*",
+    "angular-route": "*",
+    "angular-resource": "*",
     "jquery": "~2.0.3",
     "pure": "~0.3.0",
     "Font-Awesome": "~4.0.3"

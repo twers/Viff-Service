@@ -17,8 +17,8 @@ angular
       return this.remove({_id: id}); 
     };
 
-    jobsResource.findById = function(id) {
-      return this.show({_id: id});
+    jobsResource.findById = function(id, fn) {
+      return this.show({_id: id}, fn);
     };
 
     return jobsResource;
