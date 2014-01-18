@@ -16,4 +16,4 @@
       li(ng-repeat="build in builds", ng-class="build.status")
         a
           span.number \#{{build.id}}
-          span.pull-right {{build.createdTime}}
+          span.pull-right {{build.createdTime | timeAgo }}
