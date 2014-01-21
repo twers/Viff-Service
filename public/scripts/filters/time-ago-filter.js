@@ -10,7 +10,6 @@ angular
         var i = 0;
 
         for(; difference >= lengths[i] && i < lengths.length; i++) {
-          console.log(i);
           difference /= lengths[i];
         }
 
