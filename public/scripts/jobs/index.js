@@ -16,6 +16,10 @@ require('./controllers/job-detail');
 
 jobsApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
+  when('/', {
+    controller: 'JobListCtrl',
+    templateUrl: '/templates/jobs/index.html'
+  }).
   when('/jobs/:_id', {
     controller: 'JobDetailCtrl',
     templateUrl: '/templates/jobs/show.html'
