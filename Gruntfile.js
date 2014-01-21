@@ -272,7 +272,7 @@ module.exports = function(grunt) {
     'karma:unit',
     'karma:e2e',
     'express:test:stop',
-    'mocha',
+    'mochaTest',
     'clean',
     'db:clean'
   ]);

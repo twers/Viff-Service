@@ -103,15 +103,12 @@ describe('Jobs MODEL', function () {
   });
 
   describe('Jobs', function () {
-    //mocked cruder
-    var memCruder = {
-      _store: []
-    };
 
-    var Jobs = JobsModule.Jobs(memCruder);
+    var Jobs, memCruder = {};
 
     beforeEach(function () {
       memCruder._store = [];
+      Jobs = JobsModule.Jobs(memCruder);
     });
 
     it('should create a new job', function (done) {
@@ -123,6 +120,7 @@ describe('Jobs MODEL', function () {
           fn(null, obj);
         });
       };
+
       Jobs.create({name: 'test'}, function (err, job) {
         job.should.be.instanceOf(Job);
         job.get('_id').should.equal('001');
