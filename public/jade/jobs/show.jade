@@ -10,23 +10,11 @@
   .pure-u-4-5
     h2 Build Detail #2311
     pre {{job.configContent}}
-  .pure-u-1-5.job-history
+  .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
-    small No runing history
+    small(ng-hide="containsBuild") No runing history
     ul
-      li.failure
+      li(ng-repeat="build in builds", ng-class="build.status")
         a
-          span.number #2311
-          span.pull-right 20 minutes ago
-      li.success
-        a
-          span.number #5
-          span.pull-right 2 hours ago
-      li.warning
-        a
-          span.number #4
-          span.pull-right 1 day ago
-      li.success
-        a
-          span.number #3
-          span.pull-right 10 days ago
+          span.number \#{{build.id}}
+          span.pull-right {{build.createdTime | timeAgo }}
