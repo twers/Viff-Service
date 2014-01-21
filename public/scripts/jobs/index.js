@@ -20,7 +20,7 @@ jobsApp.config(['$routeProvider', function($routeProvider) {
     controller: 'JobListCtrl',
     templateUrl: '/templates/jobs/index.html'
   }).
-  when('/jobs/:_id', {
+  when('/jobs/:id', {
     controller: 'JobDetailCtrl',
     templateUrl: '/templates/jobs/show.html'
   }).
