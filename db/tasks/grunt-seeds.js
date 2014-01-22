@@ -3,7 +3,7 @@
 module.exports = function dbSeeds(grunt) {
   grunt.registerTask('db:seed', 'seed prepared data', function () {
 
-    /* 
+    /*
      TODO: this code is not clean
 
      cruder should be hidden in Jobs,
@@ -20,7 +20,8 @@ module.exports = function dbSeeds(grunt) {
 
     Jobs.create({
       name: 'demo job',
-      description: 'this is a demo job'
+      description: 'this is a demo job',
+      config: '/upload/test.config.js'
     }, function (ex, job) {
       if (ex) {
         throw ex;

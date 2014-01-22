@@ -19,42 +19,64 @@ describe('job detail page when no build history', function(){
     });
   });
 
-  beforeEach(function () {
-    readFileStub = sinon.stub(fs, 'readFile').callsArgWith(2, null, fileContent);
-  });
+  describe('with config file', function() {
 
-  afterEach(function () {
-    readFileStub.restore();
-  });
+    beforeEach(function () {
+      readFileStub = sinon.stub(fs, 'readFile').callsArgWith(2, null, fileContent);
+    });
 
+    afterEach(function () {
+      readFileStub.restore();
+    });
 
-  it('should get 200 response', function(done){
-    request.get(url, function (err, res) {
-      res.statusCode.should.equal(200);
-      done();
+    it('should get 200 response', function(done){
+      request.get(url, function (err, res) {
+        res.statusCode.should.equal(200);
+        done();
+      });
+    });
+
+    it('should has the configContent property', function(done){
+      request.get({url: url, json: true}, function (err, res, job) {
+        job.should.have.property('configContent');
+        done();
+      });
+    });
+
+    it('should read correct file path', function(done) {
+      request.get({url: url, json: true}, function () {
+        readFileStub.calledOnce.should.be.true;
+        readFileStub.lastCall.args[0].should.equal(filePath);
+        done();
+      });
+    });
+
+    it('should get the correct config content', function(done){
+      request.get({url: url, json: true}, function (err, res, job) {
+        job.configContent.should.equal(fileContent);
+        done();
+      });
     });
   });
 
-  it('should has the configContent property', function(done){
-    request.get({url: url, json: true}, function (err, res, job) {
-      job.should.have.property('configContent');
-      done();
-    });
-  });
+  describe('without config file', function() {
 
-  it('should read correct file path', function(done) {
-    request.get({url: url, json: true}, function () {
-      readFileStub.calledOnce.should.be.true;
-      readFileStub.lastCall.args[0].should.equal(filePath);
-      done();
+    beforeEach(function () {
+      readFileStub = sinon.stub(fs, 'readFile').callsArgWith(2, {}, '');
     });
-  });
 
-  it('should get the correct config content', function(done){
-    request.get({url: url, json: true}, function (err, res, job) {
-      job.configContent.should.equal(fileContent);
-      done();
+    afterEach(function () {
+      readFileStub.restore();
     });
+
+    it('should return "config data error" if config file cannot be read', function(done) {
+      readFileStub = readFileStub.callsArgWith(2, {}, '');
+      request.get({url: url, json: true}, function (err, res, job) {
+        job.configContent.should.equal('config data error');
+        done();
+      });
+    });
+
   });
 
 });
