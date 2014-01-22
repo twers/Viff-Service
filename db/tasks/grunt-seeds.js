@@ -10,6 +10,8 @@ module.exports = function dbSeeds(grunt) {
      otherwise we should inject cruder in Jobs and require database file everywhere
      */
 
+    var path = require('path');
+
     var database = require('../../lib/database');
     var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
     var Jobs = require('../../lib/jobs/jobs')(jobCruder);
@@ -21,7 +23,7 @@ module.exports = function dbSeeds(grunt) {
     Jobs.create({
       name: 'demo job',
       description: 'this is a demo job',
-      config: '/upload/test.config.js'
+      config: path.join(__dirname, '../..', 'test/assets/configFile.js')
     }, function (ex, job) {
       if (ex) {
         throw ex;
