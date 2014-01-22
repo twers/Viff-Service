@@ -1,6 +1,7 @@
 var fs       = require('fs');
 var path     = require('path');
 var request  = require('request');
+var sinon    = require('sinon');
 
 var rootPath = path.join(__dirname, '../../../');
 var database = require(rootPath + 'lib/database');
@@ -9,13 +10,21 @@ var jobs     = require(rootPath + 'lib/jobs/jobs')(crud);
 
 describe('job detail page when no build history', function(){
 
-  var url, filePath = 'uploads/24273-cg77d9.js';
+  var url, filePath = '/uploads/24273-cg77d9.js', fileContent = 'abcd', readFileStub;
 
   before(function(done){
     jobs.create({ name: 'job details with no build', config: filePath}, function (err, job) {
       url = 'http://localhost:3000/jobs/' + job.get('_id');
       done();
     });
+  });
+
+  beforeEach(function () {
+    readFileStub = sinon.stub(fs, 'readFile').callsArgWith(2, null, fileContent);
+  });
+
+  afterEach(function () {
+    readFileStub.restore();
   });
 
 
@@ -27,17 +36,23 @@ describe('job detail page when no build history', function(){
   });
 
   it('should has the configContent property', function(done){
-    request.get({url: url, json: true}, function (err, res, body) {
-      body.should.have.property('configContent');
+    request.get({url: url, json: true}, function (err, res, job) {
+      job.should.have.property('configContent');
+      done();
+    });
+  });
+
+  it('should read correct file path', function(done) {
+    request.get({url: url, json: true}, function () {
+      readFileStub.calledOnce.should.be.true;
+      readFileStub.lastCall.args[0].should.equal(filePath);
       done();
     });
   });
 
   it('should get the correct config content', function(done){
-    var readContent = fs.readFileSync(rootPath + filePath, 'utf8');
-
-    request.get({url: url, json: true}, function (err, res, body) {
-      body.configContent.should.equal(readContent);
+    request.get({url: url, json: true}, function (err, res, job) {
+      job.configContent.should.equal(fileContent);
       done();
     });
   });
