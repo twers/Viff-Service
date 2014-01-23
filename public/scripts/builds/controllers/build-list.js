@@ -1,14 +1,12 @@
-angular
-  .module('viffservice/builds')
-  .controller('BuildsListCtrl', [
-    '$scope',
-    '$routeParams',
-    'Jobs',
-    function (scope, params, Jobs) {
-      var id = params._id;
-      Jobs.id(id, function (job) {
-        scope.builds = job.builds;
-        scope.containsBuild = !!scope.builds.length;
-      });
-    }
-  ]);
+module.exports = [
+  '$scope',
+  '$routeParams',
+  'Builds',
+  function (scope, params, Builds) {
+    var id = params._id;
+    Builds.all({ jid: id }, function (builds) {
+      scope.builds = builds;
+      scope.containsBuild = !!scope.builds.length;
+    });
+  }
+];

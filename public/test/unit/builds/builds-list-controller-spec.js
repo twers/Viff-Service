@@ -20,8 +20,8 @@ describe('BuildsListCtrl', function () {
 
   describe('contains build', function () {
 
-    beforeEach(inject(function (Jobs) {
-      idStub = sinon.stub(Jobs, 'id').callsArgWith(1, { builds: builds});
+    beforeEach(inject(function (Builds) {
+      idStub = sinon.stub(Builds, 'all').callsArgWith(1, builds);
     }));
 
     afterEach(function () {
@@ -30,7 +30,7 @@ describe('BuildsListCtrl', function () {
 
     it('should get builds by given Job id', function () {
       createController();
-      idStub.firstCall.args[0].should.equal(fakeJob._id);
+      idStub.firstCall.args[0].should.eql({jid: fakeJob._id});
       scope.builds.should.equal(builds);
     });
 
@@ -43,8 +43,8 @@ describe('BuildsListCtrl', function () {
 
   describe('doesn\'t contain build', function () {
 
-    beforeEach(inject(function (Jobs) {
-      idStub = sinon.stub(Jobs, 'id').callsArgWith(1, { builds: [] });
+    beforeEach(inject(function (Builds) {
+      idStub = sinon.stub(Builds, 'all').callsArgWith(1, []);
     }));
 
     afterEach(function () {
