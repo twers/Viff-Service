@@ -5,7 +5,7 @@ describe('JobDetailCtrl', function () {
   beforeEach(module('viffservice/jobs'));
 
   beforeEach(inject(function (Jobs) {
-    jobsIdStub = sinon.stub(Jobs, 'id').returns(fakeJob);
+    jobsIdStub = sinon.stub(Jobs, 'id').callsArgWith(1, fakeJob);
   }));
 
   afterEach(function () {

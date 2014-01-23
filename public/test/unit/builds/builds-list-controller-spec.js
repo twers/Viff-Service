@@ -30,7 +30,7 @@ describe('BuildsListCtrl', function () {
 
     it('should get builds by given Job id', function () {
       createController();
-      idStub.firstCall.args[0].should.eql({ jid: fakeJob._id });
+      idStub.firstCall.args[0].should.eql({ jid: fakeJob.id });
       scope.builds.should.equal(builds);
     });
 

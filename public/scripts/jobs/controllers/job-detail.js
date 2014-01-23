@@ -8,9 +8,9 @@ angular.module('viffservice/jobs')
     'Builds', 
     'SockStream',
     function (scope, params, Jobs, Builds, SockStream) {
-      var id = params._id;
+      var id = params.id;
 
-      scope.job = Jobs.id(id, function(job) {
+      Jobs.id(id, function(job) {
         scope.job = job;
       });
 
