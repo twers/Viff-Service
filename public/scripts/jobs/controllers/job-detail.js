@@ -23,6 +23,5 @@ angular.module('viffservice/jobs')
           }));
         });
       };
-
     }
   ]);

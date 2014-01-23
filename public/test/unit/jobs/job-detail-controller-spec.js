@@ -1,6 +1,6 @@
 describe('JobDetailCtrl', function () {
-  
-  var scope, jobsIdStub, fakeJob = { _id: 'fakeJobId' };
+
+  var scope, jobsIdStub, fakeJob = { id: 'fakeJobId' };
 
   beforeEach(module('viffservice/jobs'));
 
@@ -15,14 +15,14 @@ describe('JobDetailCtrl', function () {
   beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
 
-    $controller('JobDetailCtrl', { 
+    $controller('JobDetailCtrl', {
       $scope: scope,
-      $routeParams: { _id: fakeJob._id }
+      $routeParams: { id: fakeJob.id }
     });
   }));
 
   it('should get job by param id', function () {
-    jobsIdStub.firstCall.args[0].should.equal(fakeJob._id);
+    jobsIdStub.firstCall.args[0].should.equal(fakeJob.id);
     scope.job.should.equal(fakeJob);
   });
 

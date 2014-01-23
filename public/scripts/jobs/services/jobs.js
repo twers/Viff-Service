@@ -5,7 +5,7 @@ var JobsModule = require('jobs');
 
 angular
   .module('viffservice/jobs/JobsFactory', [])
-  .factory('Jobs', ['JobsResource', function(cruder) {
-    var Jobs = JobsModule.Jobs(cruder);
+  .factory('Jobs', ['JobsResource', function(JobsResource) {
+    var Jobs = JobsModule.Jobs(JobsResource);
     return Jobs;
   }]);

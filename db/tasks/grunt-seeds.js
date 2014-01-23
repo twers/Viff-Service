@@ -3,13 +3,14 @@
 module.exports = function dbSeeds(grunt) {
   grunt.registerTask('db:seed', 'seed prepared data', function () {
 
-    /* 
+    /*
      TODO: this code is not clean
 
      cruder should be hidden in Jobs,
      otherwise we should inject cruder in Jobs and require database file everywhere
      */
 
+    var path = require('path');
     var Jobs = require('../../lib/jobs/app').Jobs;
     var done = this.async();
 
@@ -18,7 +19,8 @@ module.exports = function dbSeeds(grunt) {
 
     Jobs.create({
       name: 'demo job',
-      description: 'this is a demo job'
+      description: 'this is a demo job',
+      config: path.join(__dirname, '../..', 'test/assets/configFile.js')
     }, function (ex, job) {
       if (ex) {
         throw ex;

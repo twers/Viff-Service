@@ -10,6 +10,7 @@
   .pure-u-4-5
     h2 Build Detail #2311
     console(stream="stream")
+    pre {{job.configContent}}
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
     small(ng-hide="containsBuild") No runing history

@@ -3,7 +3,7 @@ describe('BuildsListCtrl', function () {
   var scope,
       createController,
       idStub,
-      fakeJob = { _id: 'fakeJobId1' },
+      fakeJob = { id: 'fakeJobId1' },
       builds = [{ status: 'success' }, { status: 'failure' }];
 
   beforeEach(module('viffservice/builds'));
@@ -13,7 +13,7 @@ describe('BuildsListCtrl', function () {
     createController = function createController() {
       return $controller('BuildsListCtrl', {
         $scope: scope,
-        $routeParams: { _id: fakeJob._id }
+        $routeParams: { id: fakeJob.id }
       });
     };
   }));
@@ -30,7 +30,7 @@ describe('BuildsListCtrl', function () {
 
     it('should get builds by given Job id', function () {
       createController();
-      idStub.firstCall.args[0].should.eql({jid: fakeJob._id});
+      idStub.firstCall.args[0].should.eql({ jid: fakeJob._id });
       scope.builds.should.equal(builds);
     });
 
