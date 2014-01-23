@@ -5,7 +5,7 @@ angular
     '$routeParams',
     'Jobs',
     function (scope, params, Jobs) {
-      var id = params._id;
+      var id = params.id;
       Jobs.id(id, function (job) {
         scope.builds = job.builds;
         scope.containsBuild = !!scope.builds.length;

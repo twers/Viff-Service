@@ -2,9 +2,9 @@ angular.module('viffservice/jobs')
   .controller('JobDetailCtrl', [
     '$scope',
     '$routeParams',
-    'Jobs', 
+    'Jobs',
     function (scope, params, Jobs) {
-      var id = params._id;
+      var id = params.id;
       scope.job = Jobs.id(id);
     }
   ]);
