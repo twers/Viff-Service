@@ -18,13 +18,11 @@ angular.module('viffservice/jobs')
         var id = scope.job._id;
         Builds.create({jid: id}, {},function(build) {
           var stream = SockStream(build.link);
-
           stream.pipe(through(function(data) {
-            console.log(data);
+            scope.$emit("viff.console.event", data);
           }));
         });
       };
-
 
     }
   ]);
