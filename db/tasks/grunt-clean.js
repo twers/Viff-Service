@@ -5,7 +5,7 @@ module.exports = function dbClean(grunt) {
   grunt.registerTask('db:clean', 'clean the data in db', function() {
 
     var database = require('../../lib/database');
-    var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
+    var jobCruder = database('jobs');
     var done = this.async();
 
     jobCruder.drop(function (ex, result) {

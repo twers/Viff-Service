@@ -24,32 +24,60 @@ describe('builds app', function () {
     });
   });
 
-  it('should return status code 500 when causing error', function (done) {
-    var findBuildsStub = sinon.stub(Jobs, 'findBuilds').callsArgWith(1, Error('something wrong'), null);
-    request.get(uri, function (error, res) {
-      res.statusCode.should.equal(500);
-      findBuildsStub.restore();
-      done();
-    });
-  });
-
-  it('should return status code 200', function (done) {
-    request.get(uri, function (error, res) {
-      res.statusCode.should.equal(200);
-      done();
-    });
-  });
-
-  it('should return builds for the given job', function (done) {
-    request.get(uri, function (error, res, body) {
-      if (!error && res.statusCode === 200) {
-        var builds = JSON.parse(body);
-        _.first(builds).status.should.equal('success');
-        _.last(builds).status.should.equal('failure');
-
+  describe('GET /jobs/:id/builds', function() {
+    it('should return status code 500 when causing error', function (done) {
+      var findBuildsStub = sinon.stub(Jobs, 'findBuilds').callsArgWith(1, Error('something wrong'), null);
+      request.get(uri, function (error, res) {
+        res.statusCode.should.equal(500);
+        findBuildsStub.restore();
         done();
-      }
+      });
+    });
+
+    it('should return status code 200', function (done) {
+      request.get(uri, function (error, res) {
+        res.statusCode.should.equal(200);
+        done();
+      });
+    });
+
+    it('should return builds for the given job', function (done) {
+      request.get(uri, function (error, res, body) {
+        if (!error && res.statusCode === 200) {
+          var builds = JSON.parse(body);
+          _.first(builds).status.should.equal('success');
+          _.last(builds).status.should.equal('failure');
+
+          done();
+        }
+      });
     });
   });
+
+  describe('POST /jobs/:id/builds', function() {
+    it('should return status code 404 when jobid is not exists', function(done) {
+      request.post('http://localhost:3000/jobs/idnotexists/builds', function(err, res) {
+        res.statusCode.should.equal(404);
+        done();
+      });
+    });
+
+    it('should return status code 200 when jobid is exists', function(done) {
+      request.post(uri, function(err, res) {
+        res.statusCode.should.equal(200);
+        done();
+      });
+    });
+
+    it('should get a new build object with job\'s config', function(done) {
+      request.post(uri, function(err, res, body) {
+        body = JSON.parse(body);
+        body.should.have.property('config');
+        body.config.should.equal('/fake.js');
+        done();
+      });
+    });
+  });
+
 
 });

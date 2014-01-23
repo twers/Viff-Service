@@ -10,9 +10,7 @@ module.exports = function dbSeeds(grunt) {
      otherwise we should inject cruder in Jobs and require database file everywhere
      */
 
-    var database = require('../../lib/database');
-    var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
-    var Jobs = require('../../lib/jobs/jobs')(jobCruder);
+    var Jobs = require('../../lib/jobs/app').Jobs;
     var done = this.async();
 
     var build = { id: '1', status: "success", createdTime: Date.now() };
