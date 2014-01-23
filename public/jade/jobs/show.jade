@@ -1,6 +1,6 @@
 .pure-g.job-header
   .pure-u-4-5
-    a.pure-button.btn-run-job.pure-button-small.pure-button-primary Run
+    a.pure-button.btn-run-job.pure-button-small.pure-button-primary(ng-click="run()") Run
     h1
       | {{job.name}}
       a.edit(ng-href="#/edit/{{job._id}}")
