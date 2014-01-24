@@ -33,6 +33,16 @@ module.exports = function dbSeeds(grunt) {
         });
       });
 
+    Jobs.create({
+      name: 'demo job for edit',
+      description: 'this is another demo job'
+    }, function (ex, job) {
+      if (ex) {
+        throw ex;
+      }
+      console.log('Done. 1 job without builds created.');
+      done();
+    });
     });
   });
 };
