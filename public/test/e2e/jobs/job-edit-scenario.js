@@ -12,4 +12,20 @@ describe('job edit', function () {
     expect(element('.edit-job input[name="name"]').val()).toEqual('demo job');
     expect(element('.edit-job textarea[name="description"]').val()).toEqual('this is a demo job');
   });
+
+
+  it('should get the new job detail after updating', function() {
+    var newJobName = "demo job for edit update";
+    var newJobDescription = "this is another demo job updated";
+    
+    element('.job-list li:nth-child(2) a').click();
+    element('.job-content .edit').click();
+
+    element('input[name="name"]').val(newJobName);
+    element('.edit-job textarea[name="description"]').val(newJobDescription);
+    element('.edit-job input[type="submit"]').click();
+
+    expect(element('.job-header h1').text()).toEqual(newJobName);
+    expect(element('.job-header .description').text()).toEqual(newJobDescription);
+  });
 });
