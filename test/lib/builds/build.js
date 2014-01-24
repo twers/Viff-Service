@@ -58,4 +58,20 @@ describe("Job build", function () {
       });
     });
   });
+
+  it("should update build", function (done) {
+    var build = new Build({test: "fake",oldValue: 'true'});
+    Jobs.addBuild(createdJobId, build, function () {
+      var build = new Build({test: "true", ifNew: "new"});
+      Jobs.updateBuild(createdJobId, 0, build, function () {
+        Jobs.findBuilds(createdJobId, function (err, builds) {
+          var build = builds[0];
+          build.get('test').should.eql('true');
+          build.get('ifNew').should.eql('new');
+          build.get('oldValue').should.eql('true');
+          done();
+        });
+      });
+    });
+  });
 });

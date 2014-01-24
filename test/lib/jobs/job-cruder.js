@@ -1,7 +1,9 @@
 var JobsModule = require('../../../lib/jobs');
 var cruder = require('../../../lib/jobs/job-cruder');
 cruder = require('../../../lib/database')('jobs', cruder);
-describe('job cruder', function() {
+
+describe('job cruder', function() { 
+  
   var Jobs = JobsModule.Jobs(cruder);
   var Job = JobsModule.Job;
   
@@ -12,9 +14,10 @@ describe('job cruder', function() {
       }
       job.should.be.instanceOf(Job);
       job.get('name').should.equal('zhihao');
-      done();      
+      done(); 
     });
   });
+
   it('should find all jobs', function(done) {
     Jobs.all(function(err,jobs) {
       if (err) {
@@ -26,4 +29,5 @@ describe('job cruder', function() {
       done();
     });
   });
+
 });

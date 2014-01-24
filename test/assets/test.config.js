@@ -8,7 +8,7 @@ module.exports = {
     prod: 'http://www.google.com'
   },
   paths: [
-    '/zihao'
+    '/'
   ], 
   reportFormat: 'file' /* 'html' or 'json' */
 };

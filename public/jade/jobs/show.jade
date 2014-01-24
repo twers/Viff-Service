@@ -1,6 +1,6 @@
 .pure-g.job-header
   .pure-u-4-5
-    a.pure-button.btn-run-job.pure-button-small.pure-button-primary Run
+    a.pure-button.btn-run-job.pure-button-small.pure-button-primary(ng-click="run()") Run
     h1
       | {{job.name}}
       a.edit(ng-href="/jobs/{{job._id}}/edit")
@@ -9,6 +9,8 @@
 .pure-g
   .pure-u-4-5
     h2 Build Detail #2311
+    console(stream="stream")
+    pre {{job.configContent}}
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
     small(ng-hide="containsBuild") No runing history
@@ -16,4 +18,4 @@
       li(ng-repeat="build in builds", ng-class="build.status")
         a
           span.number \#{{build.id}}
-          span.pull-right {{build.createdTime}}
+          span.pull-right {{build.createdTime | timeAgo }}
