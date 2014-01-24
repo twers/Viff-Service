@@ -3,7 +3,7 @@
     a.pure-button.btn-run-job.pure-button-small.pure-button-primary Run
     h1
       | {{job.name}}
-      a.edit(ng-href="#/edit/{{job._id}}")
+      a.edit(ng-href="/jobs/{{job._id}}/edit")
         i.fa.fa-pencil-square-o
     p.description {{job.description}}
 .pure-g
