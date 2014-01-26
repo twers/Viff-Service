@@ -25,6 +25,7 @@ describe('job edit', function () {
     element('.edit-job textarea[name="description"]').val(newJobDescription);
     element('.edit-job input[type="submit"]').click();
 
+    sleep(0.5);
     expect(element('.job-header h1').text()).toEqual(newJobName);
     expect(element('.job-header .description').text()).toEqual(newJobDescription);
   });

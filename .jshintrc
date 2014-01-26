@@ -24,6 +24,7 @@
     "browser": true,
     "angular": true,
     "inject": true,
-    "element": true
+    "element": true,
+    "sleep": true
   }
 }
