@@ -7,7 +7,7 @@ var db = mongoskin.db(environment().db.connection, {safe: true});
 var existingFile;
 var uploadsPath = path.join(__dirname, "../uploads");
 
-// recode existing files in uploads/configFile.json 
+// recode existing files in uploads/configFile.json
 before(function (done) {
   fs.readdir(uploadsPath, function (err, fileList) {
     existingFile = fileList;

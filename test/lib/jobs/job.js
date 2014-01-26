@@ -30,7 +30,7 @@ describe('Jobs RESTFUL', function () {
     return r.form();
   }
 
-  it('should put attached file in %PROJECT_PATH/uploads from post /job', function (done) {
+  it('should put attached file in %PROJECT_PATH/data from post /job', function (done) {
     var form = SendFormRequest('http://localhost:3000/jobs', callback);
     form.append('name', 'test job');
     form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));

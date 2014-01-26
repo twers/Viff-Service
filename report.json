@@ -1,0 +1,1 @@
+{"compares":{"phantomjs":{"/zihao":{"images":{"phantomjs-build":"screenshots/phantomjs/%2Fzihao/phantomjs-build.png","phantomjs-prod":"screenshots/phantomjs/%2Fzihao/phantomjs-prod.png","diff":"screenshots/phantomjs/%2Fzihao/diff.png"},"isSameDimensions":false,"misMatchPercentage":53.89,"analysisTime":31}}},"caseCount":1,"sameCount":0,"diffCount":1,"totalAnalysisTime":31}
