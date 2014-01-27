@@ -202,12 +202,20 @@ module.exports = function(grunt) {
     },
     // server
     mochaTest: {
+      options: {
+        require: ['should'],
+        ui: 'bdd',
+        timeout: 2000
+      },
       test: {
         options: {
-          reporter: 'travis-cov',
-          require: ['should'],
-          ui: 'bdd',
-          timeout: 2000
+          reporter: 'travis-cov'
+        },
+        src: ['test/**/*.js', '!test/assets/**/*.js']
+      },
+      htmlcov: {
+        options: {
+          reporter: 'html-cov'
         },
         src: ['test/**/*.js', '!test/assets/**/*.js']
       }
@@ -272,14 +280,14 @@ module.exports = function(grunt) {
     'karma:unit',
     'karma:e2e',
     'express:test:stop',
-    'mochaTest',
+    'mochaTest:test',
     'clean',
     'db:clean'
   ]);
 
   grunt.registerTask('mocha', [
     'env:test',
-    'mochaTest'
+    'mochaTest:test'
   ]);
   
   grunt.registerTask('dev', [

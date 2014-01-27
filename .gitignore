@@ -13,3 +13,4 @@ public/templates
 uploads/
 .idea/
 selenium-server-standalone.jar
+coverage.html
