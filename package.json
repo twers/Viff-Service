@@ -7,6 +7,11 @@
     "test": "grunt test",
     "start": "node bin/index.js"
   },
+  "config": {
+    "travis-cov": {
+      "threshold": 86
+    }
+  },
   "repository": "",
   "keywords": [
     "viff"
@@ -15,6 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "matchdep": "~0.3.0",
+    "blanket": "~1.1.6",
     "should": "~2.1.1",
     "mocha": "~1.15.1",
     "sinon": "~1.7.3",
@@ -55,7 +61,8 @@
     "karma-coffee-preprocessor": "~0.1.1",
     "karma-mocha": "~0.1.1",
     "karma-ng-scenario": "~0.1.0",
-    "karma-jasmine": "~0.1.4"
+    "karma-jasmine": "~0.1.4",
+    "travis-cov": "~0.2.5"
   },
   "dependencies": {
     "express": "~3.4.6",
