@@ -1,5 +1,5 @@
 require('blanket')({
   pattern: function (filename) {
-    return filename.indexOf('Viff-Service/lib/') > -1;
+    return filename.indexOf(process.cwd() + '/lib/') > -1;
   }
 });
