@@ -13,7 +13,8 @@ module.exports = function(config) {
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
       'karma-firefox-launcher',
-      'karma-ng-scenario'
+      'karma-ng-scenario',
+      'karma-coverage'
     ],
 
     // frameworks to use
@@ -46,9 +47,18 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'scripts/app.js': ['coverage']
+    },
 
+    coverageReporter: {
+      type : 'text-summary'
+    },
     // web server port
     port: 9876,
 

@@ -62,6 +62,7 @@
     "karma-mocha": "~0.1.1",
     "karma-ng-scenario": "~0.1.0",
     "karma-jasmine": "~0.1.4",
+    "karma-coverage": "~0.1",
     "travis-cov": "~0.2.5"
   },
   "dependencies": {
