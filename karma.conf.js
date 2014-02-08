@@ -26,6 +26,7 @@ module.exports = function(config) {
       'bower_components/jquery/jquery.js',
       'bower_components/should/should.js',
       // sources
+      'scripts/app-lib.js',
       'scripts/app.js',
 
       // libs
