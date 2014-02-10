@@ -120,7 +120,9 @@ module.exports = function(grunt) {
             'shoe:',
             'ansi2html:',
             'event-stream:',
-            'lodash:'
+            'lodash:',
+            'util',
+            'events'
           ]
         }
       },
@@ -131,7 +133,7 @@ module.exports = function(grunt) {
         options: {
           alias: ['lib/jobs/index.js:jobs'],
           debug: true,
-          external: ['angular', 'angular-route', 'angular-resource', 'event-stream', 'ansi2html', 'shoe', 'lodash']
+          external: ['angular', 'angular-route', 'angular-resource', 'event-stream', 'ansi2html', 'shoe', 'lodash', 'util', 'events']
         }
       }
     },
