@@ -3,6 +3,7 @@ var path = require('path');
 var mongoskin = require('mongoskin');
 var environment = require('../config/environment');
 var db = mongoskin.db(environment().db.connection, {safe: true});
+require('./coverage');
 
 var existingFile;
 var uploadsPath = path.join(__dirname, "../uploads");

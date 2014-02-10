@@ -7,6 +7,11 @@
     "test": "grunt test",
     "start": "node bin/index.js"
   },
+  "config": {
+    "travis-cov": {
+      "threshold": 86
+    }
+  },
   "repository": "",
   "keywords": [
     "viff"
@@ -15,6 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "matchdep": "~0.3.0",
+    "blanket": "~1.1.6",
     "should": "~2.1.1",
     "mocha": "~1.15.1",
     "sinon": "~1.7.3",
@@ -22,7 +28,7 @@
     "supertest": "~0.8.2",
     "requirejs": "~2.1.9",
     "connect-livereload": "~0.3.0",
-    "browserify": "~2.36.1",
+    "browserify": "~3.24.13",
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-uglify": "~0.2.7",
@@ -39,7 +45,7 @@
     "grunt-contrib-jade": "~0.8.0",
     "grunt-concurrent": "~0.4.2",
     "grunt-nodemon": "~0.1.2",
-    "grunt-browserify": "~1.2.12",
+    "grunt-browserify": "~1.3.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~2.0.2",
@@ -55,7 +61,9 @@
     "karma-coffee-preprocessor": "~0.1.1",
     "karma-mocha": "~0.1.1",
     "karma-ng-scenario": "~0.1.0",
-    "karma-jasmine": "~0.1.4"
+    "karma-jasmine": "~0.1.4",
+    "karma-coverage": "~0.1",
+    "travis-cov": "~0.2.5"
   },
   "dependencies": {
     "express": "~3.4.6",
