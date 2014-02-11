@@ -16,3 +16,4 @@ uploads/
 public/coverage/
 selenium-server-standalone.jar
 coverage.html
+/data
