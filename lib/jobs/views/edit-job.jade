@@ -1,0 +1,26 @@
+extends ../../views/layout
+
+block content
+  div.pure-u-1-1
+      div.edit-job
+        form.pure-form.pure-form-aligned(action="/jobs/#{job._id}", method="post", enctype="multipart/form-data")
+          fieldset
+            legend Edit job
+            div.pure-control-group
+              label 
+                | Job name
+                small (required)
+              input(type="text", placeholder="Enter job name ...", value="#{job.name}", name="name")
+              input(type="hidden", name="_method", value="put")  
+            div.pure-control-group
+              label Job description
+              textarea(rows="5", name="description", placeholder="Enter job description ...", maxLength=300)
+                = job.description
+      
+            div.pure-control-group
+              label(for="config-file")
+                | Config file
+                small (required and the size for config file should be less than 1M.)
+              input(type="file", name="configFile", value="#{filePath}")
+            div.pure-control-group
+              input.pure-button.pure-button-primary(type="submit",value="Save")

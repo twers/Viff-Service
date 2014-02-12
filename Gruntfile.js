@@ -289,8 +289,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'env:test',
-    'db:seed',
     'compile',
+    'db:seed',
     'express:test',
     'karma:unit',
     'karma:e2e',

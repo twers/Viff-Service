@@ -16,6 +16,7 @@ module.exports = function dbSeeds(grunt) {
 
     var build = { id: '1', status: "success", createdTime: Date.now() };
     var build2 = { id: '2', status: "failure", createdTime: Date.now() };
+    var initReady = 2;
 
     Jobs.create({
       name: 'demo job',
@@ -29,10 +30,20 @@ module.exports = function dbSeeds(grunt) {
       Jobs.addBuild(job.get('_id'), build, function () {
         Jobs.addBuild(job.get('_id'), build2, function () {
           console.log('Done. 1 job with 2 builds created.');
-          done();
+          if(--initReady == 0) done();
         });
       });
 
+    Jobs.create({
+      name: 'demo job for edit',
+      description: 'this is another demo job'
+    }, function (ex, job) {
+      if (ex) {
+        throw ex;
+      }
+      console.log('Done. 1 job without builds created.');
+      if(--initReady == 0) done();
+    });
     });
   });
 };
