@@ -179,14 +179,14 @@ module.exports = function(grunt) {
           data: { front_end_build: true }
         },
         files: {
-          'public/templates/footer_scripts.html': 'lib/views/footer_scripts.jade',
+          'public/templates/user_scripts.html': 'lib/views/user_scripts.jade',
           'public/templates/header_styles.html': 'lib/views/header_styles.jade'
         }
       }
     },
     useminPrepare: {
       js: {
-        src: 'public/templates/footer_scripts.html',
+        src: 'public/templates/user_scripts.html',
         options: {
           dest: './public',
           root: './public'
