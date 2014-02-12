@@ -4,6 +4,7 @@ lib/npm-debug.log
 public/dist*
 public/css*
 public/scripts/app.js
+public/scripts/app-lib.js
 public/scripts/templates.js
 public/templates
 .vagrant/
@@ -12,4 +13,6 @@ public/templates
 .tmp
 uploads/
 .idea/
+public/coverage/
 selenium-server-standalone.jar
+coverage.html

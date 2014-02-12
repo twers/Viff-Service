@@ -25,6 +25,7 @@
     "angular": true,
     "inject": true,
     "element": true,
-    "sleep": true
+    "sleep": true,
+    "global": true
   }
 }

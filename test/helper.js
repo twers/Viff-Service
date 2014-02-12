@@ -3,11 +3,12 @@ var path = require('path');
 var mongoskin = require('mongoskin');
 var environment = require('../config/environment');
 var db = mongoskin.db(environment().db.connection, {safe: true});
+require('./coverage');
 
 var existingFile;
 var uploadsPath = path.join(__dirname, "../uploads");
 
-// recode existing files in uploads/configFile.json 
+// recode existing files in uploads/configFile.json
 before(function (done) {
   fs.readdir(uploadsPath, function (err, fileList) {
     existingFile = fileList;

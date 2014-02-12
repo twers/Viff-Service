@@ -2,11 +2,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     // both server && client
-    clean: ['public/scripts/app.js', 'public/scripts/templates.js', 'public/templates', 'public/css', '.tmp'],
+    clean: ['public/scripts/app.js', 'public/scripts/app-lib.js', 'public/scripts/templates.js', 'public/templates', 'public/css', '.tmp'],
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        ignores: ['public/bower_components/**/*.js', 'public/scripts/app.js', 'public/dist/**/*.js']
+        ignores: ['public/bower_components/**/*.js', 'public/scripts/app.js', 'public/scripts/app-lib.js', 'public/dist/**/*.js']
       },
       all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js', 'public/**/*.js']
     },
@@ -107,18 +107,33 @@ module.exports = function(grunt) {
     },
     browserify: {
       options: {
-        alias: [
-          'lib/jobs/index.js:jobs',
-          'public/bower_components/angular/angular.min.js:angular',
-          'public/bower_components/angular-route/angular-route.js:angular-route',
-          'public/bower_components/angular-resource/angular-resource.js:angular-resource'
-        ]
+      },
+      vendor: {
+        files: {
+          'public/scripts/app-lib.js': ['public/scripts/main-lib.js']
+        },
+        options: {
+          alias: [
+            'public/bower_components/angular/angular.min.js:angular',
+            'public/bower_components/angular-route/angular-route.js:angular-route',
+            'public/bower_components/angular-resource/angular-resource.js:angular-resource',
+            'shoe:',
+            'ansi2html:',
+            'event-stream:',
+            'lodash:',
+            'util',
+            'events'
+          ]
+        }
       },
       dev: {
-        src: 'public/scripts/main.js',
-        dest: 'public/scripts/app.js',
+        files: {
+          'public/scripts/app.js': ['public/scripts/main.js']
+        },
         options: {
-          debug: true
+          alias: ['lib/jobs/index.js:jobs'],
+          debug: true,
+          external: ['angular', 'angular-route', 'angular-resource', 'event-stream', 'ansi2html', 'shoe', 'lodash', 'util', 'events']
         }
       }
     },
@@ -202,12 +217,20 @@ module.exports = function(grunt) {
     },
     // server
     mochaTest: {
+      options: {
+        require: ['should'],
+        ui: 'bdd',
+        timeout: 2000
+      },
       test: {
         options: {
-          reporter: 'spec',
-          require: 'should',
-          ui: 'bdd',
-          timeout: 2000
+          reporter: 'travis-cov'
+        },
+        src: ['test/**/*.js', '!test/assets/**/*.js']
+      },
+      htmlcov: {
+        options: {
+          reporter: 'html-cov'
         },
         src: ['test/**/*.js', '!test/assets/**/*.js']
       }
@@ -221,7 +244,6 @@ module.exports = function(grunt) {
       },
       test: {
         options: {
-          background: false,
           script: 'lib/app.js',
           NODE_ENV: 'test'
         }
@@ -253,7 +275,7 @@ module.exports = function(grunt) {
   grunt.registerTask('basic', [
     'jade:compile',
     'html2js',
-    'browserify:dev',
+    'browserify',
     'less'
   ]);
 
@@ -261,7 +283,7 @@ module.exports = function(grunt) {
     'jshint',
     'jade:compile',
     'html2js',
-    'browserify:dev',
+    'browserify',
     'less'
   ]);
 
@@ -272,14 +294,15 @@ module.exports = function(grunt) {
     'express:test',
     'karma:unit',
     'karma:e2e',
-    'mochaTest',
+    'express:test:stop',
+    'mochaTest:test',
     'clean',
     'db:clean'
   ]);
 
   grunt.registerTask('mocha', [
     'env:test',
-    'mochaTest'
+    'mochaTest:test'
   ]);
   
   grunt.registerTask('dev', [
