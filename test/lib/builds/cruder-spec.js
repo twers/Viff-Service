@@ -81,4 +81,20 @@ describe('Builds Cruder', function() {
       });
     });
   });
+
+
+  describe('#fineOneAndUpdate', function() {
+    it('should find a correct one and update', function(done) {
+      var updatedBuild;
+      buildCruder.findOneAndUpdate(currJob._id, 0, { 'test': 'bleh?' })
+                 .then(function(build) {
+                    updatedBuild = build;
+                    return buildCruder.findById(currJob._id, 0);
+                  })
+                 .then(function(build) {
+                    build.should.eql(updatedBuild);
+                    done();
+                  });
+    });
+  });
 });
