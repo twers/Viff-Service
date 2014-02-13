@@ -14,8 +14,8 @@ module.exports = function dbSeeds(grunt) {
     var Jobs = require('../../lib/jobs/app').Jobs;
     var done = this.async();
 
-    var build = { id: '1', status: "success", createdTime: Date.now() };
-    var build2 = { id: '2', status: "failure", createdTime: Date.now() };
+    var build = { _id: 0, status: "success", createdTime: Date.now() };
+    var build2 = { _id: 1, status: "failure", createdTime: Date.now() };
 
     Jobs.create({
       name: 'demo job',

@@ -3,6 +3,7 @@ angular
   .filter('timeAgo',
     function () {
       return function(time) {
+        time = new Date(time);
         var periods = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade'];
         var lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
         var now = Date.now();
@@ -12,7 +13,6 @@ angular
         for(; difference >= lengths[i] && i < lengths.length; i++) {
           difference /= lengths[i];
         }
-
         difference = Math.round(difference);
 
         if(difference != 1) {

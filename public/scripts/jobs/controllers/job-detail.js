@@ -5,22 +5,25 @@ angular.module('viffservice/jobs')
     '$scope',
     '$routeParams',
     'Jobs',
-    'Builds', 
+    'Builds',
     'SockStream',
     function (scope, params, Jobs, Builds, SockStream) {
       var id = params.id;
 
-      Jobs.id(id, function(job) {
+      Jobs.id(id, function (job) {
         scope.job = job;
       });
 
-      scope.run = function() {
+      scope.run = function () {
         var id = scope.job._id;
-        Builds.create({jid: id}, {},function(build) {
+        scope.$emit('viff.build.begin.event');
+        Builds.create({jid: id}, {}, function (build) {
           var stream = SockStream(build.link);
-          stream.pipe(through(function(data) {
-            scope.$emit("viff.console.event", data);
-          }));
+          stream.pipe(through(function (data) {
+              scope.$emit("viff.console.event", data);
+            })).on('end', function () {
+              scope.$emit('viff.build.end.event');
+            });
         });
       };
     }

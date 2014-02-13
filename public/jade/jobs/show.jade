@@ -13,9 +13,10 @@
     pre {{job.configContent}}
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
-    small(ng-hide="containsBuild") No runing history
+    small(ng-hide="hasRunningHistory();") No running history
+    small(ng-show="isRunning") Running ..
     ul
-      li(ng-repeat="build in builds", ng-class="build.status")
+      li(ng-repeat="build in builds|orderBy:'-_id' ", ng-class="build.status")
         a
-          span.number \#{{build.id}}
+          span.number \#{{build._id}}
           span.pull-right {{build.createdTime | timeAgo }}
