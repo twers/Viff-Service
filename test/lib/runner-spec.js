@@ -2,7 +2,6 @@ var sinon = require('sinon');
 var Mocker = require('../mocker');
 var path = require('path');
 var Evt = require('events').EventEmitter;
-var fs = require('fs');
 var should = require('should');
 var runnerContext;
 var runner;
@@ -13,7 +12,7 @@ describe('#Runner', function() {
   var mkdirp;
   beforeEach(function() {
     var mocker = new Mocker();
-    var ps = new Evt;
+    var ps = new Evt();
     ps.kill = sinon.spy();
     childProcess = {
       spawn: sinon.stub()

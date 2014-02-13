@@ -10,12 +10,13 @@ function Mocker() {
 
 Mocker.prototype.use = function(name, mock) {
   this._mocks[name] = mock;
-}
+};
 
 Mocker.prototype.require = function(filePath, globals) {
   var exports = {};
   var context;
   var mocks = this._mocks;
+  
   filePath = path.normalize(filePath);
   globals = globals || {};
 
@@ -30,6 +31,7 @@ Mocker.prototype.require = function(filePath, globals) {
 
   context = {
     require: function(name) {
+      var absPath = path.resolve(path.dirname(filePath), name);
       if (mocks[name]) {
         return mocks[name];
       }
@@ -60,7 +62,7 @@ Mocker.prototype.require = function(filePath, globals) {
 
   vm.runInNewContext(fs.readFileSync(filePath), context, filePath);
   return context;
-}
+};
 
 module.exports = Mocker;
 
