@@ -36,7 +36,7 @@ describe('BuildsListCtrl', function () {
 
     it('should contain build', function () {
       createController();
-      scope.containsBuild.should.be.true;
+      scope.hasRunningHistory().should.be.true;
     });
 
   });
@@ -53,7 +53,7 @@ describe('BuildsListCtrl', function () {
 
     it('should not contain build', function () {
       createController();
-      scope.containsBuild.should.be.false;
+      scope.hasRunningHistory().should.be.false;
     });
 
   });
