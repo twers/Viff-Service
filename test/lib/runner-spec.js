@@ -3,26 +3,50 @@ var Mocker = require('../mocker');
 var path = require('path');
 var Evt = require('events').EventEmitter;
 var should = require('should');
+var Readable = require('stream').Readable;
+var Writable = require('stream').Writable;
 var runnerContext;
 var runner;
 
 
+function fakeRStream() {
+  var rs = new Readable();
+  rs._read = function() {
+    this.push('bleh?');
+    this.push(null);
+  };
+  return rs;
+}
+
+function fakeWStream() {
+  var ws = new Writable();
+  ws._write = function() {};
+  return ws;
+}
+
 describe('#Runner', function() {
   var childProcess;
   var mkdirp;
+  var fs;
   beforeEach(function() {
     var mocker = new Mocker();
     var ps = new Evt();
     ps.kill = sinon.spy();
+    ps.stdout = ps.stderr = fakeRStream();
     childProcess = {
       spawn: sinon.stub()
     };
     mkdirp = {
       sync: sinon.stub()
     };
+    fs = {
+      createWriteStream: sinon.stub()
+    };
     childProcess.spawn.returns(ps);
+    fs.createWriteStream.returns(fakeWStream());
     mocker.use('child_process', childProcess);
     mocker.use('mkdirp', mkdirp);
+    mocker.use('fs', fs);
     runnerContext = mocker.require('lib/runner');
     runner = runnerContext.module.exports;
   });
@@ -85,11 +109,22 @@ describe('#Runner', function() {
       runner._processes[runnerContext.pid(jobName, buildId)].should.equal(ps);
     });
 
+    it('should log stdout to the file [cwd()]/out.log', function() {
+      fs.createWriteStream.called.should.be.true;
+      fs.createWriteStream.calledWith(path.join(runnerContext.cwd(jobName, buildId), 'out.log')).should.be.true;
+    });
+
+    it('should log stderr to the file [cwd()]/err.log', function() {
+      fs.createWriteStream.called.should.be.true;
+      fs.createWriteStream.calledWith(path.join(runnerContext.cwd(jobName, buildId), 'err.log')).should.be.true;
+    });
+
     it('should not be in the cache when the process emit the exit event', function() {
       ps.emit('exit');
       var cached = runner._processes[runnerContext.pid(jobName, buildId)];
       should.equal(cached, undefined);
-    });    
+    });
+
   });
 
 

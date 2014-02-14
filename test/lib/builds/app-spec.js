@@ -1,7 +1,8 @@
 var request = require('request');
 var _ = require('lodash');
 var sinon = require('sinon');
-
+var runner = require('../../../lib/runner');
+var sockStream = require('../../../lib/sock-stream');
 var database = require('../../../lib/database');
 var Build = require('../../../lib/builds/').build;
 var jobCruder = database('jobs', require('../../../lib/jobs/job-cruder'));
@@ -55,6 +56,17 @@ describe('builds app', function () {
   });
 
   describe('POST /jobs/:id/builds', function() {
+
+    beforeEach(function() {
+      sinon.stub(runner, 'run');
+      sinon.stub(sockStream, 'runStream');
+    });
+
+    afterEach(function() {
+      runner.run.restore();
+      sockStream.runStream.restore();
+    });
+
     it('should return status code 404 when jobid is not exists', function(done) {
       request.post('http://localhost:3000/jobs/idnotexists/builds', function(err, res) {
         res.statusCode.should.equal(404);
@@ -74,6 +86,8 @@ describe('builds app', function () {
         body = JSON.parse(body);
         body.should.have.property('config');
         body.config.should.equal('/fake.js');
+        runner.run.called.should.be.true;
+        sockStream.runStream.called.should.be.true;
         done();
       });
     });
