@@ -11,9 +11,10 @@ module.exports = function dbSeeds(grunt) {
      */
 
     var path = require('path');
+    var q = require('q');
     var Jobs = require('../../lib/jobs/app').Jobs;
+    var Builds = require('../../lib/builds/builds');
     var done = this.async();
-
     var build = { _id: 0, status: "success", createdTime: Date.now() };
     var build2 = { _id: 1, status: "failure", createdTime: Date.now() };
     var initReady = 2;
@@ -27,23 +28,23 @@ module.exports = function dbSeeds(grunt) {
         throw ex;
       }
 
-      Jobs.addBuild(job.get('_id'), build, function () {
-        Jobs.addBuild(job.get('_id'), build2, function () {
-          console.log('Done. 1 job with 2 builds created.');
-          if(--initReady == 0) done();
-        });
-      });
-
-    Jobs.create({
-      name: 'demo job for edit',
-      description: 'this is another demo job'
-    }, function (ex, job) {
-      if (ex) {
-        throw ex;
-      }
-      console.log('Done. 1 job without builds created.');
-      if(--initReady == 0) done();
-    });
+      Builds.create(job.get('_id'), build)
+            .then(function() {
+              return Builds.create(job.get('_id'), build2);
+            })
+            .then(function() {
+              if(--initReady == 0) done();
+              Jobs.create({
+                name: 'demo job for edit',
+                description: 'this is another demo job'
+              }, function (ex, job) {
+                if (ex) {
+                  throw ex;
+                }
+                console.log('Done. 1 job without builds created.');
+                if(--initReady == 0) done();
+              });
+            });
     });
   });
 };

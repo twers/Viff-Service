@@ -5,6 +5,7 @@ var runner = require('../../../lib/runner');
 var sockStream = require('../../../lib/sock-stream');
 var database = require('../../../lib/database');
 var Build = require('../../../lib/builds/').build;
+var Builds = require('../../../lib/builds/builds');
 var jobCruder = database('jobs', require('../../../lib/jobs/job-cruder'));
 var Jobs = require('../../../lib/jobs/jobs')(jobCruder);
 
@@ -17,17 +18,17 @@ describe('builds app', function () {
       build2 = new Build({ status: "failure" });
       uri = 'http://localhost:3000/jobs/' + job.get('_id') + '/builds';
 
-      Jobs.addBuild(job.get('_id'), build, function () {
-        Jobs.addBuild(job.get('_id'), build2, function () {
-          done();
-        });
-      });
+      Builds.create(job.get('_id'), build)
+            .then(function() {
+              return Builds.create(job.get('_id'), build2);
+            })
+            .then(function() { done(); });
     });
   });
 
   describe('GET /jobs/:id/builds', function() {
     it('should return status code 500 when causing error', function (done) {
-      var findBuildsStub = sinon.stub(Jobs, 'findBuilds').callsArgWith(1, Error('something wrong'), null);
+      var findBuildsStub = sinon.stub(Builds, 'all').callsArgWith(1, Error('something wrong'), null);
       request.get(uri, function (error, res) {
         res.statusCode.should.equal(500);
         findBuildsStub.restore();
