@@ -90,6 +90,12 @@ describe('Builds', function() {
       ps.emit('exit', 1);
       currBuild.set.calledWith('status', 'failure').should.be.true;
     });
+
+    it('should set the build status with failure when ps have error', function() {
+      sinon.stub(currBuild, 'set');
+      ps.emit('error');
+      currBuild.set.calledWith('status', 'failure').should.be.true;
+    });
   });
 
   
