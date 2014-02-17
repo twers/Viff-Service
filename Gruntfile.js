@@ -114,7 +114,7 @@ module.exports = function(grunt) {
         },
         options: {
           alias: [
-            'public/bower_components/angular/angular.min.js:angular',
+            'public/bower_components/angular/angular.js:angular',
             'public/bower_components/angular-route/angular-route.js:angular-route',
             'public/bower_components/angular-resource/angular-resource.js:angular-resource',
             'shoe:',
@@ -131,7 +131,6 @@ module.exports = function(grunt) {
           'public/scripts/app.js': ['public/scripts/main.js']
         },
         options: {
-          alias: ['lib/jobs/index.js:jobs'],
           debug: true,
           external: ['angular', 'angular-route', 'angular-resource', 'event-stream', 'ansi2html', 'shoe', 'lodash', 'util', 'events']
         }
@@ -289,13 +288,14 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'env:test',
+    'mochaTest:test',
     'compile',
+    'db:clean',
     'db:seed',
     'express:test',
     'karma:unit',
     'karma:e2e',
     'express:test:stop',
-    'mochaTest:test',
     'clean',
     'db:clean'
   ]);
