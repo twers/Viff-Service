@@ -12,7 +12,7 @@ function console($rootScope, $log) {
 
       $rootScope.$on('viff.console.event', function (event, data) {
         $log.debug(data);
-        el.append(ansi2html(data));
+        el.append('<li>' + ansi2html(data) + '</li>');
       });
       
     }
