@@ -2,19 +2,21 @@ require('angular');
 require('angular-route');
 
 require('../builds');
-require('./services/jobs-resource');
-require('./services/jobs');
-require('./controllers/job-list');
+var jobResource = require('./services/jobs-resource');
+var Jobs = require('./services/jobs');
+var jobListCtrl = require('./controllers/job-list');
+var jobDetailCtrl = require('./controllers/job-detail');
 
 var jobsApp = angular.module('viffservice/jobs',[
   'ngRoute',
-  'viffservice/builds',
-  'viffservice/jobs/JobsResource',
-  'viffservice/jobs/JobsFactory',
-  'viffservice/jobs/JobListCtrl'
+  'viffservice/builds'
 ]);
 
-require('./controllers/job-detail');
+
+jobsApp.factory('Jobs', Jobs)
+       .factory('JobsResource', jobResource)
+       .controller('JobListCtrl', jobListCtrl)
+       .controller('JobDetailCtrl', jobDetailCtrl);
 
 jobsApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
