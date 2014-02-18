@@ -6,7 +6,7 @@ var db = mongoskin.db(environment().db.connection, {safe: true});
 require('./coverage');
 
 var existingFile;
-var uploadsPath = path.join(__dirname, "../uploads");
+var uploadsPath = path.join(process.cwd(), "uploads");
 
 // recode existing files in uploads/configFile.json
 before(function (done) {
@@ -21,7 +21,7 @@ after(function (done) {
   //remove uploaded files
   fs.readdir(uploadsPath, function (err, fileList) {
     fileList.forEach(function (file) {
-      if (existingFile.indexOf(file) == -1) {
+      if (existingFile && existingFile.indexOf(file) == -1) {
         fs.unlink(uploadsPath + '/' + file, function (err) {
           if (err) {
             throw err;
