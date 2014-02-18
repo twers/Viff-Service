@@ -10,7 +10,6 @@ module.exports = [function() {
       .pipe(split('\n'))
       .pipe(through(function(data) {
         this.queue(String(data));
-        console.log(String(data));
       }));
 
     return stream;

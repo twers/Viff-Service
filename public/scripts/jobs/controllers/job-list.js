@@ -2,9 +2,12 @@ module.exports = [
   '$scope',
   'Jobs',
   function ($scope, Jobs) {
-    $scope.jobList = Jobs.all(function(jobs) {
-      $scope.selected = jobs[0];
+    
+    Jobs.all(function() {
+      $scope.selected = $scope.jobList[0];
     });
+
+    $scope.jobList = Jobs.list;
 
     $scope.isActive = function(job) {
       return $scope.selected === job;

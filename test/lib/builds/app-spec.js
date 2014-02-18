@@ -61,11 +61,13 @@ describe('builds app', function () {
     beforeEach(function() {
       sinon.stub(runner, 'run');
       sinon.stub(sockStream, 'runStream');
+      sinon.stub(Builds, 'track');
     });
 
     afterEach(function() {
       runner.run.restore();
       sockStream.runStream.restore();
+      Builds.track.restore();
     });
 
     it('should return status code 404 when jobid is not exists', function(done) {
