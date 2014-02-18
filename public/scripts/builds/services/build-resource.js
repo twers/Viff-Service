@@ -1,10 +1,11 @@
-var shoe = require('shoe');
-var emitStream = require('emit-stream');
-var JSONStream = require('JSONStream');
 var builds;
+var timeout;
+
 
 module.exports = [
   '$resource',
+  '$timeout',
+  'BuildEvent',
   Builds
 ];
 
@@ -14,8 +15,10 @@ module.exports = [
  * @param  {String} jobId
  */
 function oncreate(build, jobId) {
-  var list = get(jobId);
-  list[build._id] = build;
+  timeout(function() {
+    var list = get(jobId);
+    list[build._id] = build;  
+  });
 }
 
 /**
@@ -24,12 +27,13 @@ function oncreate(build, jobId) {
  * @param  {String} jobId
  */
 function onupdate(build, jobId) {
-  var originalBuild = get(jobId, build._id);
-  if (!originalBuild) {
-    return oncreate(build, jobId);
-  }
-
-  angular.extend(originalBuild, build);
+  timeout(function() {
+    var originalBuild = get(jobId, build._id);
+    if (!originalBuild) {
+      return oncreate(build, jobId);
+    }
+    angular.extend(originalBuild, build);
+  });
 }
 
 
@@ -51,50 +55,43 @@ function get(jobId, buildId) {
   return build;
 }
 
-function Builds($resource) {
-  var parser = JSONStream.parse([true]);
-  var stream = parser.pipe(shoe('/builds-socket')).pipe(parser);
-  var ev = emitStream(stream);
-
+function Builds($resource, $timeout, ev) {
+  var all;
+  timeout = $timeout;
   builds = $resource('/jobs/:jid/builds/:_id', null, {
     create: { method: 'POST' },
-    all: resourceOpts()
+    all: {
+      method: 'GET',
+      isArray: true
+    }
   });
 
   builds.list = {};
 
+  all = builds.all;
+
+  builds.all = function(obj, fn) {
+    var id = arguments[0].jid;
+    all.call(builds, obj, function(data) {
+      refreshAll(id, data);
+      fn(data);
+    });
+  };
+
   ev.on('create', oncreate);
   ev.on('update', onupdate);
-
+  builds.get = get;
   return builds;
 }
 
 function refreshAll(jobId, newBuilds) {
   var len;
-  builds.list[jobId] = builds.list[jobId] || [];
-  len = builds.list[jobId].length;
-  builds.list[jobId].splice(0, len);
-  builds.list[jobId].push.apply(builds.list[jobId], newBuilds);
+  timeout(function() {
+    var list = get(jobId);
+    len = builds.list[jobId].length;
+    list.splice(0, len);
+    list.push.apply(list, newBuilds);  
+  });
 }
 
-function resourceOpts() {
-  var jobId;
-  return {
-    method: 'GET',
-    isArray: true,
-    transformRequest: function(data) {
-      if (data) {
-        jobId = data.jid;
-      }
-      return data;
-    },
-    transformResponse: function(data) {
-      data = angular.fromJson(data);
-      if (jobId) {
-        refreshAll(jobId, data);
-      }
-      return data;
-    }
-  };
-}
 
