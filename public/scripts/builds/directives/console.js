@@ -4,9 +4,9 @@ var through = require('event-stream').through;
 var ConsoleCtrl = [
   '$scope',
   '$timeout',
-  'BuildEvent',
+  '$http',
+  'GeneralWatcher',
   'SockStream',
-  'Builds',
   consoleCtrl
 ];
 
@@ -29,46 +29,21 @@ function unLinenum(line) {
 }
 
 
-function consoleCtrl($scope, $timeout, BuildEvent, sockStream, Builds) {
+function consoleCtrl($scope, $timeout, $http, GeneralWatcher, SockStream) {
   var stream;
   $scope.startWith = -1;
 
-  function init(jobId) {
-    $scope.jobId = jobId || $scope.jobId;
-    var latest;
-    var len;
-    if (!$scope.jobId) {
-      return;
-    }
+  this.init = GeneralWatcher($scope, oncreate, ondestroy);
 
-    $scope.builds = Builds.get($scope.jobId);
-    len = $scope.builds.length;
-    if (!len) {
-      return Builds.all({jid: $scope.jobId}, function(builds) {
-        if (!builds.length) {
-          return;
-        }
-        $timeout(init);
-      });
-    }
-    BuildEvent.on('create', oncreate);
-    latest = $scope.builds[len - 1];
-
-    if (latest.isRunning) {
-      oncreate(latest, $scope.jobId);
-    }
-
-    $scope.$on('$destroy', function() {
-      BuildEvent.removeListener('create', oncreate);
-      stream && stream.destroy();
-    });
+  function ondestroy() {
+    stream && stream.destroy();
   }
 
   function oncreate(build, jobid) {
     if (jobid !== $scope.jobId) {
       return;
     }
-    stream = sockStream(build.link);
+    stream = SockStream(build.link);
 
     function write(line) {
       line = unLinenum(line);
@@ -95,13 +70,31 @@ function consoleCtrl($scope, $timeout, BuildEvent, sockStream, Builds) {
     }
   }
 
-  this.init = init;
+  $scope.loadPrevious = function() {
+    var latest = $scope.builds[$scope.builds.length - 1];
+    $http({
+      method: 'GET',
+      url: '/jobs/' + $scope.jobId + '/builds/' + latest._id + '/logs/' + $scope.startWith
+    })
+    .success(function(data) {
+      $scope.startWith = 0;
+      $scope.$emit('prevdata', data);
+    })
+    .error(function() {
+      console.error('bleh!');
+    });
+
+  };
+
+  $scope.shouldLoad = function() {
+    return $scope.startWith !== 0;
+  };
 }
 
 function Console() {
   return {
     restrict: 'E',
-    template: '<ul class="console"></ul>',
+    templateUrl: '/templates/builds/console.html',
     controller: ConsoleCtrl,
     scope: {
       jobId: '='
@@ -113,8 +106,14 @@ function Console() {
         ctrl.init(scope.jobId);
       });
 
+      scope.$on('prevdata', function(evt, data) {
+        data.split('\n').reverse().forEach(function(line) {
+          el.find('ul').prepend(angular.element('<li>' + ansi2html(line) + '</li>'));
+        });
+      });
+
       scope.$on('data', function(evt, line) {
-        el.append('<li>' + ansi2html(line) + '</li>');
+        el.find('ul').append('<li>' + ansi2html(line) + '</li>');
       });
       
     }

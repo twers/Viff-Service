@@ -63,7 +63,8 @@ function Builds($resource, $timeout, ev) {
     all: {
       method: 'GET',
       isArray: true
-    }
+    },
+    terminate: { url: '/jobs/:jid/builds/:id/terminate', method: 'POST' }
   });
 
   builds.list = {};
