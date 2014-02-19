@@ -1,0 +1,70 @@
+!!! 5
+html(ng-app='viffReport')
+  head
+    meta(charset='utf8')
+    title Viff Report
+    link(type="text/css", rel="stylesheet", href="/bower_components/normalize-css/normalize.css")
+    link(type="text/css", rel="stylesheet", href="/bower_components/pure/pure.css")
+    link(type="text/css", rel="stylesheet", href="/styles/report.css")
+  body(ng-controller='reportCtrl')
+    header
+      .pure-g-r
+        .pure-u-1-6
+          h1 Viff Report
+        .pure-u-1-2
+          .select-browser
+            label(class='checked-{{browser==search.browser}}', ng-repeat='browser in browsers')
+              input(type='radio', value='{{browser}}', ng-model='search.browser')
+              | {{browser | browserFilter }}
+          .show-only-diff
+            label
+              input(type='checkbox', ng-model='showAll')
+              | Show all cases
+        .pure-u-1-3.show-result
+          span.count {{diffCount()}}
+          | differences in
+          span.count {{caseCount}}
+          | cases
+          span.count {{totalAnalysisTime/1000}}
+          | s
+    main
+      .pure-g-r.diff-header
+        .pure-u-1-6
+          input#search_input.pure-input-1(ng-model='search.url', type='text', placeholder='Search Path...')
+        .pure-u-5-6
+          ul
+            li {{currentViff.url}}
+            li Finished in {{currentViff.analysisTime}}ms
+            li MisMatchPercentage:{{currentViff.misMatchPercentage}}%
+      .pure-g-r
+        .pure-u-1-6.pathList
+          form.pure-form
+            .pure-menu.pure-menu-open
+              ul
+                li(class='viff-{{viff.misMatchPercentage != 0}}', ng-repeat='viff in currentCases | showCases: showAll')
+                  input(id='{{viff.id}}', type='radio', value='{{viff.id}}', ng-model='$parent.currentViffId', name='viffId')
+                  label(for='{{viff.id}}', title='mismatch percentage:{{viff.misMatchPercentage}}%')
+                    | {{viff.url}}
+        .pure-u-1-3.envImages
+          .env-image-block
+            label {{currentViff.envs[0].name}}
+            a(ng-href='{{currentViff.envs[0].path | imagePath }}')
+              img(src='/image/loader.gif', data-loading-src='img/loader.gif', data-src='{{currentViff.envs[0].path | imagePath}}')
+          .env-image-block
+            label {{currentViff.envs[1].name}}
+            a(ng-href='{{currentViff.envs[1].path | imagePath }}')
+              img(src='/image/loader.gif', data-loading-src='img/loader.gif', data-src='{{currentViff.envs[1].path | imagePath }}')
+        .pure-u-1-2.diffImage
+          a(ng-href='{{currentViff.diffPath | imagePath }}')
+            img(src='/image/loader.gif', data-loading-src='img/loader.gif', data-src='{{currentViff.diffPath | imagePath }}')
+        .pure-u-1-2.diff-actions
+          button.pure-button.pure-button-primary.pure-button-xlarge(ng-click='approveDiff()') (A)pprove this diff
+        div
+    script(type='text/javascript', src='/bower_components/jquery/jquery.js')
+    script(type='text/javascript', src='/bower_components/unveil/jquery.unveil.min.js')
+    script(type='text/javascript', src='/bower_components/keymaster/keymaster.js')
+    script(type='text/javascript', src='/bower_components/angular/angular.js')
+    script(type='text/javascript', src='/scripts/report/angular.modules.js')
+    script(type='text/javascript', src='/scripts/report/controllers.js')
+    script(type='text/javascript', src='/scripts/report/services.js')
+    script(type='text/javascript', src='/scripts/report/filters.js')

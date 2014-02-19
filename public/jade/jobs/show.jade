@@ -11,6 +11,7 @@
     h2 Build Detail #2311
     console(stream="stream")
     pre {{job.configContent}}
+    a.pure-button.button-success(href="/jobs/{{job._id}}/build/{{builds._id}}/report") Show Report
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
     small(ng-hide="hasRunningHistory();") No running history
