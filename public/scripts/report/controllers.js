@@ -1,5 +1,7 @@
 angular.module('viffReport', [])
-  .controller('reportCtrl', ['dataService', '$scope', function (dataService, $scope, $http) {
+  .controller('reportCtrl', ['dataService', '$scope', function (dataService, $scope) {
+    var key = window.key;
+
     function init(results, diffCount, caseCount, totalAnalysisTime, browsers) {
       $scope.totalAnalysisTime = totalAnalysisTime;
       
@@ -15,7 +17,7 @@ angular.module('viffReport', [])
 
       function resetCurrentCases(){
         $scope.currentBrowserCases = filter($scope.cases, function(viffCase){ 
-          return viffCase.browser == $scope.search.browser && viffCase.url.indexOf($scope.search.url) >=0
+          return viffCase.browser == $scope.search.browser && viffCase.url.indexOf($scope.search.url) >=0;
         });
         $scope.currentCases = $scope.currentBrowserCases;
         $scope.currentViff = $scope.currentBrowserCases[0];
@@ -25,18 +27,19 @@ angular.module('viffReport', [])
       $scope.diffCount = function(){
         var count = 0;
         angular.forEach($scope.cases, function (item) {
-          if(item.misMatchPercentage != 0) {
+          if(item.misMatchPercentage !== 0) {
             count = count + 1;
           }
         });
         return count;
-      }
-      $scope.$watch('showAll', function(newVal, oldVal){
+      };
+
+      $scope.$watch('showAll', function(newVal){
         // newVal false means show only diff;
         // newVal true means show all
-        if(newVal == false){
+        if(newVal === false){
           $scope.currentBrowserCases = filter($scope.cases, function(viffCase){
-            return viffCase.isSameDimensions == newVal
+            return viffCase.isSameDimensions == newVal;
           });  
           $scope.currentCases = $scope.currentBrowserCases;
           $scope.currentViff = $scope.currentBrowserCases[0];
@@ -46,24 +49,24 @@ angular.module('viffReport', [])
         }
       });
 
-      $scope.$watch('currentViffId', function (newVal, oldVal) {
+      $scope.$watch('currentViffId', function (newVal) {
         $scope.currentViff = filter($scope.currentCases, function (viffCase) {
           return viffCase.id == newVal;
         })[0];
         angular.forEach($(".envImages img, .diffImage img"), function(img){
           img.src = "image/loader.gif";
-        })
+        });
         setTimeout(function(){          
           $(".envImages img, .diffImage img").unveil();
-        }, 5)
+        }, 5);
         
       });
 
-      $scope.$watch('search.browser', function (newVal, oldVal) {
+      $scope.$watch('search.browser', function () {
         resetCurrentCases();
       });
 
-      $scope.$watch('search.url', function (newVal, oldVal) {
+      $scope.$watch('search.url', function (newVal) {
         $scope.currentCases = filter($scope.currentBrowserCases, function(viffCase) {
           return viffCase.url.indexOf(newVal) >= 0;
         });  
@@ -73,10 +76,10 @@ angular.module('viffReport', [])
 
       $scope.approveDiff = function(){
         $scope.currentViff.misMatchPercentage = 0;
-      }      
+      };
 
       $scope.$apply();
-    };
+    }
 
 
     key('/', function(){
@@ -85,7 +88,6 @@ angular.module('viffReport', [])
       });
       return false;
     });
-
     
     key('A, ctrl+A', function(){
       $scope.$apply(function () {
@@ -109,7 +111,7 @@ angular.module('viffReport', [])
     key('k', function () {
       $scope.$apply(function () {
         var idx = $scope.currentCases.indexOf($scope.currentViff);
-        if(idx != 0) {
+        if(idx !== 0) {
           $scope.currentViff = $scope.currentCases[idx - 1];
           $scope.currentViffId = $scope.currentViff.id;
         }
@@ -120,7 +122,7 @@ angular.module('viffReport', [])
     key('h', function () {
       $scope.$apply(function () {
         var idx = $scope.browsers.indexOf($scope.search.browser);
-        if(idx != 0) {
+        if(idx !== 0) {
           $scope.search.browser = $scope.browsers[idx - 1];
         }
         return false;
@@ -139,33 +141,35 @@ angular.module('viffReport', [])
 
     key('f', function () {
       $scope.$apply(function () {
-        $scope.search.browser = "firefox"
+        $scope.search.browser = "firefox";
         return false;
       });
     });
+
     key('c', function () {
       $scope.$apply(function () {
-        $scope.search.browser = "chrome"
+        $scope.search.browser = "chrome";
         return false;
       });
     });
+
     key('i', function () {
       $scope.$apply(function () {
-        $scope.search.browser = "ie"
+        $scope.search.browser = "ie";
         return false;
       });
     });
 
     key('o', function () {
       $scope.$apply(function () {
-        $scope.search.browser = "opera"
+        $scope.search.browser = "opera";
         return false;
       });
     });
 
     key('s', function () {
       $scope.$apply(function () {
-        $scope.search.browser = "safari"
+        $scope.search.browser = "safari";
         return false;
       });
     });
