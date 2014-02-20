@@ -57,7 +57,7 @@ describe('Jobs RESTFUL', function () {
             throw err;
           }
           job.name.should.eql('db save job test');
-          job.config.should.match(/\.js$/);
+          job.config.should.contain('"test": true');
           done();
         });
       }

@@ -288,14 +288,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'env:test',
-    'mochaTest:test',
     'compile',
-    'db:clean',
     'db:seed',
     'express:test',
     'karma:unit',
     'karma:e2e',
     'express:test:stop',
+    'mochaTest:test',
     'clean',
     'db:clean'
   ]);

@@ -1,4 +1,5 @@
 'use strict';
+var fs = require("fs");
 
 module.exports = function dbSeeds(grunt) {
   grunt.registerTask('db:seed', 'seed prepared data', function () {
@@ -18,33 +19,33 @@ module.exports = function dbSeeds(grunt) {
     var build = { _id: 0, status: "success", createdTime: Date.now() };
     var build2 = { _id: 1, status: "failure", createdTime: Date.now() };
     var initReady = 2;
-
+    var configData = fs.readFileSync(path.join(__dirname, '../..', 'test/assets/configFile.js'), 'utf-8');
 
     Jobs.create({
       name: 'demo job',
       description: 'this is a demo job',
-      config: path.join(__dirname, '../..', 'test/assets/configFile.js')
+      config: configData
     }, function (ex, job) {
       if (ex) {
         throw ex;
       }
       Builds.create(job.get('_id'), build)
-            .then(function() {
-              return Builds.create(job.get('_id'), build2);
-            })
-            .then(function() {
-              if(--initReady == 0) done();
-              Jobs.create({
-                name: 'demo job for edit',
-                description: 'this is another demo job'
-              }, function (ex, job) {
-                if (ex) {
-                  throw ex;
-                }
-                console.log('Done. 1 job without builds created.');
-                if(--initReady == 0) done();
-              });
-            });
+        .then(function() {
+          return Builds.create(job.get('_id'), build2);
+        })
+        .then(function() {
+          if(--initReady == 0) done();
+          Jobs.create({
+            name: 'demo job for edit',
+            description: 'this is another demo job'
+          }, function (ex, job) {
+            if (ex) {
+              throw ex;
+            }
+            console.log('Done. 1 job without builds created.');
+            if(--initReady == 0) done();
+          });
+        });
     });
 
 

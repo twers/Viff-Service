@@ -19,5 +19,3 @@ angular
   .directive('console', consoleDirective)
   .directive('runButton', runBtnDirective)
   .controller('BuildsListCtrl', buildListCtrl);
-
-

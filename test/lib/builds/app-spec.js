@@ -87,8 +87,6 @@ describe('builds app', function () {
     it('should get a new build object with job\'s config', function(done) {
       request.post(uri, function(err, res, body) {
         body = JSON.parse(body);
-        body.should.have.property('config');
-        body.config.should.equal('/fake.js');
         runner.run.called.should.be.true;
         sockStream.runStream.called.should.be.true;
         done();
