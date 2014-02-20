@@ -7,6 +7,7 @@ describe('Job List Controller Test', function () {
   beforeEach(module(function($provide) {
     Jobs = sinon.stub({all: function() {}});
     Jobs.all.returns([]);
+    Jobs.list = [];
     $provide.value('Jobs', Jobs);
   }));
 
