@@ -26,7 +26,7 @@ describe('Builds', function() {
     builds
       .create(currjob.get('_id'))
       .then(function(build) {
-        build.get('config').should.equal(currjob.get('config'));
+        build.get('_id').should.equal(0);
         done();
       });
   });

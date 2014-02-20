@@ -33,6 +33,7 @@ describe('#Runner', function() {
     var ps = new Evt();
     ps.kill = sinon.spy();
     ps.stdout = ps.stderr = fakeRStream();
+    ps.stdin = fakeWStream();
     childProcess = {
       spawn: sinon.stub()
     };
@@ -79,7 +80,7 @@ describe('#Runner', function() {
       it('should run create child process viff', function() {
         var expectCwd = runnerContext.cwd(jobName, buildId);
         childProcess.spawn.called.should.be.true;
-        childProcess.spawn.calledWith('viff', [config], { cwd: expectCwd }).should.be.true;
+        childProcess.spawn.calledWith('viffstream', [], { cwd: expectCwd }).should.be.true;
       });
     });
 
@@ -97,8 +98,9 @@ describe('#Runner', function() {
     var jobName = 'test';
     var buildId = 0;
     var ps;
+    var config = "config";
     beforeEach(function() {
-      ps = runner.run(jobName, buildId);
+      ps = runner.run(jobName, buildId, config);
     });
 
     it('should register a exit event in ps', function() {
