@@ -13,5 +13,3 @@ angular
   .factory('Builds', buildResource)
   .directive('console', consoleDirective)
   .controller('BuildsListCtrl', buildListCtrl);
-
-
