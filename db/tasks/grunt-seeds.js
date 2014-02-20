@@ -1,4 +1,5 @@
 'use strict';
+var fs = require("fs");
 
 module.exports = function dbSeeds(grunt) {
   grunt.registerTask('db:seed', 'seed prepared data', function () {
@@ -18,10 +19,12 @@ module.exports = function dbSeeds(grunt) {
     var build2 = { _id: 1, status: "failure", createdTime: Date.now() };
     var initReady = 2;
 
+    var configData = fs.readFileSync(path.join(__dirname, '../..', 'test/assets/configFile.js'), 'utf-8');
+
     Jobs.create({
       name: 'demo job',
       description: 'this is a demo job',
-      config: path.join(__dirname, '../..', 'test/assets/configFile.js')
+      config: configData
     }, function (ex, job) {
       if (ex) {
         throw ex;
