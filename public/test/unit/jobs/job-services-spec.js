@@ -8,9 +8,9 @@ describe('Jobs Services', function () {
 
     beforeEach(module('viffservice/jobs'));
 
-    beforeEach(inject(function($httpBackend, JobsResource) {
+    beforeEach(inject(function($httpBackend, Jobs) {
       httpBackend = $httpBackend;
-      cruder = JobsResource;
+      cruder = Jobs;
     }));
 
     afterEach(function() {

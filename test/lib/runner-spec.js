@@ -178,7 +178,6 @@ describe('#Runner', function() {
 
     it('should call error fn with err when pid is not exits', function() {
       var fn = sinon.spy();
-      runner.on('error', function() {});
       runner.terminate('bleh?', 'bleh!', fn);
       should(fn.args[0][0]).Error;
     });
