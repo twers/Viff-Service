@@ -26,7 +26,7 @@ describe('Builds', function() {
     builds
       .create(currjob.get('_id'))
       .then(function(build) {
-        build.get('config').should.equal(currjob.get('config'));
+        build.get('_id').should.equal(0);
         done();
       });
   });
@@ -88,6 +88,12 @@ describe('Builds', function() {
     it('should set the build status with failure when ps when exit code is not 0', function() {
       sinon.stub(currBuild, 'set');
       ps.emit('exit', 1);
+      currBuild.set.calledWith('status', 'failure').should.be.true;
+    });
+
+    it('should set the build status with failure when ps have error', function() {
+      sinon.stub(currBuild, 'set');
+      ps.emit('error');
       currBuild.set.calledWith('status', 'failure').should.be.true;
     });
   });

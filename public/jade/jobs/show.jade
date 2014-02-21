@@ -1,6 +1,6 @@
 .pure-g.job-header
   .pure-u-4-5
-    a.pure-button.btn-run-job.pure-button-small.pure-button-primary(ng-click="run()") Run
+    run-button(job-id="job._id")
     h1
       | {{job.name}}
       a.edit(ng-href="/jobs/{{job._id}}/edit")
@@ -9,7 +9,7 @@
 .pure-g
   .pure-u-4-5
     h2 Build Detail #2311
-    console(stream="stream")
+    console(job-id="job._id")
     pre {{job.configContent}}
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History

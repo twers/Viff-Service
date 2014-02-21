@@ -4,21 +4,19 @@ module.exports = [
   '$routeParams',
   'Builds',
   function (rootScope, scope, params, Builds) {
+    
     var id = params.id;
+    scope.builds = Builds.get(id);
     rootScope.$on('viff.build.begin.event', function () {
       scope.isRunning = true;
-      console.log("event begin", scope.isRunning);
     });
 
     rootScope.$on('viff.build.end.event', function () {
       scope.isRunning = false;
-      getList();
     });
 
     function getList() {
-      Builds.all({ jid: id }, function (builds) {
-        console.log("build", builds);
-        scope.builds = builds;
+      Builds.all({ jid: id }, function () {
       });
     }
 

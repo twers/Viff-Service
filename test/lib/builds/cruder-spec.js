@@ -1,4 +1,5 @@
 var q = require('q');
+var sinon = require('sinon');
 var should = require('should');
 var jobCruder = require('../../../lib/jobs/job-cruder');
 var buildCruder = require('../../../lib/builds/build-cruder');
@@ -61,6 +62,7 @@ describe('Builds Cruder', function() {
         done();
       });
     });
+
   });
 
   describe('#latest', function() {
@@ -70,6 +72,24 @@ describe('Builds Cruder', function() {
         done();
       });
     });
+  });
+
+  it('should catch errors', function(done) {
+    var methods = ['all', 'latest'];
+  
+    (function testErr(i) {
+      if (i === methods.length) {
+        done();
+        return;
+      }
+      var method = methods[i];
+      var findById = sinon.stub(db('jobs'), 'findById').callsArgWith(2, new Error('test error'));
+      buildCruder[method](currJob._id, function(err) {
+        should(err).Error;
+        findById.restore();
+        testErr(++i);
+      });
+    })(0);
   });
 
 
