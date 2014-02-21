@@ -265,6 +265,11 @@ module.exports = function(grunt) {
       production: {
         NODE_ENV: 'production'
       }
+    },
+    concat: {
+      options: {
+        separator: ";"
+      }
     }
     
   });
