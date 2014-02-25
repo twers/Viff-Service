@@ -1,7 +1,7 @@
 {
   "curly" : true,
   "forin" : true,
-  "indent" : 2,
+
   "noarg" : true,
   "undef" : true,
   "unused" : true,

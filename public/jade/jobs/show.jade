@@ -24,3 +24,5 @@
         a
           span.number \#{{build._id}}
           span.pull-right {{build.createdTime | timeAgo }}
+
+        span(ng-bind='getTaskListLength(build.config)')
