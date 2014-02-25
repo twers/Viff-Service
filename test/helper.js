@@ -1,12 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('mongodb://localhost:27017/viffService?auto_reconnect', {safe: true});
+var environment = require('../config/environment');
+var db = mongoskin.db(environment().db.connection, {safe: true});
+require('./coverage');
 
 var existingFile;
-var uploadsPath = path.join(__dirname, "../uploads");
+var uploadsPath = path.join(process.cwd(), "uploads");
 
-// recode existing files in uploads/configFile.json 
+// recode existing files in uploads/configFile.json
 before(function (done) {
   fs.readdir(uploadsPath, function (err, fileList) {
     existingFile = fileList;
@@ -19,7 +21,7 @@ after(function (done) {
   //remove uploaded files
   fs.readdir(uploadsPath, function (err, fileList) {
     fileList.forEach(function (file) {
-      if (existingFile.indexOf(file) == -1) {
+      if (existingFile && existingFile.indexOf(file) == -1) {
         fs.unlink(uploadsPath + '/' + file, function (err) {
           if (err) {
             throw err;

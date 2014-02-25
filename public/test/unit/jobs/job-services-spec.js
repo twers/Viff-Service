@@ -4,13 +4,13 @@ describe('Jobs Services', function () {
   describe('JobsResource', function() {
     var httpBackend,
         cruder,
-        expectJob = { _id: 123, name: 'test' };
+        expectJob = { id: 123, name: 'test' };
 
     beforeEach(module('viffservice/jobs'));
 
-    beforeEach(inject(function($httpBackend, JobsResource) {
+    beforeEach(inject(function($httpBackend, Jobs) {
       httpBackend = $httpBackend;
-      cruder = JobsResource;
+      cruder = Jobs;
     }));
 
     afterEach(function() {
@@ -60,14 +60,14 @@ describe('Jobs Services', function () {
         httpBackend.when('GET', /\/jobs\/\d+/).respond(expectJob);
       });
 
-      it('should send GET /jobs/:id when calling show with an object which have _id prop', function() {
+      it('should send GET /jobs/:id when calling show with an object which have id prop', function() {
         httpBackend.expectGET('/jobs/123');
-        cruder.show({_id: 123});
+        cruder.show({id: 123});
         httpBackend.flush();
       });
 
       it('should get the result from server', function() {
-        var job = cruder.show({_id: 123});
+        var job = cruder.show({id: 123});
         httpBackend.flush();
         job.name.should.equal(expectJob.name);
       });
@@ -78,7 +78,7 @@ describe('Jobs Services', function () {
         httpBackend.when('GET', /\/jobs\/\d+/).respond(expectJob);
       });
 
-      it('should send GET /jobs/:id when calling show with an _id', function() {
+      it('should send GET /jobs/:id when calling show with an id', function() {
         httpBackend.expectGET('/jobs/123');
         cruder.findById(123);
         httpBackend.flush();
@@ -101,14 +101,14 @@ describe('Jobs Services', function () {
         cruder.update(expectJob);
         httpBackend.flush();
       });
-      
+
       it('should get the updated object after request', function() {
         httpBackend.expectPUT('/jobs/123', expectJob);
         var job = cruder.update(expectJob);
         httpBackend.flush();
         job.name.should.equal(expectJob.name);
-        job._id.should.equal(expectJob._id);
-      }); 
+        job.id.should.equal(expectJob.id);
+      });
     });
 
     describe('#remove', function () {
@@ -118,7 +118,7 @@ describe('Jobs Services', function () {
 
       it('should send DELETE /jobs/:id request', function() {
         httpBackend.expectDELETE('/jobs/123');
-        cruder.remove({_id: 123});
+        cruder.remove({id: 123});
         httpBackend.flush();
       });
     });
@@ -135,9 +135,9 @@ describe('Jobs Services', function () {
       });
     });
   });
-  
+
   describe('JobsFactory', function () {
-    
+
   });
 
 });

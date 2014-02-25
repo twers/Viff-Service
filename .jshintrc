@@ -5,7 +5,6 @@
   "noarg" : true,
   "undef" : true,
   "unused" : true,
-  "maxparams" : 4,
   "maxdepth" : 4,
   "browser" : true,
   "node" : true,
@@ -24,6 +23,9 @@
     "expect": true,
     "browser": true,
     "angular": true,
-    "inject": true
+    "inject": true,
+    "element": true,
+    "sleep": true,
+    "global": true
   }
 }

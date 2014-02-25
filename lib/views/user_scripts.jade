@@ -4,18 +4,11 @@ mixin add_lib_script(path)
 mixin add_user_script(path)
   script(src='/scripts/#{path}')
 
-if process.env.NODE_ENV === 'prod'
-  +add_lib_script('/js/lib.js')
-  +add_lib_script('/js/app.js')
-  
-
-if process.env.NODE_ENV === 'dev'
-  // build:js /js/lib.js
-  +add_lib_script('angular/angular.js')
-  +add_lib_script('angular-route/angular-route.js')
-  // buildend
-
-  // build:js /js/app.js
-  +add_user_script('home/index.js')
-  +add_user_script('main.js')
-  // buildend
+- env = process.env.NODE_ENV
+if env === 'development' || env === 'test' || front_end_build === true
+  // build:js /dist/scripts/app.js
+  +add_user_script('app-lib.js')
+  +add_user_script('app.js')
+  // endbuild
+else
+  script(src='/scripts/app.js')

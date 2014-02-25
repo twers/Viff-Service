@@ -1,0 +1,51 @@
+'use strict';
+
+module.exports = {
+  seleniumHost: 'http://localhost:4444/wd/hub',
+  browsers: ['phantomjs'/*, 'chrome', 'safari', 'opera'*/],
+  envHosts: {
+    build: 'http://baidu.com',
+    prod: 'http://www.google.com'
+  },
+  paths: [
+    '/',
+    '/#q=ddd&safe=strict',
+    '/#q=eee&safe=strict',
+    '/#q=fff&safe=strict',
+    '/#q=ggg&safe=strict',
+    '/#q=w33&safe=strict',
+    '/#q=122&safe=strict',
+    '/#q=323&safe=strict',
+    '/#q=213&safe=strict',
+    '/#q=ttt&safe=strict',
+    '/#q=ddd&safe=strict',
+    '/#q=rvf&safe=strict',
+    '/#q=fdd&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=fds&safe=strict',
+    '/#q=aaa&safe=strict'
+  ], 
+  reportFormat: 'file' /* 'html' or 'json' */
+};

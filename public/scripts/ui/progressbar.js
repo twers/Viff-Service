@@ -11,11 +11,6 @@ angular.module('viffservice/ui/progressbar', [])
       type: '@',
       percentage: '=',
       transAnimate: '='
-    },
-    link: function(scope, element, attrs) {
-      console.log(scope, element, attrs);
-
-
     }
   };
 

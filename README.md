@@ -1,4 +1,8 @@
-Viff Service ![Build Status](https://travis-ci.org/twers/Viff-Service.png)
+**It's still in developing, you could use commanline version instead** [Viff Command Line](https://github.com/winsonwq/viff), and follow messages in [Viff Google Group](https://groups.google.com/forum/#!forum/viff), we will keep you updated...
+
+------
+
+Viff Service [![Build Status](https://travis-ci.org/twers/Viff-Service.png)](https://travis-ci.org/twers/Viff-Service)
 ===============
 
 Viff as service in cloud, no need to install again, MATE!!
