@@ -9,7 +9,7 @@
   },
   "config": {
     "travis-cov": {
-      "threshold": 70
+      "threshold": 60
     }
   },
   "repository": "",
@@ -79,6 +79,8 @@
     "shoe": "0.0.15",
     "event-stream": "~3.1.0",
     "ansi2html": "0.0.1",
-    "mv": "1.0.0"
+    "mv": "1.0.0",
+    "emit-stream": "~0.1.2",
+    "JSONStream": "~0.8.0"
   }
 }

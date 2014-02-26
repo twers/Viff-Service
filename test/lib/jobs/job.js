@@ -1,11 +1,14 @@
 var request = require('request');
 var fs = require('fs');
 var mongoskin = require('mongoskin');
+var sinon = require('sinon');
 
 var environment = require('../../../config/environment');
 var db = mongoskin.db(environment().db.connection, {safe: true});
 var JobsModule = require('../../../lib/jobs');
 var revertEnvTool = require('../../tools');
+var JobsModel = require('../../../lib/jobs/app').Jobs;
+var database = require('../../../lib/database');
 
 require('../../../lib/app');
 
@@ -54,7 +57,7 @@ describe('Jobs RESTFUL', function () {
             throw err;
           }
           job.name.should.eql('db save job test');
-          job.config.should.match(/\.js$/);
+          job.config.should.contain('"test": true');
           done();
         });
       }
@@ -87,6 +90,20 @@ describe('Jobs RESTFUL', function () {
       });
     }
   });
+
+  it('should return 400 when have error', function(done) {
+    sinon.stub(JobsModel, 'id').callsArgWith(1, new Error());
+    var r = request.put('http://localhost:3000/jobs/bleh', function(req, res) {
+      res.statusCode.should.equal(400);
+      JobsModel.id.restore();
+      done();
+    });
+
+    var form = r.form();
+    form.append('name', 'job with id');
+    form.append('configFile', fs.createReadStream(process.cwd() + '/test/assets/configFile.js'));
+  });
+
 });
 
 
@@ -109,6 +126,10 @@ describe('Jobs MODEL', function () {
     beforeEach(function () {
       memCruder._store = [];
       Jobs = JobsModule.Jobs(memCruder);
+    });
+
+    after(function() {
+      Jobs = JobsModule.Jobs(database('jobs', require('../../../lib/jobs/job-cruder')));
     });
 
     it('should create a new job', function (done) {

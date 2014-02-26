@@ -1,19 +1,20 @@
-angular
-  .module('viffservice/jobs/JobListCtrl', [])
-  .controller('JobListCtrl', [
-    '$scope',
-    'Jobs',
-    function ($scope, Jobs) {
-      $scope.jobList = Jobs.all(function(jobs) {
-        $scope.selected = jobs[0];
-      });
+module.exports = [
+  '$scope',
+  'Jobs',
+  function ($scope, Jobs) {
+    
+    Jobs.all(function() {
+      $scope.selected = $scope.jobList[0];
+    });
 
-      $scope.isActive = function(job) {
-        return $scope.selected === job;
-      };
+    $scope.jobList = Jobs.list;
 
-      $scope.select = function(job) {
-        $scope.selected = job;
-      };
-    }
-  ]);
+    $scope.isActive = function(job) {
+      return $scope.selected === job;
+    };
+
+    $scope.select = function(job) {
+      $scope.selected = job;
+    };
+  }
+];

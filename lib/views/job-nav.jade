@@ -2,5 +2,5 @@ aside.pure-u-1-6.job-list(ng-controller="JobListCtrl")
   a.pure-button.pure-button-primary.btn-add-job(href="/jobs/new") Create Job
   .pure-menu.pure-menu-open
     ul
-      li(ng-repeat="job in jobList")
+      li(ng-repeat="job in jobList | reverse")
         a(ng-href="#/jobs/{{job._id}}", ng-click="select(job)", ng-class="{ 'active': isActive(job) }", class="{{ job.status }}") {{ job.name }}
