@@ -4,7 +4,7 @@ describe('builds list', function () {
 
   beforeEach(function () {
     browser().navigateTo('/');
-    element('.job-list li:first-child a').click();
+    element('.job-list li:nth-child(2) a').click();
   });
 
   it('should list builds list for given job', function () {
