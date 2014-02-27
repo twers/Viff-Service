@@ -19,7 +19,7 @@ describe('Builds Cruder', function() {
     var create = q.nbind(buildCruder.create, buildCruder);
     return q.nfcall(create, jid, obj);
   }
-
+  var expectBuild = { test: 'test', _id: 0 };
   var currJob;
   var currBuild;
 
@@ -32,7 +32,7 @@ describe('Builds Cruder', function() {
     })
     .then(function(job) {
       currJob = job;
-      return createBuild(job._id, { 'test': 'test' });
+      return createBuild(job._id, expectBuild);
     })
     .then(function(build) {
       currBuild = build;
@@ -50,7 +50,7 @@ describe('Builds Cruder', function() {
     });
 
     it('should have the same build info as it created', function() {
-      currBuild.should.eql({test: 'test'});
+      currBuild.should.eql(expectBuild);
     });
   });
 
@@ -95,7 +95,7 @@ describe('Builds Cruder', function() {
 
   describe('#findById', function() {
     it('should query the build by id', function(done) {
-      buildCruder.findById(currJob._id, 0, function(err, build) {
+      buildCruder.findById(currJob._id, currBuild._id, function(err, build) {
         build.should.eql(currBuild);
         done();
       });
@@ -106,14 +106,18 @@ describe('Builds Cruder', function() {
   describe('#fineOneAndUpdate', function() {
     it('should find a correct one and update', function(done) {
       var updatedBuild;
-      buildCruder.findOneAndUpdate(currJob._id, 0, { 'test': 'bleh?' })
+      
+      buildCruder.findOneAndUpdate(currJob._id, currBuild._id, { 'test': 'bleh?' })
                  .then(function(build) {
                     updatedBuild = build;
-                    return buildCruder.findById(currJob._id, 0);
+                    return buildCruder.findById(currJob._id, currBuild._id);
                   })
                  .then(function(build) {
                     build.should.eql(updatedBuild);
                     done();
+                  })
+                 .catch(function(e) {
+                    console.error(e);
                   });
     });
   });
