@@ -4,6 +4,7 @@
   "description": "cloud service for viff",
   "main": "index.js",
   "scripts": {
+    "phantomjs": "phantomjs --webdriver=4444",
     "test": "grunt test",
     "start": "node bin/index.js"
   },
