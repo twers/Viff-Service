@@ -18,11 +18,3 @@ module.exports = [
     };
   }
 ];
-
-
-
-// * already get the job.status correcttly
-//   * when there is no build, then just show "no-test"
-//   * otherwise:
-//     * so how to update the job status as build status
-//       * when build status changs
