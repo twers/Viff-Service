@@ -9,15 +9,18 @@
 .pure-g
   .pure-u-4-5
     h2 Build Detail #2311
+
     console(job-id="job._id")
     pre {{job.configContent}}
     a.pure-button.button-success(href="/jobs/{{job._id}}/build/{{builds._id}}/report") Show Report
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
     small(ng-hide="hasRunningHistory();") No running history
-    small(ng-show="isRunning") Running ..
     ul
       li(ng-repeat="build in builds|orderBy:'-_id' ", ng-class="build.status")
         a
-          span.number \#{{build._id}}
-          span.pull-right {{build.createdTime | timeAgo }}
+            span.number \#{{build._id}}
+            span.pull-right {{build.createdTime | timeAgo }}
+
+        p(ng-show="build.isRunning",style="margin-top:7px")
+            progressbar(type="striped",percentage='1',animate='true')
