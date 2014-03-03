@@ -10,8 +10,5 @@ module.exports = [
     scope.hasRunningHistory = function () {
       return !!(scope.builds && scope.builds.length);
     };
-
-    Builds.all({ jid: id }, function () {
-    });
   }
 ];
