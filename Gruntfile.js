@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['public/**/*.less'],
-        tasks: ['less'],
+        tasks: ['less:dev'],
         options: {
           spawn: false,
           livereload: true
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
           nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
-            NODE_ENV: 'development'            
+            NODE_ENV: 'development'
           }
         }
       },
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
           nodeArgs: ['--debug'],
           delayTime: 1,
           env: {
-            NODE_ENV: 'development'            
+            NODE_ENV: 'development'
           }
         }
       }
@@ -147,13 +147,24 @@ module.exports = function(grunt) {
       }
     },
     less: {
-      compile: {
+      dev: {
         options: {
           paths: ['public/styles'],
           dumpLineNumbers: "comments"
         },
         files: {
           'public/css/main.css': 'public/styles/main.less'
+        }
+      },
+      prod: {
+        options: {
+          paths: ['public/styles'],
+          dumpLineNumbers: "comments",
+          compress: true,
+          cleancss: true
+        },
+        files: {
+          'public/dist/css/main.css': 'public/styles/main.less'
         }
       }
     },
@@ -196,6 +207,32 @@ module.exports = function(grunt) {
         options: {
           dest: './public',
           root: './public'
+        }
+      }
+    },
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        dest: 'public/dist/scripts/app.js',
+        src: [
+          'public/scripts/app-lib.js',
+          'public/scripts/app.js'
+        ]
+      }
+    },
+    uglify: {
+      options: {
+        compress: {
+          drop_console: true
+        }
+      },
+      dist: {
+        files: {
+          'public/dist/scripts/app.js': [
+            'public/dist/scripts/app.js'
+          ]
         }
       }
     },
@@ -264,15 +301,9 @@ module.exports = function(grunt) {
       production: {
         NODE_ENV: 'production'
       }
-    },
-    concat: {
-      options: {
-        separator: ";"
-      }
     }
-    
   });
-  
+
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   grunt.loadTasks('./db/tasks');
 
@@ -280,7 +311,7 @@ module.exports = function(grunt) {
     'jade:compile',
     'html2js',
     'browserify',
-    'less'
+    'less:dev'
   ]);
 
   grunt.registerTask('compile', [
@@ -288,7 +319,7 @@ module.exports = function(grunt) {
     'jade:compile',
     'html2js',
     'browserify',
-    'less'
+    'less:dev'
   ]);
 
   grunt.registerTask('test', [
@@ -308,7 +339,7 @@ module.exports = function(grunt) {
     'env:test',
     'mochaTest:test'
   ]);
-  
+
   grunt.registerTask('dev', [
     'compile',
     'concurrent:dev'
@@ -323,10 +354,9 @@ module.exports = function(grunt) {
     'test',
     'compile',
     'jade:build',
-    'useminPrepare',
     'concat',
     'uglify',
-    'cssmin',
+    'less:prod',
     'clean',
     'copy:dist'
   ]);
