@@ -194,22 +194,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    useminPrepare: {
-      js: {
-        src: 'public/templates/user_scripts.html',
-        options: {
-          dest: './public',
-          root: './public'
-        }
-      },
-      css: {
-        src: 'public/templates/header_styles.html',
-        options: {
-          dest: './public',
-          root: './public'
-        }
-      }
-    },
     concat: {
       options: {
         separator: ';'
