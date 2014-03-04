@@ -8,7 +8,8 @@
     p.description {{job.description}}
 .pure-g
   .pure-u-4-5
-    h2 Build Detail #2311
+    h2 Build Detail #
+      span(ng-bind="builds[builds.length - 1]._id")
 
     console(job-id="job._id")
     pre {{job.configContent}}
