@@ -19,10 +19,10 @@ function unLinenum(line) {
   if (matches) {
     linenum = matches[1];
     line = matches[2];
-    ret =  {
+    ret = {
       num: Number(linenum),
       content: String(line)
-    }; 
+    };
   }
 
   return ret;
@@ -44,6 +44,8 @@ function consoleCtrl($scope, $timeout, $http, GeneralWatcher, SockStream) {
       return;
     }
     stream = SockStream(build.link);
+
+    $scope.$broadcast('refresh');
 
     function write(line) {
       line = unLinenum(line);
@@ -70,23 +72,23 @@ function consoleCtrl($scope, $timeout, $http, GeneralWatcher, SockStream) {
     }
   }
 
-  $scope.loadPrevious = function() {
+  $scope.loadPrevious = function () {
     var latest = $scope.builds[$scope.builds.length - 1];
     $http({
       method: 'GET',
       url: '/jobs/' + $scope.jobId + '/builds/' + latest._id + '/logs/' + $scope.startWith
     })
-    .success(function(data) {
-      $scope.startWith = 0;
-      $scope.$emit('prevdata', data);
-    })
-    .error(function() {
-      console.error('bleh!');
-    });
+      .success(function (data) {
+        $scope.startWith = 0;
+        $scope.$broadcast('prevdata', data);
+      })
+      .error(function () {
+        console.error('bleh!');
+      });
 
   };
 
-  $scope.shouldLoad = function() {
+  $scope.shouldLoad = function () {
     return $scope.startWith !== 0;
   };
 }
@@ -97,25 +99,30 @@ function Console() {
     templateUrl: '/templates/builds/console.html',
     controller: ConsoleCtrl,
     scope: {
-      jobId: '='
+      jobId: '=',
+      lastBuildId: '='
     },
     replace: true,
-    link: function(scope, el, attr, ctrl) {
+    link: function (scope, el, attr, ctrl) {
 
-      scope.$watch('jobId', function() {
+      scope.$watch('jobId', function () {
         ctrl.init(scope.jobId);
       });
 
-      scope.$on('prevdata', function(evt, data) {
-        data.split('\n').reverse().forEach(function(line) {
+      scope.$on('refresh', function () {
+        el.find('ul').html('');
+      });
+
+      scope.$on('prevdata', function (evt, data) {
+        data.split('\n').reverse().forEach(function (line) {
           el.find('ul').prepend(angular.element('<li>' + ansi2html(line) + '</li>'));
         });
       });
 
-      scope.$on('data', function(evt, line) {
+      scope.$on('data', function (evt, line) {
         el.find('ul').append('<li>' + ansi2html(line) + '</li>');
       });
-      
+
     }
   };
 }
