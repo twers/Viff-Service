@@ -56,6 +56,7 @@ function Jobs($resource, $timeout) {
   };
   
   ev.on('create', oncreate);
+  ev.on('update', onupdate);
 
   jobs.list = [];
 
@@ -84,6 +85,23 @@ function oncreate(job) {
       return;
     }
     jobs.list.push(job);
+  });
+}
+
+/**
+ * called when server updated a job
+ * @param {Object} job item from server
+ * @return
+ */
+function onupdate(job) {
+  timeout(function() {
+    var jobIndex = 0;
+    jobs.list.forEach(function(item, index){
+      if (item._id == job._id) {
+        jobIndex = index;
+      }
+    });
+    jobs.list[jobIndex].status = job.status;
   });
 }
 
