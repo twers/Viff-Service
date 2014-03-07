@@ -155,6 +155,7 @@ describe('#Runner', function() {
     });
   });
 
+
   describe('#terminate', function() {
     var jobName = 'test';
     var buildId = 0;
@@ -196,4 +197,21 @@ describe('#Runner', function() {
     });
   });
 
+
+  describe('#check running', function() {
+    var jobId = 'test';
+    var buildId = 0;
+    var ps;
+    beforeEach(function() {
+      ps = runner.run(jobId, buildId);
+    });
+
+    it('should reuturn true when job is running', function() {
+      runner.isRunning(jobId).should.be.true;
+    });
+
+    it('should return false when job is not running', function() {
+      runner.isRunning('bleh').should.be.false;
+    });
+  });
 });
