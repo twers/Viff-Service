@@ -13,7 +13,8 @@
 
     console(job-id="job._id")
     pre {{job.configContent}}
-    a.pure-button.button-success(href="/jobs/{{job._id}}/build/{{builds._id}}/report") Show Report
+    // no build id yet, just showing latest build's report
+    a.pure-button.button-success(href="/jobs/{{job._id}}/build/{{builds.length-1}}/report") Show Report
   .pure-u-1-5.job-history(ng-controller="BuildsListCtrl")
     h2 History
     small(ng-hide="hasRunningHistory();") No running history

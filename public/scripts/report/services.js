@@ -5,7 +5,7 @@ angular.module('viffReport')
       var viffCase = angular.copy(oneCase);
       viffCase.browser = browser;
       viffCase.url = url;
-      viffCase.diffPath = viffCase.images.diff;
+      viffCase.diffPath = viffCase.images.diff.replace(/%2F/gi,"%252F");
       viffCase.id = 'viff' + parseInt(Math.random() * new Date().getTime());
 
       viffCase.envs = [];
@@ -13,7 +13,7 @@ angular.module('viffReport')
         if(envName != 'diff') {
           viffCase.envs.push({
             name: envName,
-            path: path
+            path: path.replace(/%2F/gi,"%252F")
           });
         }
       });
