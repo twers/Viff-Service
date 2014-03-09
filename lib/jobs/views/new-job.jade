@@ -6,22 +6,24 @@ block content
       form.pure-form.pure-form-aligned(action="/jobs", method="post", enctype="multipart/form-data")
         fieldset
           legend Create a job
-
           div.pure-control-group
             label 
               | Job name
               small (required)
-            input(type="text", placeholder="Enter job name ...", name="name")
-
-          div.pure-control-group
+              if (nameError)
+                input.error(type="text", placeholder="#{nameError}", name="name")
+              else
+                input(type="text", placeholder="Enter job name ...", name="name")
+              div.pure-control-group
             label Job description
             textarea(rows="5", name="description", placeholder="Enter job description ...", maxLength=300)
     
           div.pure-control-group
             label(for="config-file")
               | Config file
-              small (required and the size for config file should be less than 1M.)
+              small (js file required and the size for config file should be less than 1M.)
             input(type="file", name="configFile")
-          div.pure-control-group
+            small.error  #{configFileError}
+              div.pure-control-group
             input.pure-button.pure-button-primary(type="submit",value="Save")
 
