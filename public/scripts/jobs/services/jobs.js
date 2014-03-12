@@ -11,7 +11,7 @@ module.exports = [
 
 /**
  * properties
- *   - list: [] 
+ *   - list: []
  */
 var jobs;
 var timeout;
@@ -31,7 +31,7 @@ function refreshAll(data) {
 
 /**
  * get notification and maintain the singleton job list in this app
- * @param {Jobs} Jobs model 
+ * @param {Jobs} Jobs model
  * @param {$log} $log logger from ng
  */
 function Jobs($resource, $timeout) {
@@ -43,8 +43,8 @@ function Jobs($resource, $timeout) {
     create: { method: 'POST' },
     show: { method: 'GET' },
     update: { method: 'PUT', params: { id: '@id' } },
-    all: { method: 'GET', isArray: true, transformResponse: refreshAll },
-    remove: { method: 'DELETE' }
+    remove: { method: 'DELETE', params: { id: '@id' } },
+    all: { method: 'GET', isArray: true, transformResponse: refreshAll }
   });
 
   jobs.removeById = function(id) {
@@ -54,9 +54,10 @@ function Jobs($resource, $timeout) {
   jobs.findById = jobs.id = function(id, fn) {
     return this.show({id: id}, fn);
   };
-  
+
   ev.on('create', oncreate);
   ev.on('update', onupdate);
+  ev.on('remove', onremove);
 
   jobs.list = [];
 
@@ -105,4 +106,12 @@ function onupdate(job) {
   });
 }
 
-
+/**
+ * called when remove a job
+ *
+ */
+function onremove(job) {
+  timeout(function() {
+    jobs.list.pop(job);
+  });
+}
