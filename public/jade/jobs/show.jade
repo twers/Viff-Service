@@ -1,10 +1,12 @@
 .pure-g.job-header
   .pure-u-4-5
     run-button(job-id="job._id")
+    a.pure-button.pure-button-small.btn-delete-job(ng-click="deleteJob(job._id)") Delete
     h1
       | {{job.name}}
       a.edit(ng-href="/jobs/{{job._id}}/edit")
         i.fa.fa-pencil-square-o
+
     p.description {{job.description}}
 .pure-g
   .pure-u-4-5
