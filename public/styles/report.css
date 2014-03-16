@@ -1,0 +1,46 @@
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,300,400,600);*/
+
+body{font: normal normal 14px/1.5 'Open Sans', sans-serif; padding-bottom: 60px}
+img{ max-width: 100%;}
+
+header{background-color: #333;background-repeat: repeat-x;background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#444), to(#333));}
+header {padding: 0 10px; color: #f1f1f2;position: fixed; left: 0; right: 0;z-index: 4;}
+header .select-browser{line-height: 42px;float: left;margin-right: 14px;}
+header .select-browser select {width: 100px; margin-left: -110px; -webkit-border-radius: 0px;padding: 2px 8px;}
+header .select-browser label {color: #ccc;padding:2px 4px;border-right:1px solid #999;border-top: 1px solid #999;border-bottom: 1px solid #999;}
+header .select-browser label:first-child{padding-left:8px;border-left: 1px solid #999;border-top-left-radius: 6px;border-bottom-left-radius: 6px;}
+header .select-browser label:last-child{padding-right:8px;border-top-right-radius: 6px;border-bottom-right-radius: 6px;border-: 6px;}
+header .select-browser .checked-true{background: rgb(228, 136, 36);color: #f1f1f2}
+header .show-only-diff {line-height: 42px;}
+header .show-result{text-align: right;line-height: 42px;}
+header .show-result .count {font-size: 18px}
+h1 {margin: 0;font-size: 1.5em;line-height: 42px;}
+.pathList { border-right:1px solid rgb(220, 220, 224);position: fixed; top: 80px; bottom: 0; overflow: auto; z-index: 3;}
+.envImages { position: fixed; top: 80px; bottom: 0; overflow: auto; left: 16.666%; z-index: 2;border-right: 1px solid rgb(220, 220, 224);}
+.pathList a, .envImages a{text-align: center;display: block; border: 1px solid #ccc;max-height: 300px;overflow: hidden;}
+.pathList img, .envImages img{}
+.diff-header {height: 37px;line-height: 35px;position: fixed;top: 43px;z-index: 5;width: 100%;background-color: rgb(229, 229, 235);}
+.diff-header ul {margin: 0;padding: 0;margin-left: 2%}
+.diff-header input {width: 95%;padding: 3px}
+.diff-header ul li{list-style: none;float: right;padding-right: 10px;}
+.diff-header ul li:first-child {float: left}
+.diffImage{margin-left: 49.99999%; position: relative; margin-top: 80px; z-index: 1}
+.diffImage a {text-align: center;display: block}
+.env-image-block {max-width: 90%; margin: 0 auto;}
+.env-image-block:last-child {margin-top: 20px;}
+.env-image-block label{font-weight: bold;line-height: 2;}
+.pure-menu.pure-menu-open{border:none;}
+.pure-menu li {border-bottom: 1px solid #f1f1f2;}
+.pure-menu li:hover {opacity: 0.8;}
+.viff-true label{border-left: 10px solid rgb(207, 105, 123)}
+.viff-false label{border-left: 10px solid #a0c353}
+.pure-button-xlarge {font-size: 125%}
+.diff-actions{background: rgba(241, 241, 241, .8); text-align: center;line-height: 60px;position: fixed; left: 49.99999%;bottom: 0;z-index: 5;}
+input[type="radio"]{display: none;}
+.pathList label { display: block;}
+.viff-true input[type="radio"]:checked + label{background-color: rgb(207, 105, 123);color: #f1f1f2}
+.viff-false input[type="radio"]:checked + label{background-color: #a0c353;color: #f1f1f2}
+.pure-form input[type="text"]{border-radius: 0}
+.pure-form label{margin: 0;line-height: 30px; cursor: pointer;padding: 0 10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
+.item-hightlight {display: block;line-height: 1.2;background: rgb(202, 60, 60);color:#fff;height: 4px;position: absolute;bottom:0; right: 0;}
+.pure-button-primary {background-color: #a0c353}

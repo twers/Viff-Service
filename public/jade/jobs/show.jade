@@ -24,3 +24,4 @@
 
         p(ng-show="build.isRunning",style="margin-top:7px")
             progressbar(type="striped",percentage='1',animate='true')
+        a.pure-button.button-success(href="/jobs/{{job._id}}/build/{{build._id}}/report") Show Report
