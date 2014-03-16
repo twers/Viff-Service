@@ -30,7 +30,7 @@ describe('Builds', function() {
         done();
       });
   });
-  
+
   it('should reutrn false if the build is not running', function(done) {
     builds
       .isRunning(currjob.get('_id'))
@@ -79,6 +79,14 @@ describe('Builds', function() {
       currBuild.set.calledWith('status', 'aborted').should.be.true;
     });
 
+    // http://nodejs.org/api/process.html#process_signal_events
+    // SIGTERM && SIGINT need to + 128
+    it('should set the build status with aborted when user interrupt the process', function() {
+      sinon.stub(currBuild, 'set');
+      ps.emit('exit', 130, null);
+      currBuild.set.calledWith('status', 'aborted').should.be.true;
+    });
+
     it('should set the build status with success when ps exit with code 0', function() {
       sinon.stub(currBuild, 'set');
       ps.emit('exit', 0);
@@ -98,6 +106,6 @@ describe('Builds', function() {
     });
   });
 
-  
+
 
 });
