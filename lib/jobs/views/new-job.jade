@@ -7,23 +7,29 @@ block content
         fieldset
           legend Create a job
           div.pure-control-group
-            label 
+            label
               | Job name
-              small (required)
               if (nameError)
-                input.error(type="text", placeholder="#{nameError}", name="name")
+                small.error (#{nameError})
+                input.error(type="text", placeholder="Enter job name ...", name="name")
               else
+                small (required)
                 input(type="text", placeholder="Enter job name ...", name="name")
-              div.pure-control-group
+            div.pure-control-group
             label Job description
             textarea(rows="5", name="description", placeholder="Enter job description ...", maxLength=300)
-    
+
           div.pure-control-group
             label(for="config-file")
               | Config file
-              small (js file required and the size for config file should be less than 1M.)
-            input(type="file", name="configFile")
-            small.error  #{configFileError}
+              if (configFileError)
+                small.error  (#{configFileError})
+                div
+                 input.error(type="file", name="configFile")
+              else
+                small (js file required and the size for config file should be less than 1M.)
+                div
+                  input(type="file", name="configFile")
               div.pure-control-group
             input.pure-button.pure-button-primary(type="submit",value="Save")
 
