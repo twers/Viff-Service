@@ -71,7 +71,6 @@
     "request": "2.30.0",
     "mongoskin": "0.6.1",
     "lodash": "2.4.1",
-    "express-validator": "~1.0.1",
     "mkdirp": "~0.3.5",
     "q": "~1.0.0",
     "bson": "~0.2.5",
