@@ -1,11 +1,8 @@
-!!! 5
+
 html(ng-app='viffReport')
   head
-    meta(charset='utf8')
     title Viff Report
-    link(type="text/css", rel="stylesheet", href="/bower_components/normalize-css/normalize.css")
-    link(type="text/css", rel="stylesheet", href="/bower_components/pure/pure.css")
-    link(type="text/css", rel="stylesheet", href="/styles/report.css")
+    include ../../views/header_styles
   body(ng-controller='reportCtrl')
     header
       .pure-g-r
@@ -60,11 +57,4 @@ html(ng-app='viffReport')
         .pure-u-1-2.diff-actions
           button.pure-button.pure-button-primary.pure-button-xlarge(ng-click='approveDiff()') (A)pprove this diff
         div
-    script(type='text/javascript', src='/bower_components/jquery/jquery.js')
-    script(type='text/javascript', src='/bower_components/unveil/jquery.unveil.min.js')
-    script(type='text/javascript', src='/bower_components/keymaster/keymaster.js')
-    script(type='text/javascript', src='/bower_components/angular/angular.js')
-    script(type='text/javascript', src='/scripts/report/angular.modules.js')
-    script(type='text/javascript', src='/scripts/report/controllers.js')
-    script(type='text/javascript', src='/scripts/report/services.js')
-    script(type='text/javascript', src='/scripts/report/filters.js')
+    include ../../views/user_scripts
