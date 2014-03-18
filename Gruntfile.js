@@ -117,6 +117,10 @@ module.exports = function(grunt) {
             'public/bower_components/angular/angular.js:angular',
             'public/bower_components/angular-route/angular-route.js:angular-route',
             'public/bower_components/angular-resource/angular-resource.js:angular-resource',
+            'public/bower_components/jquery/jquery.js:jquery',
+            'public/bower_components/unveil/jquery.unveil.min.js:unveil',
+            'public/bower_components/keymaster/keymaster.js:keymaster',
+            
             'shoe:',
             'ansi2html:',
             'event-stream:',

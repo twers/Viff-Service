@@ -6,3 +6,7 @@ require('events');
 require('ansi2html');
 require('shoe');
 require('util');
+require('jquery');
+require('unveil');
+require('keymaster');
+
