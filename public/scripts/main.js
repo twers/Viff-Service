@@ -8,6 +8,8 @@ require('./ui/progressbar');
 
 require('./filters');
 
+require('./report');
+
 
 angular
   .module("viffservice", [
@@ -16,10 +18,8 @@ angular
     'viffservice/builds',
     'viffservice/filters',
     'viffservice/templates',
-    'viffservice/ui/progressbar'
-
-
-
+    'viffservice/ui/progressbar',
+    'viffReport'
   ])
   .factory("viff", function(){
     return "viff";
