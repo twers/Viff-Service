@@ -1,13 +1,13 @@
 var request = require('request');
 var _ = require('lodash');
 var sinon = require('sinon');
-var runner = require('../../../lib/runner');
-var sockStream = require('../../../lib/sock-stream');
-var database = require('../../../lib/database');
-var Build = require('../../../lib/builds/').build;
-var Builds = require('../../../lib/builds/builds');
-var jobCruder = database('jobs', require('../../../lib/jobs/job-cruder'));
-var Jobs = require('../../../lib/jobs/jobs')(jobCruder);
+var runner = require('../../lib/runner/index');
+var sockStream = require('../../lib/sock-stream');
+var database = require('../../lib/database/index');
+var Build = require('../../lib/builds/index').build;
+var Builds = require('../../lib/builds/builds');
+var jobCruder = database('jobs', require('../../lib/jobs/job-cruder'));
+var Jobs = require('../../lib/jobs/jobs')(jobCruder);
 
 describe('builds app', function () {
 
@@ -93,6 +93,4 @@ describe('builds app', function () {
       });
     });
   });
-
-
 });

@@ -79,6 +79,7 @@
     "ansi2html": "0.0.1",
     "mv": "1.0.0",
     "emit-stream": "~0.1.2",
-    "JSONStream": "~0.8.0"
+    "JSONStream": "~0.8.0",
+    "mongoose": "^3.8.8"
   }
 }

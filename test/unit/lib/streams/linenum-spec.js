@@ -1,4 +1,4 @@
-var ln = require('../../../lib/streams/linenum');
+var ln = require('../../../../lib/streams/linenum');
 
 describe('linenum', function() {
 

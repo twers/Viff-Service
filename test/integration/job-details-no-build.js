@@ -1,9 +1,7 @@
-// var fs       = require('fs');
 var path     = require('path');
 var request  = require('request');
-// var sinon    = require('sinon');
 
-var rootPath = path.join(__dirname, '../../../');
+var rootPath = path.join(__dirname, '../../');
 var database = require(rootPath + 'lib/database');
 var crud     = database('jobs', require(rootPath + 'lib/jobs/job-cruder'));
 var jobs     = require(rootPath + 'lib/jobs/jobs')(crud);
@@ -42,5 +40,4 @@ describe('job detail page when no build history', function(){
       });
     });
   });
-
 });

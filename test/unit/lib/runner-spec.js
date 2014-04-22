@@ -1,5 +1,5 @@
 var sinon = require('sinon');
-var Mocker = require('../mocker');
+var Mocker = require('../../mocker');
 var path = require('path');
 var Evt = require('events').EventEmitter;
 var should = require('should');

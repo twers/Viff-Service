@@ -19,7 +19,7 @@ describe('environment', function () {
 
   beforeEach(function () {
     spyRequire = sinon.spy(require.extensions, '.js');
-    environment = require('../../config/environment');
+    environment = require('../../../config/environment');
   });
 
   afterEach(function () {
@@ -94,7 +94,7 @@ describe('environment', function () {
     describe('mock db configuration', function () {
 
       beforeEach(function () {
-        environment.dbConfigPath = path.join(__dirname, '../assets/mock-database-config.js');
+        environment.dbConfigPath = path.join(__dirname, '../../assets/mock-database-config.js');
       });
 
       it('should get db config from mock', function () {

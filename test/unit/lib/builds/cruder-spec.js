@@ -1,9 +1,9 @@
 var q = require('q');
 var sinon = require('sinon');
 var should = require('should');
-var jobCruder = require('../../../lib/jobs/job-cruder');
-var buildCruder = require('../../../lib/builds/build-cruder');
-var db = require('../../../lib/database');
+var jobCruder = require('../../../../lib/jobs/job-cruder');
+var buildCruder = require('../../../../lib/builds/build-cruder');
+var db = require('../../../../lib/database/index');
 
 jobCruder = db('jobs', jobCruder);
 buildCruder = db('builds', buildCruder);

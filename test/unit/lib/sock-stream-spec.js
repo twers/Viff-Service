@@ -1,4 +1,4 @@
-var Mocker = require('../mocker');
+var Mocker = require('../../mocker');
 var sinon = require('sinon');
 var sockStream;
 

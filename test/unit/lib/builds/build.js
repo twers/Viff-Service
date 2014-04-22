@@ -1,9 +1,9 @@
-var JobsModule = require('../../../lib/jobs');
-var cruder = require('../../../lib/jobs/job-cruder');
-cruder = require('../../../lib/database')('jobs', cruder);
+var JobsModule = require('../../../../lib/jobs/index');
+var cruder = require('../../../../lib/jobs/job-cruder');
+cruder = require('../../../../lib/database/index')('jobs', cruder);
 var Jobs = JobsModule.Jobs(cruder);
-var Build = require('../../../lib/builds/').build;
-var Builds = require('../../../lib/builds/builds');
+var Build = require('../../../../lib/builds/index').build;
+var Builds = require('../../../../lib/builds/builds');
 describe("Job build", function () {
   var createdJob;
   var createdJobId;

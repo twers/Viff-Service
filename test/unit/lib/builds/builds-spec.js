@@ -1,11 +1,11 @@
 var Ev = require('events').EventEmitter;
 var sinon = require('sinon');
-var buildCruder = require('../../../lib/builds/build-cruder');
-var Build = require('../../../lib/builds/build');
-var builds = require('../../../lib/builds/builds');
-var Job = require('../../../lib/jobs').Job;
-var jobs = require('../../../lib/jobs/app').Jobs;
-var jobCollection = require('../../../lib/database')('jobs');
+var buildCruder = require('../../../../lib/builds/build-cruder');
+var Build = require('../../../../lib/builds/build');
+var builds = require('../../../../lib/builds/builds');
+var Job = require('../../../../lib/jobs/index').Job;
+var jobs = require('../../../../lib/jobs/app').Jobs;
+var jobCollection = require('../../../../lib/database/index')('jobs');
 
 describe('Builds', function() {
 

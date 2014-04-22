@@ -1,5 +1,5 @@
 var request = require('supertest');
-var home = require('../../lib/app');
+var home = require('../../../lib/app');
 
 describe('Home Page', function () {
 

@@ -244,7 +244,7 @@ module.exports = function(grunt) {
       },
       test: {
         options: {
-          reporter: 'travis-cov'
+          reporter: 'spec'
         },
         src: ['test/**/*.js', '!test/assets/**/*.js']
       },

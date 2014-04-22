@@ -1,6 +1,6 @@
-var JobsModule = require('../../../lib/jobs');
-var cruder = require('../../../lib/jobs/job-cruder');
-cruder = require('../../../lib/database')('jobs', cruder);
+var JobsModule = require('../../../../lib/jobs/index');
+var cruder = require('../../../../lib/jobs/job-cruder');
+cruder = require('../../../../lib/database/index')('jobs', cruder);
 
 describe('job cruder', function() { 
   
